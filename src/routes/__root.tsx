@@ -6,7 +6,7 @@ import {
 } from '@tanstack/react-router'
 import { TanStackRouterDevtools } from '@tanstack/react-router-devtools'
 
-import Header from '../components/Header'
+import Header from '../components/header'
 
 import TanstackQueryLayout from '../components/tanstack-query/layout'
 
@@ -19,13 +19,6 @@ interface MyRouterContext {
 }
 
 export const Route = createRootRouteWithContext<MyRouterContext>()({
-  // loader
-  loader: () => {
-    // This is where you can load data for the root route
-    return {
-      title: "Hello World",
-    }
-  },
   head: (ctx) => ({
     meta: [
       {
@@ -36,7 +29,7 @@ export const Route = createRootRouteWithContext<MyRouterContext>()({
         content: 'width=device-width, initial-scale=1',
       },
       {
-        title: ctx.loaderData.title,
+        title: 'Better Admin',
       },
     ],
     links: [
