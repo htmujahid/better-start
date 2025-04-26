@@ -19,7 +19,14 @@ interface MyRouterContext {
 }
 
 export const Route = createRootRouteWithContext<MyRouterContext>()({
-  head: () => ({
+  // loader
+  loader: () => {
+    // This is where you can load data for the root route
+    return {
+      title: "Hello World",
+    }
+  },
+  head: (ctx) => ({
     meta: [
       {
         charSet: 'utf-8',
@@ -29,7 +36,7 @@ export const Route = createRootRouteWithContext<MyRouterContext>()({
         content: 'width=device-width, initial-scale=1',
       },
       {
-        title: 'TanStack Start Starter',
+        title: ctx.loaderData.title,
       },
     ],
     links: [
