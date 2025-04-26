@@ -8,7 +8,7 @@ import { TanStackRouterDevtools } from '@tanstack/react-router-devtools'
 
 import Header from '../components/Header'
 
-import TanstackQueryLayout from '../integrations/tanstack-query/layout'
+import TanstackQueryLayout from '../components/tanstack-query/layout'
 
 import appCss from '../styles.css?url'
 
