@@ -1,25 +1,36 @@
 import {
   HeadContent,
   Outlet,
+  ScriptOnce,
   Scripts,
   createRootRouteWithContext,
 } from '@tanstack/react-router'
 import { TanStackRouterDevtools } from '@tanstack/react-router-devtools'
-
-import Header from '../components/header'
-
-import TanstackQueryLayout from '../components/tanstack-query/layout'
+import { createServerFn } from '@tanstack/react-start'
+import { getWebRequest } from '@tanstack/react-start/server'
 
 import appCss from '../styles.css?url'
 
 import type { QueryClient } from '@tanstack/react-query'
+import { TanstackQueryLayout } from '@/components/providers/layout'
+import { RootProvider } from '@/components/providers/root-provider'
+import { auth } from '@/lib/auth'
 
 interface MyRouterContext {
   queryClient: QueryClient
 }
 
+const fetchUser = createServerFn({ method: 'GET' }).handler(async () => {
+  const { headers } = getWebRequest()!
+  const session = await auth.api.getSession({
+    headers,
+  })
+
+  return session?.user ?? null
+})
+
 export const Route = createRootRouteWithContext<MyRouterContext>()({
-  head: (ctx) => ({
+  head: () => ({
     meta: [
       {
         charSet: 'utf-8',
@@ -39,12 +50,18 @@ export const Route = createRootRouteWithContext<MyRouterContext>()({
       },
     ],
   }),
-
+  beforeLoad: async ({ context }) => {
+    const user = await context.queryClient.fetchQuery({
+      queryKey: ['user'],
+      queryFn: ({ signal }) => fetchUser({ signal }),
+    })
+    return { user }
+  },
   component: () => (
     <RootDocument>
-      <Header />
-
-      <Outlet />
+      <RootProvider>
+        <Outlet />
+      </RootProvider>
       <TanStackRouterDevtools />
 
       <TanstackQueryLayout />
@@ -59,6 +76,12 @@ function RootDocument({ children }: { children: React.ReactNode }) {
         <HeadContent />
       </head>
       <body>
+        <ScriptOnce>
+          {`document.documentElement.classList.toggle(
+            'dark',
+            localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)
+            )`}
+        </ScriptOnce>
         {children}
         <Scripts />
       </body>
