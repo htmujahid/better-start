@@ -76,7 +76,7 @@ export function ForgotPasswordForm() {
                       name="email"
                       placeholder="m@example.com"
                       value={field.state.value}
-                      onChange={(e) => field.handleChange(e.target.value)}  
+                      onChange={(e) => field.handleChange(e.target.value)}
                       onBlur={field.handleBlur}
                     />
                   </field.FormControl>

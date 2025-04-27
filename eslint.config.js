@@ -5,6 +5,9 @@ import { tanstackConfig } from '@tanstack/eslint-config'
 export default [
   ...tanstackConfig,
   {
-    "no-shadow": ["error", { "builtinGlobals": false, "hoist": "functions", "allow": [], "ignoreOnInitialization": false }]
-  }
+    rules: {
+      'no-shadow': 'off',
+      '@typescript-eslint/no-unnecessary-condition': 'off',
+    },
+  },
 ]
