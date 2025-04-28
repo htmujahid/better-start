@@ -1,4 +1,4 @@
-import { getRouteApi, useNavigate } from '@tanstack/react-router'
+import { Link, useNavigate } from '@tanstack/react-router'
 import {
   IconCreditCard,
   IconDotsVertical,
@@ -25,15 +25,12 @@ import {
 } from '@/components/ui/sidebar'
 import { authClient } from '@/lib/auth-client'
 import pathsConfig from '@/config/paths.config'
+import { useUser } from '@/features/account/hooks/use-user'
 
 export function NavUser() {
   const { isMobile } = useSidebar()
   const navigate = useNavigate()
-  const routeApi = getRouteApi('/home')
-
-  const routerContext = routeApi.useRouteContext()
-
-  const userData = routerContext.user
+  const { user: userData } = useUser()
 
   const user = {
     name: userData?.name as string,
@@ -85,10 +82,12 @@ export function NavUser() {
             </DropdownMenuLabel>
             <DropdownMenuSeparator />
             <DropdownMenuGroup>
-              <DropdownMenuItem>
-                <IconUserCircle />
-                Account
-              </DropdownMenuItem>
+              <Link to={pathsConfig.app.account}>
+                <DropdownMenuItem>
+                  <IconUserCircle />
+                  Account
+                </DropdownMenuItem>
+              </Link>
               <DropdownMenuItem>
                 <IconCreditCard />
                 Billing

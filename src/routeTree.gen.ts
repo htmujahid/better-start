@@ -15,10 +15,15 @@ import { Route as HomeRouteImport } from './routes/home/route'
 import { Route as AuthRouteImport } from './routes/auth/route'
 import { Route as IndexImport } from './routes/index'
 import { Route as HomeIndexImport } from './routes/home/index'
+import { Route as HomeAccountRouteImport } from './routes/home/account/route'
+import { Route as HomeAccountIndexImport } from './routes/home/account/index'
 import { Route as AuthSignUpIndexImport } from './routes/auth/sign-up/index'
 import { Route as AuthSignInIndexImport } from './routes/auth/sign-in/index'
 import { Route as AuthResetPasswordIndexImport } from './routes/auth/reset-password/index'
 import { Route as AuthForgotPasswordIndexImport } from './routes/auth/forgot-password/index'
+import { Route as HomeAccountSessionsIndexImport } from './routes/home/account/sessions/index'
+import { Route as HomeAccountRolesIndexImport } from './routes/home/account/roles/index'
+import { Route as HomeAccountDangerIndexImport } from './routes/home/account/danger/index'
 
 // Create/Update Routes
 
@@ -46,6 +51,18 @@ const HomeIndexRoute = HomeIndexImport.update({
   getParentRoute: () => HomeRouteRoute,
 } as any)
 
+const HomeAccountRouteRoute = HomeAccountRouteImport.update({
+  id: '/account',
+  path: '/account',
+  getParentRoute: () => HomeRouteRoute,
+} as any)
+
+const HomeAccountIndexRoute = HomeAccountIndexImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => HomeAccountRouteRoute,
+} as any)
+
 const AuthSignUpIndexRoute = AuthSignUpIndexImport.update({
   id: '/sign-up/',
   path: '/sign-up/',
@@ -68,6 +85,24 @@ const AuthForgotPasswordIndexRoute = AuthForgotPasswordIndexImport.update({
   id: '/forgot-password/',
   path: '/forgot-password/',
   getParentRoute: () => AuthRouteRoute,
+} as any)
+
+const HomeAccountSessionsIndexRoute = HomeAccountSessionsIndexImport.update({
+  id: '/sessions/',
+  path: '/sessions/',
+  getParentRoute: () => HomeAccountRouteRoute,
+} as any)
+
+const HomeAccountRolesIndexRoute = HomeAccountRolesIndexImport.update({
+  id: '/roles/',
+  path: '/roles/',
+  getParentRoute: () => HomeAccountRouteRoute,
+} as any)
+
+const HomeAccountDangerIndexRoute = HomeAccountDangerIndexImport.update({
+  id: '/danger/',
+  path: '/danger/',
+  getParentRoute: () => HomeAccountRouteRoute,
 } as any)
 
 // Populate the FileRoutesByPath interface
@@ -94,6 +129,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/home'
       preLoaderRoute: typeof HomeRouteImport
       parentRoute: typeof rootRoute
+    }
+    '/home/account': {
+      id: '/home/account'
+      path: '/account'
+      fullPath: '/home/account'
+      preLoaderRoute: typeof HomeAccountRouteImport
+      parentRoute: typeof HomeRouteImport
     }
     '/home/': {
       id: '/home/'
@@ -130,6 +172,34 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthSignUpIndexImport
       parentRoute: typeof AuthRouteImport
     }
+    '/home/account/': {
+      id: '/home/account/'
+      path: '/'
+      fullPath: '/home/account/'
+      preLoaderRoute: typeof HomeAccountIndexImport
+      parentRoute: typeof HomeAccountRouteImport
+    }
+    '/home/account/danger/': {
+      id: '/home/account/danger/'
+      path: '/danger'
+      fullPath: '/home/account/danger'
+      preLoaderRoute: typeof HomeAccountDangerIndexImport
+      parentRoute: typeof HomeAccountRouteImport
+    }
+    '/home/account/roles/': {
+      id: '/home/account/roles/'
+      path: '/roles'
+      fullPath: '/home/account/roles'
+      preLoaderRoute: typeof HomeAccountRolesIndexImport
+      parentRoute: typeof HomeAccountRouteImport
+    }
+    '/home/account/sessions/': {
+      id: '/home/account/sessions/'
+      path: '/sessions'
+      fullPath: '/home/account/sessions'
+      preLoaderRoute: typeof HomeAccountSessionsIndexImport
+      parentRoute: typeof HomeAccountRouteImport
+    }
   }
 }
 
@@ -153,11 +223,30 @@ const AuthRouteRouteWithChildren = AuthRouteRoute._addFileChildren(
   AuthRouteRouteChildren,
 )
 
+interface HomeAccountRouteRouteChildren {
+  HomeAccountIndexRoute: typeof HomeAccountIndexRoute
+  HomeAccountDangerIndexRoute: typeof HomeAccountDangerIndexRoute
+  HomeAccountRolesIndexRoute: typeof HomeAccountRolesIndexRoute
+  HomeAccountSessionsIndexRoute: typeof HomeAccountSessionsIndexRoute
+}
+
+const HomeAccountRouteRouteChildren: HomeAccountRouteRouteChildren = {
+  HomeAccountIndexRoute: HomeAccountIndexRoute,
+  HomeAccountDangerIndexRoute: HomeAccountDangerIndexRoute,
+  HomeAccountRolesIndexRoute: HomeAccountRolesIndexRoute,
+  HomeAccountSessionsIndexRoute: HomeAccountSessionsIndexRoute,
+}
+
+const HomeAccountRouteRouteWithChildren =
+  HomeAccountRouteRoute._addFileChildren(HomeAccountRouteRouteChildren)
+
 interface HomeRouteRouteChildren {
+  HomeAccountRouteRoute: typeof HomeAccountRouteRouteWithChildren
   HomeIndexRoute: typeof HomeIndexRoute
 }
 
 const HomeRouteRouteChildren: HomeRouteRouteChildren = {
+  HomeAccountRouteRoute: HomeAccountRouteRouteWithChildren,
   HomeIndexRoute: HomeIndexRoute,
 }
 
@@ -169,11 +258,16 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/auth': typeof AuthRouteRouteWithChildren
   '/home': typeof HomeRouteRouteWithChildren
+  '/home/account': typeof HomeAccountRouteRouteWithChildren
   '/home/': typeof HomeIndexRoute
   '/auth/forgot-password': typeof AuthForgotPasswordIndexRoute
   '/auth/reset-password': typeof AuthResetPasswordIndexRoute
   '/auth/sign-in': typeof AuthSignInIndexRoute
   '/auth/sign-up': typeof AuthSignUpIndexRoute
+  '/home/account/': typeof HomeAccountIndexRoute
+  '/home/account/danger': typeof HomeAccountDangerIndexRoute
+  '/home/account/roles': typeof HomeAccountRolesIndexRoute
+  '/home/account/sessions': typeof HomeAccountSessionsIndexRoute
 }
 
 export interface FileRoutesByTo {
@@ -184,6 +278,10 @@ export interface FileRoutesByTo {
   '/auth/reset-password': typeof AuthResetPasswordIndexRoute
   '/auth/sign-in': typeof AuthSignInIndexRoute
   '/auth/sign-up': typeof AuthSignUpIndexRoute
+  '/home/account': typeof HomeAccountIndexRoute
+  '/home/account/danger': typeof HomeAccountDangerIndexRoute
+  '/home/account/roles': typeof HomeAccountRolesIndexRoute
+  '/home/account/sessions': typeof HomeAccountSessionsIndexRoute
 }
 
 export interface FileRoutesById {
@@ -191,11 +289,16 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/auth': typeof AuthRouteRouteWithChildren
   '/home': typeof HomeRouteRouteWithChildren
+  '/home/account': typeof HomeAccountRouteRouteWithChildren
   '/home/': typeof HomeIndexRoute
   '/auth/forgot-password/': typeof AuthForgotPasswordIndexRoute
   '/auth/reset-password/': typeof AuthResetPasswordIndexRoute
   '/auth/sign-in/': typeof AuthSignInIndexRoute
   '/auth/sign-up/': typeof AuthSignUpIndexRoute
+  '/home/account/': typeof HomeAccountIndexRoute
+  '/home/account/danger/': typeof HomeAccountDangerIndexRoute
+  '/home/account/roles/': typeof HomeAccountRolesIndexRoute
+  '/home/account/sessions/': typeof HomeAccountSessionsIndexRoute
 }
 
 export interface FileRouteTypes {
@@ -204,11 +307,16 @@ export interface FileRouteTypes {
     | '/'
     | '/auth'
     | '/home'
+    | '/home/account'
     | '/home/'
     | '/auth/forgot-password'
     | '/auth/reset-password'
     | '/auth/sign-in'
     | '/auth/sign-up'
+    | '/home/account/'
+    | '/home/account/danger'
+    | '/home/account/roles'
+    | '/home/account/sessions'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -218,16 +326,25 @@ export interface FileRouteTypes {
     | '/auth/reset-password'
     | '/auth/sign-in'
     | '/auth/sign-up'
+    | '/home/account'
+    | '/home/account/danger'
+    | '/home/account/roles'
+    | '/home/account/sessions'
   id:
     | '__root__'
     | '/'
     | '/auth'
     | '/home'
+    | '/home/account'
     | '/home/'
     | '/auth/forgot-password/'
     | '/auth/reset-password/'
     | '/auth/sign-in/'
     | '/auth/sign-up/'
+    | '/home/account/'
+    | '/home/account/danger/'
+    | '/home/account/roles/'
+    | '/home/account/sessions/'
   fileRoutesById: FileRoutesById
 }
 
@@ -273,7 +390,18 @@ export const routeTree = rootRoute
     "/home": {
       "filePath": "home/route.tsx",
       "children": [
+        "/home/account",
         "/home/"
+      ]
+    },
+    "/home/account": {
+      "filePath": "home/account/route.tsx",
+      "parent": "/home",
+      "children": [
+        "/home/account/",
+        "/home/account/danger/",
+        "/home/account/roles/",
+        "/home/account/sessions/"
       ]
     },
     "/home/": {
@@ -295,6 +423,22 @@ export const routeTree = rootRoute
     "/auth/sign-up/": {
       "filePath": "auth/sign-up/index.tsx",
       "parent": "/auth"
+    },
+    "/home/account/": {
+      "filePath": "home/account/index.tsx",
+      "parent": "/home/account"
+    },
+    "/home/account/danger/": {
+      "filePath": "home/account/danger/index.tsx",
+      "parent": "/home/account"
+    },
+    "/home/account/roles/": {
+      "filePath": "home/account/roles/index.tsx",
+      "parent": "/home/account"
+    },
+    "/home/account/sessions/": {
+      "filePath": "home/account/sessions/index.tsx",
+      "parent": "/home/account"
     }
   }
 }

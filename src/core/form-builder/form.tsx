@@ -76,12 +76,12 @@ function FormLabel({
   className,
   ...props
 }: React.ComponentProps<typeof Label>) {
-  const { formItemId, errors } = useFieldContext()
+  const { formItemId, errors, store } = useFieldContext()
 
   return (
     <Label
       data-slot="form-label"
-      data-error={!!errors.length}
+      data-error={!!errors.length && store.state.meta.isBlurred}
       className={cn('data-[error=true]:text-destructive', className)}
       htmlFor={formItemId}
       {...props}
@@ -90,7 +90,7 @@ function FormLabel({
 }
 
 function FormControl({ ...props }: React.ComponentProps<typeof Slot>) {
-  const { errors, formItemId, formDescriptionId, formMessageId } =
+  const { errors, formItemId, formDescriptionId, formMessageId, store } =
     useFieldContext()
 
   return (
@@ -98,11 +98,11 @@ function FormControl({ ...props }: React.ComponentProps<typeof Slot>) {
       data-slot="form-control"
       id={formItemId}
       aria-describedby={
-        !errors.length
+        !errors.length && store.state.meta.isBlurred
           ? `${formDescriptionId}`
           : `${formDescriptionId} ${formMessageId}`
       }
-      aria-invalid={!!errors.length}
+      aria-invalid={!!errors.length && store.state.meta.isBlurred}
       {...props}
     />
   )
@@ -122,8 +122,8 @@ function FormDescription({ className, ...props }: React.ComponentProps<'p'>) {
 }
 
 function FormMessage({ className, ...props }: React.ComponentProps<'p'>) {
-  const { errors, formMessageId } = useFieldContext()
-  const body = errors.length
+  const { errors, formMessageId, store } = useFieldContext()
+  const body = errors.length && store.state.meta.isBlurred
     ? String(errors.at(0)?.message ?? '')
     : props.children
   if (!body) return null
