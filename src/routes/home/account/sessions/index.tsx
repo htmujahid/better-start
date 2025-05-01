@@ -1,8 +1,8 @@
-import { createServerFn } from '@tanstack/react-start';
+import { createServerFn } from '@tanstack/react-start'
 import { createFileRoute } from '@tanstack/react-router'
-import { getCookie, getWebRequest } from '@tanstack/react-start/server';
+import { getCookie, getWebRequest } from '@tanstack/react-start/server'
 
-import { auth } from '@/lib/auth';
+import { auth } from '@/lib/auth'
 import { AccountSessions } from '@/features/account/components/account-sessions'
 
 const fetchSessions = createServerFn({ method: 'GET' }).handler(async () => {
@@ -36,7 +36,7 @@ function RouteComponent() {
   const { sessions, sessionId } = Route.useRouteContext()
 
   return (
-    <div className='max-w-xl'>
+    <div className="max-w-xl">
       <AccountSessions sessions={sessions} sessionId={sessionId} />
     </div>
   )

@@ -1,3 +1,4 @@
+import { useAccessControl } from '../hooks/use-access-control'
 import { Badge } from '@/components/ui/badge'
 import {
   Card,
@@ -7,13 +8,10 @@ import {
   CardTitle,
 } from '@/components/ui/card'
 import { Separator } from '@/components/ui/separator'
-import { allRoles } from '@/lib/roles'
 
-export function AccountRoles({
-  roles,
-}: {
-  roles: Array<keyof typeof allRoles>
-}) {
+export function AccountRoles() {
+  const { roles, getRolePermissions } = useAccessControl()
+
   return (
     <Card>
       <CardHeader>
@@ -24,7 +22,7 @@ export function AccountRoles({
       </CardHeader>
       <CardContent className="space-y-6">
         {roles?.map((role, roleIndex) => {
-          const statements = allRoles[role].statements || {}
+          const statements = getRolePermissions(role)
           const entities = Object.keys(statements)
 
           return (

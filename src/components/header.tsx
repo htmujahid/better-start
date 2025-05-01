@@ -2,7 +2,7 @@ import { Link } from '@tanstack/react-router'
 import { Button } from './ui/button'
 import { AppLogo } from './app-logo'
 
-export default function Header() {
+export function Header() {
   return (
     <header className="border-b">
       <nav className="container mx-auto flex justify-between items-center h-14">

@@ -1,3 +1,4 @@
+import Cookies from 'js-cookie'
 import { MoonIcon, SunIcon } from 'lucide-react'
 import { Button } from './ui/button'
 
@@ -5,14 +6,14 @@ export function ThemeToggle() {
   function toggleTheme() {
     if (
       document.documentElement.classList.contains('dark') ||
-      (!('theme' in localStorage) &&
+      (!Cookies.get('theme') &&
         window.matchMedia('(prefers-color-scheme: dark)').matches)
     ) {
       document.documentElement.classList.remove('dark')
-      localStorage.theme = 'light'
+      Cookies.set('theme', 'light', { expires: 365 })
     } else {
       document.documentElement.classList.add('dark')
-      localStorage.theme = 'dark'
+      Cookies.set('theme', 'dark', { expires: 365 })
     }
   }
 

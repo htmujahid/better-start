@@ -7,7 +7,7 @@ export const Route = createFileRoute('/home/account/danger/')({
 
 function RouteComponent() {
   return (
-    <div className='max-w-xl'>
+    <div className="max-w-xl">
       <AccountDangerZone />
     </div>
   )

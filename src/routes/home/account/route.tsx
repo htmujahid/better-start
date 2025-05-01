@@ -17,7 +17,7 @@ function RouteComponent() {
   return (
     <div className="flex flex-col gap-4 p-4 md:gap-6 md:p-6">
       <Tabs defaultValue={location.pathname}>
-        <TabsList className='cursor-pointer'>
+        <TabsList className="cursor-pointer">
           <Link to="/home/account">
             <TabsTrigger value="/home/account">Account</TabsTrigger>
           </Link>

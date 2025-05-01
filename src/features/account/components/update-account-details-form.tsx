@@ -1,13 +1,19 @@
-import { toast } from 'sonner';
+import { toast } from 'sonner'
 import { z } from 'zod'
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { useAppForm } from '@/core/form-builder/form'
-import { authClient } from '@/lib/auth-client';
+import { authClient } from '@/lib/auth-client'
 
 const updateAccountFormSchema = z.object({
-  name: z.string().min(2, "Name must be at least 2 characters"),
+  name: z.string().min(2, 'Name must be at least 2 characters'),
 })
 
 export function UpdateAccountDetailsForm() {
@@ -20,17 +26,20 @@ export function UpdateAccountDetailsForm() {
     },
     onSubmit: async ({ value }) => {
       const { name } = value
-      await authClient.updateUser({
-        name,
-      }, {
-        onSuccess: () => {
-          toast.success('Account details updated successfully')
-          form.reset()
+      await authClient.updateUser(
+        {
+          name,
         },
-        onError: ({ error }) => {
-          toast.error(error.message)
+        {
+          onSuccess: () => {
+            toast.success('Account details updated successfully')
+            form.reset()
+          },
+          onError: ({ error }) => {
+            toast.error(error.message)
+          },
         },
-      })
+      )
     },
   })
 
@@ -38,9 +47,7 @@ export function UpdateAccountDetailsForm() {
     <Card>
       <CardHeader>
         <CardTitle>Account Details</CardTitle>
-        <CardDescription>
-          Update your account details below.
-        </CardDescription>
+        <CardDescription>Update your account details below.</CardDescription>
       </CardHeader>
       <CardContent>
         <form.AppForm>
@@ -73,7 +80,7 @@ export function UpdateAccountDetailsForm() {
               <form.Subscribe
                 selector={(state) => state.isSubmitting}
                 children={(isSubmitting) => (
-                  <Button disabled={isSubmitting} className='w-fit'>
+                  <Button disabled={isSubmitting} className="w-fit">
                     Update Account
                   </Button>
                 )}

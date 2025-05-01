@@ -15,7 +15,12 @@ import { Route as HomeRouteImport } from './routes/home/route'
 import { Route as AuthRouteImport } from './routes/auth/route'
 import { Route as IndexImport } from './routes/index'
 import { Route as HomeIndexImport } from './routes/home/index'
+import { Route as Errors500Import } from './routes/errors/500'
+import { Route as Errors404Import } from './routes/errors/404'
+import { Route as Errors403Import } from './routes/errors/403'
+import { Route as Errors401Import } from './routes/errors/401'
 import { Route as HomeAccountRouteImport } from './routes/home/account/route'
+import { Route as HomeTasksIndexImport } from './routes/home/tasks/index'
 import { Route as HomeAccountIndexImport } from './routes/home/account/index'
 import { Route as AuthSignUpIndexImport } from './routes/auth/sign-up/index'
 import { Route as AuthSignInIndexImport } from './routes/auth/sign-in/index'
@@ -51,9 +56,39 @@ const HomeIndexRoute = HomeIndexImport.update({
   getParentRoute: () => HomeRouteRoute,
 } as any)
 
+const Errors500Route = Errors500Import.update({
+  id: '/errors/500',
+  path: '/errors/500',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const Errors404Route = Errors404Import.update({
+  id: '/errors/404',
+  path: '/errors/404',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const Errors403Route = Errors403Import.update({
+  id: '/errors/403',
+  path: '/errors/403',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const Errors401Route = Errors401Import.update({
+  id: '/errors/401',
+  path: '/errors/401',
+  getParentRoute: () => rootRoute,
+} as any)
+
 const HomeAccountRouteRoute = HomeAccountRouteImport.update({
   id: '/account',
   path: '/account',
+  getParentRoute: () => HomeRouteRoute,
+} as any)
+
+const HomeTasksIndexRoute = HomeTasksIndexImport.update({
+  id: '/tasks/',
+  path: '/tasks/',
   getParentRoute: () => HomeRouteRoute,
 } as any)
 
@@ -137,6 +172,34 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof HomeAccountRouteImport
       parentRoute: typeof HomeRouteImport
     }
+    '/errors/401': {
+      id: '/errors/401'
+      path: '/errors/401'
+      fullPath: '/errors/401'
+      preLoaderRoute: typeof Errors401Import
+      parentRoute: typeof rootRoute
+    }
+    '/errors/403': {
+      id: '/errors/403'
+      path: '/errors/403'
+      fullPath: '/errors/403'
+      preLoaderRoute: typeof Errors403Import
+      parentRoute: typeof rootRoute
+    }
+    '/errors/404': {
+      id: '/errors/404'
+      path: '/errors/404'
+      fullPath: '/errors/404'
+      preLoaderRoute: typeof Errors404Import
+      parentRoute: typeof rootRoute
+    }
+    '/errors/500': {
+      id: '/errors/500'
+      path: '/errors/500'
+      fullPath: '/errors/500'
+      preLoaderRoute: typeof Errors500Import
+      parentRoute: typeof rootRoute
+    }
     '/home/': {
       id: '/home/'
       path: '/'
@@ -178,6 +241,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/home/account/'
       preLoaderRoute: typeof HomeAccountIndexImport
       parentRoute: typeof HomeAccountRouteImport
+    }
+    '/home/tasks/': {
+      id: '/home/tasks/'
+      path: '/tasks'
+      fullPath: '/home/tasks'
+      preLoaderRoute: typeof HomeTasksIndexImport
+      parentRoute: typeof HomeRouteImport
     }
     '/home/account/danger/': {
       id: '/home/account/danger/'
@@ -243,11 +313,13 @@ const HomeAccountRouteRouteWithChildren =
 interface HomeRouteRouteChildren {
   HomeAccountRouteRoute: typeof HomeAccountRouteRouteWithChildren
   HomeIndexRoute: typeof HomeIndexRoute
+  HomeTasksIndexRoute: typeof HomeTasksIndexRoute
 }
 
 const HomeRouteRouteChildren: HomeRouteRouteChildren = {
   HomeAccountRouteRoute: HomeAccountRouteRouteWithChildren,
   HomeIndexRoute: HomeIndexRoute,
+  HomeTasksIndexRoute: HomeTasksIndexRoute,
 }
 
 const HomeRouteRouteWithChildren = HomeRouteRoute._addFileChildren(
@@ -259,12 +331,17 @@ export interface FileRoutesByFullPath {
   '/auth': typeof AuthRouteRouteWithChildren
   '/home': typeof HomeRouteRouteWithChildren
   '/home/account': typeof HomeAccountRouteRouteWithChildren
+  '/errors/401': typeof Errors401Route
+  '/errors/403': typeof Errors403Route
+  '/errors/404': typeof Errors404Route
+  '/errors/500': typeof Errors500Route
   '/home/': typeof HomeIndexRoute
   '/auth/forgot-password': typeof AuthForgotPasswordIndexRoute
   '/auth/reset-password': typeof AuthResetPasswordIndexRoute
   '/auth/sign-in': typeof AuthSignInIndexRoute
   '/auth/sign-up': typeof AuthSignUpIndexRoute
   '/home/account/': typeof HomeAccountIndexRoute
+  '/home/tasks': typeof HomeTasksIndexRoute
   '/home/account/danger': typeof HomeAccountDangerIndexRoute
   '/home/account/roles': typeof HomeAccountRolesIndexRoute
   '/home/account/sessions': typeof HomeAccountSessionsIndexRoute
@@ -273,12 +350,17 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/auth': typeof AuthRouteRouteWithChildren
+  '/errors/401': typeof Errors401Route
+  '/errors/403': typeof Errors403Route
+  '/errors/404': typeof Errors404Route
+  '/errors/500': typeof Errors500Route
   '/home': typeof HomeIndexRoute
   '/auth/forgot-password': typeof AuthForgotPasswordIndexRoute
   '/auth/reset-password': typeof AuthResetPasswordIndexRoute
   '/auth/sign-in': typeof AuthSignInIndexRoute
   '/auth/sign-up': typeof AuthSignUpIndexRoute
   '/home/account': typeof HomeAccountIndexRoute
+  '/home/tasks': typeof HomeTasksIndexRoute
   '/home/account/danger': typeof HomeAccountDangerIndexRoute
   '/home/account/roles': typeof HomeAccountRolesIndexRoute
   '/home/account/sessions': typeof HomeAccountSessionsIndexRoute
@@ -290,12 +372,17 @@ export interface FileRoutesById {
   '/auth': typeof AuthRouteRouteWithChildren
   '/home': typeof HomeRouteRouteWithChildren
   '/home/account': typeof HomeAccountRouteRouteWithChildren
+  '/errors/401': typeof Errors401Route
+  '/errors/403': typeof Errors403Route
+  '/errors/404': typeof Errors404Route
+  '/errors/500': typeof Errors500Route
   '/home/': typeof HomeIndexRoute
   '/auth/forgot-password/': typeof AuthForgotPasswordIndexRoute
   '/auth/reset-password/': typeof AuthResetPasswordIndexRoute
   '/auth/sign-in/': typeof AuthSignInIndexRoute
   '/auth/sign-up/': typeof AuthSignUpIndexRoute
   '/home/account/': typeof HomeAccountIndexRoute
+  '/home/tasks/': typeof HomeTasksIndexRoute
   '/home/account/danger/': typeof HomeAccountDangerIndexRoute
   '/home/account/roles/': typeof HomeAccountRolesIndexRoute
   '/home/account/sessions/': typeof HomeAccountSessionsIndexRoute
@@ -308,12 +395,17 @@ export interface FileRouteTypes {
     | '/auth'
     | '/home'
     | '/home/account'
+    | '/errors/401'
+    | '/errors/403'
+    | '/errors/404'
+    | '/errors/500'
     | '/home/'
     | '/auth/forgot-password'
     | '/auth/reset-password'
     | '/auth/sign-in'
     | '/auth/sign-up'
     | '/home/account/'
+    | '/home/tasks'
     | '/home/account/danger'
     | '/home/account/roles'
     | '/home/account/sessions'
@@ -321,12 +413,17 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/auth'
+    | '/errors/401'
+    | '/errors/403'
+    | '/errors/404'
+    | '/errors/500'
     | '/home'
     | '/auth/forgot-password'
     | '/auth/reset-password'
     | '/auth/sign-in'
     | '/auth/sign-up'
     | '/home/account'
+    | '/home/tasks'
     | '/home/account/danger'
     | '/home/account/roles'
     | '/home/account/sessions'
@@ -336,12 +433,17 @@ export interface FileRouteTypes {
     | '/auth'
     | '/home'
     | '/home/account'
+    | '/errors/401'
+    | '/errors/403'
+    | '/errors/404'
+    | '/errors/500'
     | '/home/'
     | '/auth/forgot-password/'
     | '/auth/reset-password/'
     | '/auth/sign-in/'
     | '/auth/sign-up/'
     | '/home/account/'
+    | '/home/tasks/'
     | '/home/account/danger/'
     | '/home/account/roles/'
     | '/home/account/sessions/'
@@ -352,12 +454,20 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AuthRouteRoute: typeof AuthRouteRouteWithChildren
   HomeRouteRoute: typeof HomeRouteRouteWithChildren
+  Errors401Route: typeof Errors401Route
+  Errors403Route: typeof Errors403Route
+  Errors404Route: typeof Errors404Route
+  Errors500Route: typeof Errors500Route
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AuthRouteRoute: AuthRouteRouteWithChildren,
   HomeRouteRoute: HomeRouteRouteWithChildren,
+  Errors401Route: Errors401Route,
+  Errors403Route: Errors403Route,
+  Errors404Route: Errors404Route,
+  Errors500Route: Errors500Route,
 }
 
 export const routeTree = rootRoute
@@ -372,7 +482,11 @@ export const routeTree = rootRoute
       "children": [
         "/",
         "/auth",
-        "/home"
+        "/home",
+        "/errors/401",
+        "/errors/403",
+        "/errors/404",
+        "/errors/500"
       ]
     },
     "/": {
@@ -391,7 +505,8 @@ export const routeTree = rootRoute
       "filePath": "home/route.tsx",
       "children": [
         "/home/account",
-        "/home/"
+        "/home/",
+        "/home/tasks/"
       ]
     },
     "/home/account": {
@@ -403,6 +518,18 @@ export const routeTree = rootRoute
         "/home/account/roles/",
         "/home/account/sessions/"
       ]
+    },
+    "/errors/401": {
+      "filePath": "errors/401.tsx"
+    },
+    "/errors/403": {
+      "filePath": "errors/403.tsx"
+    },
+    "/errors/404": {
+      "filePath": "errors/404.tsx"
+    },
+    "/errors/500": {
+      "filePath": "errors/500.tsx"
     },
     "/home/": {
       "filePath": "home/index.tsx",
@@ -427,6 +554,10 @@ export const routeTree = rootRoute
     "/home/account/": {
       "filePath": "home/account/index.tsx",
       "parent": "/home/account"
+    },
+    "/home/tasks/": {
+      "filePath": "home/tasks/index.tsx",
+      "parent": "/home"
     },
     "/home/account/danger/": {
       "filePath": "home/account/danger/index.tsx",

@@ -5,6 +5,7 @@ import { Link, useNavigate } from '@tanstack/react-router'
 import { AuthError } from './auth-error'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
+import { Checkbox } from '@/components/ui/checkbox'
 import { authClient } from '@/lib/auth-client'
 import { If } from '@/components/if'
 import { useAppForm } from '@/core/form-builder/form'
@@ -12,6 +13,7 @@ import { useAppForm } from '@/core/form-builder/form'
 const signInFormSchema = z.object({
   email: z.string().email(),
   password: z.string().min(8),
+  rememberMe: z.boolean(),
 })
 
 export function SignInForm() {
@@ -22,6 +24,7 @@ export function SignInForm() {
     defaultValues: {
       email: '',
       password: '',
+      rememberMe: true,
     },
     validators: {
       onChange: signInFormSchema,
@@ -31,6 +34,7 @@ export function SignInForm() {
         {
           email: value.email,
           password: value.password,
+          rememberMe: value.rememberMe,
         },
         {
           onError: (err) => {
@@ -98,6 +102,22 @@ export function SignInForm() {
                   />
                 </field.FormControl>
                 <field.FormMessage />
+              </field.FormItem>
+            )}
+          />
+          <form.AppField
+            name="rememberMe"
+            children={(field) => (
+              <field.FormItem className="flex flex-row items-start">
+                <field.FormControl>
+                  <Checkbox
+                    checked={field.state.value}
+                    onCheckedChange={(checked) =>
+                      field.handleChange(checked === true)
+                    }
+                  />
+                </field.FormControl>
+                <field.FormLabel>Remember me</field.FormLabel>
               </field.FormItem>
             )}
           />
