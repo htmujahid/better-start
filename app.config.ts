@@ -7,7 +7,8 @@ const config = defineConfig({
     appDirectory: 'src',
   },
   server: {
-    preset: 'netlify'
+    preset: 'netlify',
+    serveStatic: 'node',
   },
   vite: {
     plugins: [
