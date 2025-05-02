@@ -8,7 +8,6 @@ const config = defineConfig({
   },
   server: {
     preset: 'netlify',
-    serveStatic: 'node',
   },
   vite: {
     plugins: [
