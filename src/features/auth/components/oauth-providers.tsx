@@ -1,4 +1,5 @@
 import { Button } from '@/components/ui/button'
+import pathsConfig from '@/config/paths.config'
 import { authClient } from '@/lib/auth-client'
 
 const providers = [
@@ -39,6 +40,7 @@ export function OAuthProviders() {
           onClick={() => {
             authClient.signIn.social({
               provider: provider.id,
+              callbackURL: pathsConfig.app.home,
             })
           }}
         >
