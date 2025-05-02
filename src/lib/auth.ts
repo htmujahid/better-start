@@ -62,7 +62,7 @@ export const auth = betterAuth({
   database: drizzleAdapter(db, {
     provider: 'pg', // or "mysql", "sqlite"
   }),
-  trustedOrigins: [process.env.VERCEL_URL!],
+  trustedOrigins: [process.env.BETTER_AUTH_URL!],
   plugins: [
     admin({
       ac,
