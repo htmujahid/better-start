@@ -6,6 +6,9 @@ const config = defineConfig({
   tsr: {
     appDirectory: 'src',
   },
+  server: {
+    preset: 'vercel'
+  },
   vite: {
     plugins: [
       // this is the plugin that enables path aliases
