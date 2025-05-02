@@ -6,7 +6,7 @@ export function HeroSection() {
   return (
     <div>
       <div className="relative isolate flex flex-col items-center py-8 lg:py-32">
-        <div className="container">
+        <div className="container mx-auto px-4 md:px-6">
           <h1 className="relative z-20 mb-4 max-w-3xl text-3xl sm:mb-6 md:text-4xl lg:text-7xl">
             Build Admin Panels with Ease
           </h1>

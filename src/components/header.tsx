@@ -28,7 +28,7 @@ export function Header() {
 
   return (
     <header className="border-b">
-      <nav className="container mx-auto flex justify-between items-center h-14">
+      <nav className="px-4 md:px-6 container mx-auto flex justify-between items-center h-14">
         <AppLogo />
         {user ? (
           <UserDropdown

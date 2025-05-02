@@ -3,7 +3,7 @@ import { IconBrandGithub, IconBrandX } from '@tabler/icons-react'
 export function Footer() {
   return (
     <div className="border-t py-6">
-      <div className="container mx-auto flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+      <div className="px-4 md:px-6 container mx-auto flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <p className="text-center text-muted-fg text-sm/6 sm:text-left">
           &copy; {new Date().getFullYear()} BetterAdmin. All rights reserved.
         </p>
