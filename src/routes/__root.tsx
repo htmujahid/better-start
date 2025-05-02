@@ -23,14 +23,15 @@ const DEFAULT_THEME = 'light'
 
 const fetchRootData = createServerFn({ method: 'GET' }).handler(async () => {
   const { headers } = getWebRequest()!
-  const session = await auth.api.getSession({
+  const response = await auth.api.getSession({
     headers,
   })
 
   const cookies = getCookie('theme') as 'light' | 'dark' | undefined
 
   return {
-    user: session?.user ?? null,
+    session: response?.session ?? null,
+    user: response?.user ?? null,
     theme: cookies ?? DEFAULT_THEME,
   }
 })
@@ -61,7 +62,7 @@ export const Route = createRootRouteWithContext<MyRouterContext>()({
       queryKey: ['user'],
       queryFn: ({ signal }) => fetchRootData({ signal }),
     })
-    return { user: data.user, theme: data.theme }
+    return { user: data.user, session: data.session, theme: data.theme }
   },
   component: () => (
     <RootDocument>

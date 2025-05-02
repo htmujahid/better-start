@@ -6,6 +6,8 @@ import {
   IconShare3,
   IconTrash,
 } from '@tabler/icons-react'
+import { Link } from '@tanstack/react-router'
+
 import type { Icon } from '@tabler/icons-react'
 
 import type { Permissions, Role } from '@/lib/roles'
@@ -33,6 +35,7 @@ export type NavDocumentItem = {
   icon: Icon
   permission?: Permissions
   role?: Role
+  disabled?: boolean
 }
 
 export function NavDocuments({ items }: { items: Array<NavDocumentItem> }) {
@@ -52,11 +55,11 @@ export function NavDocuments({ items }: { items: Array<NavDocumentItem> }) {
           }
           return (
             <SidebarMenuItem key={item.name}>
-              <SidebarMenuButton asChild>
-                <a href={item.url}>
+              <SidebarMenuButton asChild disabled={item.disabled}>
+                <Link to={item.url}>
                   <item.icon />
                   <span>{item.name}</span>
-                </a>
+                </Link>
               </SidebarMenuButton>
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
@@ -73,16 +76,19 @@ export function NavDocuments({ items }: { items: Array<NavDocumentItem> }) {
                   side={isMobile ? 'bottom' : 'right'}
                   align={isMobile ? 'end' : 'start'}
                 >
-                  <DropdownMenuItem>
+                  <DropdownMenuItem disabled={item.disabled}>
                     <IconFolder />
                     <span>Open</span>
                   </DropdownMenuItem>
-                  <DropdownMenuItem>
+                  <DropdownMenuItem disabled={item.disabled}>
                     <IconShare3 />
                     <span>Share</span>
                   </DropdownMenuItem>
                   <DropdownMenuSeparator />
-                  <DropdownMenuItem variant="destructive">
+                  <DropdownMenuItem
+                    disabled={item.disabled}
+                    variant="destructive"
+                  >
                     <IconTrash />
                     <span>Delete</span>
                   </DropdownMenuItem>
@@ -92,7 +98,10 @@ export function NavDocuments({ items }: { items: Array<NavDocumentItem> }) {
           )
         })}
         <SidebarMenuItem>
-          <SidebarMenuButton className="text-sidebar-foreground/70">
+          <SidebarMenuButton
+            className="text-sidebar-foreground/70"
+            disabled={items.every((item) => item.disabled)}
+          >
             <IconDots className="text-sidebar-foreground/70" />
             <span>More</span>
           </SidebarMenuButton>

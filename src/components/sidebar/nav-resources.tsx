@@ -1,5 +1,6 @@
 'use client'
 
+import { Link } from '@tanstack/react-router'
 import type { Icon } from '@tabler/icons-react'
 
 import type { Permissions, Role } from '@/lib/roles'
@@ -13,11 +14,12 @@ import {
 import { useAccessControl } from '@/features/account/hooks/use-access-control'
 
 export type NavResourceItem = {
-  name: string
+  title: string
   url: string
   icon: Icon
   permission?: Permissions
   role?: Role
+  disabled?: boolean
 }
 
 export function NavResources({
@@ -40,12 +42,12 @@ export function NavResources({
             return null
           }
           return (
-            <SidebarMenuItem key={item.name}>
-              <SidebarMenuButton asChild>
-                <a href={item.url}>
+            <SidebarMenuItem key={item.title}>
+              <SidebarMenuButton asChild disabled={item.disabled}>
+                <Link to={item.url}>
                   <item.icon />
-                  <span>{item.name}</span>
-                </a>
+                  <span>{item.title}</span>
+                </Link>
               </SidebarMenuButton>
             </SidebarMenuItem>
           )

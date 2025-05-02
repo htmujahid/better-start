@@ -54,3 +54,5 @@ export const verification = pgTable('verification', {
   createdAt: timestamp('created_at'),
   updatedAt: timestamp('updated_at'),
 })
+
+export type User = typeof user.$inferSelect

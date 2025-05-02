@@ -32,4 +32,8 @@ const userRole = ac.newRole({
 export const allRoles = {
   admin: adminRole,
   user: userRole,
-}
+} as const
+
+export const rolesData = Object.keys(allRoles) as Array<Role>
+
+export type rolesEnumData = (typeof rolesData)[number]

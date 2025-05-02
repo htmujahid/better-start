@@ -8,6 +8,13 @@
       "when": 1745668212176,
       "tag": "0000_nostalgic_owl",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1746168075262,
+      "tag": "0001_legal_falcon",
+      "breakpoints": true
     }
   ]
 }

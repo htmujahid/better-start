@@ -16,9 +16,10 @@ import { useAccessControl } from '@/features/account/hooks/use-access-control'
 export type NavTopItem = {
   title: string
   url: string
-  icon?: Icon
+  icon: Icon
   permission?: Permissions
   role?: Role
+  disabled?: boolean
 }
 
 export function NavTop({ items }: { items: Array<NavTopItem> }) {

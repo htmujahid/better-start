@@ -1,9 +1,11 @@
+import { toast } from 'sonner'
 import { Link, useNavigate } from '@tanstack/react-router'
 import {
-  IconCreditCard,
   IconDotsVertical,
+  IconLock,
   IconLogout,
   IconNotification,
+  IconPalette,
   IconUserCircle,
 } from '@tabler/icons-react'
 
@@ -30,7 +32,7 @@ import { useUser } from '@/features/account/hooks/use-user'
 export function NavUser() {
   const { isMobile } = useSidebar()
   const navigate = useNavigate()
-  const { user: userData } = useUser()
+  const { user: userData, session } = useUser()
 
   const user = {
     name: userData?.name as string,
@@ -88,28 +90,49 @@ export function NavUser() {
                   Account
                 </DropdownMenuItem>
               </Link>
-              <DropdownMenuItem>
-                <IconCreditCard />
-                Billing
+              <DropdownMenuItem disabled>
+                <IconPalette />
+                Preferences (soon)
               </DropdownMenuItem>
-              <DropdownMenuItem>
+              <DropdownMenuItem disabled>
                 <IconNotification />
-                Notifications
+                Notifications (soon)
               </DropdownMenuItem>
             </DropdownMenuGroup>
             <DropdownMenuSeparator />
-            <DropdownMenuItem
-              onClick={async () => {
-                await authClient.signOut()
-                navigate({
-                  to: pathsConfig.auth.signIn,
-                  replace: true,
-                })
-              }}
-            >
-              <IconLogout />
-              Log out
-            </DropdownMenuItem>
+            {session?.impersonatedBy ? (
+              <DropdownMenuItem
+                onClick={async () => {
+                  const { error } = await authClient.admin.stopImpersonating()
+
+                  if (error) {
+                    toast.error(error.message)
+                  } else {
+                    toast.success('Impersonation stopped')
+                    navigate({
+                      to: pathsConfig.admin.users,
+                      replace: true,
+                    })
+                  }
+                }}
+              >
+                <IconLock />
+                Stop Impersonation
+              </DropdownMenuItem>
+            ) : (
+              <DropdownMenuItem
+                onClick={async () => {
+                  await authClient.signOut()
+                  navigate({
+                    to: pathsConfig.auth.signIn,
+                    replace: true,
+                  })
+                }}
+              >
+                <IconLogout />
+                Log out
+              </DropdownMenuItem>
+            )}
           </DropdownMenuContent>
         </DropdownMenu>
       </SidebarMenuItem>

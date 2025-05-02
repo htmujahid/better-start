@@ -1,6 +1,11 @@
 'use client'
 
 import * as React from 'react'
+import { Link } from '@tanstack/react-router'
+
+import { IconSearch } from '@tabler/icons-react'
+import { SearchCommandDialog } from '../search-command-dialog'
+
 import type { Icon } from '@tabler/icons-react'
 
 import type { Permissions, Role } from '@/lib/roles'
@@ -19,6 +24,8 @@ export type NavSecondaryItem = {
   icon: Icon
   permission?: Permissions
   role?: Role
+  disabled?: boolean
+  target?: '_blank'
 }
 
 export function NavSecondary({
@@ -42,14 +49,30 @@ export function NavSecondary({
             return (
               <SidebarMenuItem key={item.title}>
                 <SidebarMenuButton asChild>
-                  <a href={item.url}>
+                  <Link to={item.url} target={item.target}>
                     <item.icon />
                     <span>{item.title}</span>
-                  </a>
+                  </Link>
                 </SidebarMenuButton>
               </SidebarMenuItem>
             )
           })}
+          <SearchCommandDialog>
+            {({ open, setOpen }) => (
+              <SidebarMenuItem
+                className="bg-sidebar"
+                onClick={() => setOpen(!open)}
+              >
+                <SidebarMenuButton>
+                  <IconSearch />
+                  <span>Search</span>
+                  <kbd className="pointer-events-none inline-flex h-5 select-none items-center gap-1 rounded border bg-muted px-1.5 font-mono text-[10px] font-medium text-muted-foreground opacity-100 ml-auto">
+                    <span className="text-xs">⌘</span>J
+                  </kbd>
+                </SidebarMenuButton>
+              </SidebarMenuItem>
+            )}
+          </SearchCommandDialog>
         </SidebarMenu>
       </SidebarGroupContent>
     </SidebarGroup>

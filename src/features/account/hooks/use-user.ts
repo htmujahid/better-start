@@ -6,6 +6,7 @@ export function useUser() {
   const routerContext = routeApi.useRouteContext()
 
   return {
+    session: routerContext.session,
     user: routerContext.user,
   }
 }

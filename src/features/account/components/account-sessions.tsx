@@ -9,8 +9,9 @@ import {
   Smartphone,
   Tablet,
 } from 'lucide-react'
+import { toast } from 'sonner'
 import { UAParser } from 'ua-parser-js'
-import { useNavigate } from '@tanstack/react-router'
+import { useRouter } from '@tanstack/react-router'
 import {
   Card,
   CardContent,
@@ -53,7 +54,7 @@ export function AccountSessions({
   sessions: Array<Session>
   sessionId: string
 }) {
-  const navigate = useNavigate()
+  const router = useRouter()
   const [sessionToRevoke, setSessionToRevoke] = useState<string | null>(null)
 
   const getDeviceIcon = (type: string) => {
@@ -152,12 +153,16 @@ export function AccountSessions({
                         <AlertDialogAction
                           className="bg-destructive text-background hover:bg-destructive/90"
                           onClick={async () => {
-                            await authClient.revokeSession({
+                            const { error } = await authClient.revokeSession({
                               token: session.token,
                             })
-                            navigate({
-                              to: '/home/account/sessions',
-                            })
+
+                            if (error) {
+                              toast.error(error.message)
+                            } else {
+                              toast.success('Session revoked successfully')
+                              router.invalidate()
+                            }
                           }}
                         >
                           Revoke
@@ -178,7 +183,11 @@ export function AccountSessions({
         </p>
         <AlertDialog>
           <AlertDialogTrigger asChild>
-            <Button variant="destructive" size="sm">
+            <Button
+              variant="destructive"
+              size="sm"
+              disabled={sessions.length === 0}
+            >
               Revoke All Sessions
             </Button>
           </AlertDialogTrigger>
@@ -195,10 +204,14 @@ export function AccountSessions({
               <AlertDialogAction
                 className="bg-destructive text-background hover:bg-destructive/90"
                 onClick={async () => {
-                  await authClient.revokeSessions()
-                  navigate({
-                    to: '/home/account/sessions',
-                  })
+                  const { error } = await authClient.revokeSessions()
+
+                  if (error) {
+                    toast.error(error.message)
+                  } else {
+                    toast.success('All sessions revoked successfully')
+                    router.invalidate()
+                  }
                 }}
               >
                 Revoke All

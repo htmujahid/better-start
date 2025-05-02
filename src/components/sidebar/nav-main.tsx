@@ -1,6 +1,8 @@
 'use client'
 
 import { ChevronRight } from 'lucide-react'
+import { Link } from '@tanstack/react-router'
+
 import type { LucideIcon } from 'lucide-react'
 import type { Permissions, Role } from '@/lib/roles'
 import {
@@ -33,6 +35,7 @@ export type NavMainItem = {
   }>
   permission?: Permissions
   role?: Role
+  disabled?: boolean
 }
 
 export function NavMain({ items }: { items: Array<NavMainItem> }) {
@@ -79,9 +82,9 @@ export function NavMain({ items }: { items: Array<NavMainItem> }) {
                       return (
                         <SidebarMenuSubItem key={subItem.title}>
                           <SidebarMenuSubButton asChild>
-                            <a href={subItem.url}>
+                            <Link to={subItem.url}>
                               <span>{subItem.title}</span>
-                            </a>
+                            </Link>
                           </SidebarMenuSubButton>
                         </SidebarMenuSubItem>
                       )

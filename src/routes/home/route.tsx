@@ -1,7 +1,7 @@
 import { Outlet, createFileRoute, redirect } from '@tanstack/react-router'
 
 import { AppSidebar } from '@/components/app-sidebar'
-import { SiteHeader } from '@/components/site-header'
+import { SiteHeader } from '@/components/sidebar/site-header'
 import { SidebarInset, SidebarProvider } from '@/components/ui/sidebar'
 
 import pathsConfig from '@/config/paths.config'

@@ -6,6 +6,7 @@ import {
 } from '@tanstack/react-router'
 
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs'
+import pathsConfig from '@/config/paths.config'
 
 export const Route = createFileRoute('/home/account')({
   component: RouteComponent,
@@ -16,19 +17,19 @@ function RouteComponent() {
 
   return (
     <div className="flex flex-col gap-4 p-4 md:gap-6 md:p-6">
-      <Tabs defaultValue={location.pathname}>
+      <Tabs value={location.pathname}>
         <TabsList className="cursor-pointer">
-          <Link to="/home/account">
-            <TabsTrigger value="/home/account">Account</TabsTrigger>
+          <Link to={pathsConfig.app.account}>
+            <TabsTrigger value={pathsConfig.app.account}>Account</TabsTrigger>
           </Link>
-          <Link to="/home/account/roles">
-            <TabsTrigger value="/home/account/roles">Roles</TabsTrigger>
+          <Link to={pathsConfig.app.roles}>
+            <TabsTrigger value={pathsConfig.app.roles}>Roles</TabsTrigger>
           </Link>
-          <Link to="/home/account/sessions">
-            <TabsTrigger value="/home/account/sessions">Sessions</TabsTrigger>
+          <Link to={pathsConfig.app.sessions}>
+            <TabsTrigger value={pathsConfig.app.sessions}>Sessions</TabsTrigger>
           </Link>
-          <Link to="/home/account/danger">
-            <TabsTrigger value="/home/account/danger">Danger</TabsTrigger>
+          <Link to={pathsConfig.app.danger}>
+            <TabsTrigger value={pathsConfig.app.danger}>Danger</TabsTrigger>
           </Link>
         </TabsList>
       </Tabs>

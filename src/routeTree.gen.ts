@@ -13,8 +13,10 @@
 import { Route as rootRoute } from './routes/__root'
 import { Route as HomeRouteImport } from './routes/home/route'
 import { Route as AuthRouteImport } from './routes/auth/route'
+import { Route as AdminRouteImport } from './routes/admin/route'
 import { Route as IndexImport } from './routes/index'
 import { Route as HomeIndexImport } from './routes/home/index'
+import { Route as AdminIndexImport } from './routes/admin/index'
 import { Route as Errors500Import } from './routes/errors/500'
 import { Route as Errors404Import } from './routes/errors/404'
 import { Route as Errors403Import } from './routes/errors/403'
@@ -26,9 +28,11 @@ import { Route as AuthSignUpIndexImport } from './routes/auth/sign-up/index'
 import { Route as AuthSignInIndexImport } from './routes/auth/sign-in/index'
 import { Route as AuthResetPasswordIndexImport } from './routes/auth/reset-password/index'
 import { Route as AuthForgotPasswordIndexImport } from './routes/auth/forgot-password/index'
+import { Route as AdminUsersIndexImport } from './routes/admin/users/index'
 import { Route as HomeAccountSessionsIndexImport } from './routes/home/account/sessions/index'
 import { Route as HomeAccountRolesIndexImport } from './routes/home/account/roles/index'
 import { Route as HomeAccountDangerIndexImport } from './routes/home/account/danger/index'
+import { Route as AdminUsersUserIdIndexImport } from './routes/admin/users/$userId/index'
 
 // Create/Update Routes
 
@@ -44,6 +48,12 @@ const AuthRouteRoute = AuthRouteImport.update({
   getParentRoute: () => rootRoute,
 } as any)
 
+const AdminRouteRoute = AdminRouteImport.update({
+  id: '/admin',
+  path: '/admin',
+  getParentRoute: () => rootRoute,
+} as any)
+
 const IndexRoute = IndexImport.update({
   id: '/',
   path: '/',
@@ -54,6 +64,12 @@ const HomeIndexRoute = HomeIndexImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => HomeRouteRoute,
+} as any)
+
+const AdminIndexRoute = AdminIndexImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => AdminRouteRoute,
 } as any)
 
 const Errors500Route = Errors500Import.update({
@@ -122,6 +138,12 @@ const AuthForgotPasswordIndexRoute = AuthForgotPasswordIndexImport.update({
   getParentRoute: () => AuthRouteRoute,
 } as any)
 
+const AdminUsersIndexRoute = AdminUsersIndexImport.update({
+  id: '/users/',
+  path: '/users/',
+  getParentRoute: () => AdminRouteRoute,
+} as any)
+
 const HomeAccountSessionsIndexRoute = HomeAccountSessionsIndexImport.update({
   id: '/sessions/',
   path: '/sessions/',
@@ -140,6 +162,12 @@ const HomeAccountDangerIndexRoute = HomeAccountDangerIndexImport.update({
   getParentRoute: () => HomeAccountRouteRoute,
 } as any)
 
+const AdminUsersUserIdIndexRoute = AdminUsersUserIdIndexImport.update({
+  id: '/users/$userId/',
+  path: '/users/$userId/',
+  getParentRoute: () => AdminRouteRoute,
+} as any)
+
 // Populate the FileRoutesByPath interface
 
 declare module '@tanstack/react-router' {
@@ -149,6 +177,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexImport
+      parentRoute: typeof rootRoute
+    }
+    '/admin': {
+      id: '/admin'
+      path: '/admin'
+      fullPath: '/admin'
+      preLoaderRoute: typeof AdminRouteImport
       parentRoute: typeof rootRoute
     }
     '/auth': {
@@ -200,12 +235,26 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof Errors500Import
       parentRoute: typeof rootRoute
     }
+    '/admin/': {
+      id: '/admin/'
+      path: '/'
+      fullPath: '/admin/'
+      preLoaderRoute: typeof AdminIndexImport
+      parentRoute: typeof AdminRouteImport
+    }
     '/home/': {
       id: '/home/'
       path: '/'
       fullPath: '/home/'
       preLoaderRoute: typeof HomeIndexImport
       parentRoute: typeof HomeRouteImport
+    }
+    '/admin/users/': {
+      id: '/admin/users/'
+      path: '/users'
+      fullPath: '/admin/users'
+      preLoaderRoute: typeof AdminUsersIndexImport
+      parentRoute: typeof AdminRouteImport
     }
     '/auth/forgot-password/': {
       id: '/auth/forgot-password/'
@@ -249,6 +298,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof HomeTasksIndexImport
       parentRoute: typeof HomeRouteImport
     }
+    '/admin/users/$userId/': {
+      id: '/admin/users/$userId/'
+      path: '/users/$userId'
+      fullPath: '/admin/users/$userId'
+      preLoaderRoute: typeof AdminUsersUserIdIndexImport
+      parentRoute: typeof AdminRouteImport
+    }
     '/home/account/danger/': {
       id: '/home/account/danger/'
       path: '/danger'
@@ -274,6 +330,22 @@ declare module '@tanstack/react-router' {
 }
 
 // Create and export the route tree
+
+interface AdminRouteRouteChildren {
+  AdminIndexRoute: typeof AdminIndexRoute
+  AdminUsersIndexRoute: typeof AdminUsersIndexRoute
+  AdminUsersUserIdIndexRoute: typeof AdminUsersUserIdIndexRoute
+}
+
+const AdminRouteRouteChildren: AdminRouteRouteChildren = {
+  AdminIndexRoute: AdminIndexRoute,
+  AdminUsersIndexRoute: AdminUsersIndexRoute,
+  AdminUsersUserIdIndexRoute: AdminUsersUserIdIndexRoute,
+}
+
+const AdminRouteRouteWithChildren = AdminRouteRoute._addFileChildren(
+  AdminRouteRouteChildren,
+)
 
 interface AuthRouteRouteChildren {
   AuthForgotPasswordIndexRoute: typeof AuthForgotPasswordIndexRoute
@@ -328,6 +400,7 @@ const HomeRouteRouteWithChildren = HomeRouteRoute._addFileChildren(
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/admin': typeof AdminRouteRouteWithChildren
   '/auth': typeof AuthRouteRouteWithChildren
   '/home': typeof HomeRouteRouteWithChildren
   '/home/account': typeof HomeAccountRouteRouteWithChildren
@@ -335,13 +408,16 @@ export interface FileRoutesByFullPath {
   '/errors/403': typeof Errors403Route
   '/errors/404': typeof Errors404Route
   '/errors/500': typeof Errors500Route
+  '/admin/': typeof AdminIndexRoute
   '/home/': typeof HomeIndexRoute
+  '/admin/users': typeof AdminUsersIndexRoute
   '/auth/forgot-password': typeof AuthForgotPasswordIndexRoute
   '/auth/reset-password': typeof AuthResetPasswordIndexRoute
   '/auth/sign-in': typeof AuthSignInIndexRoute
   '/auth/sign-up': typeof AuthSignUpIndexRoute
   '/home/account/': typeof HomeAccountIndexRoute
   '/home/tasks': typeof HomeTasksIndexRoute
+  '/admin/users/$userId': typeof AdminUsersUserIdIndexRoute
   '/home/account/danger': typeof HomeAccountDangerIndexRoute
   '/home/account/roles': typeof HomeAccountRolesIndexRoute
   '/home/account/sessions': typeof HomeAccountSessionsIndexRoute
@@ -354,13 +430,16 @@ export interface FileRoutesByTo {
   '/errors/403': typeof Errors403Route
   '/errors/404': typeof Errors404Route
   '/errors/500': typeof Errors500Route
+  '/admin': typeof AdminIndexRoute
   '/home': typeof HomeIndexRoute
+  '/admin/users': typeof AdminUsersIndexRoute
   '/auth/forgot-password': typeof AuthForgotPasswordIndexRoute
   '/auth/reset-password': typeof AuthResetPasswordIndexRoute
   '/auth/sign-in': typeof AuthSignInIndexRoute
   '/auth/sign-up': typeof AuthSignUpIndexRoute
   '/home/account': typeof HomeAccountIndexRoute
   '/home/tasks': typeof HomeTasksIndexRoute
+  '/admin/users/$userId': typeof AdminUsersUserIdIndexRoute
   '/home/account/danger': typeof HomeAccountDangerIndexRoute
   '/home/account/roles': typeof HomeAccountRolesIndexRoute
   '/home/account/sessions': typeof HomeAccountSessionsIndexRoute
@@ -369,6 +448,7 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRoute
   '/': typeof IndexRoute
+  '/admin': typeof AdminRouteRouteWithChildren
   '/auth': typeof AuthRouteRouteWithChildren
   '/home': typeof HomeRouteRouteWithChildren
   '/home/account': typeof HomeAccountRouteRouteWithChildren
@@ -376,13 +456,16 @@ export interface FileRoutesById {
   '/errors/403': typeof Errors403Route
   '/errors/404': typeof Errors404Route
   '/errors/500': typeof Errors500Route
+  '/admin/': typeof AdminIndexRoute
   '/home/': typeof HomeIndexRoute
+  '/admin/users/': typeof AdminUsersIndexRoute
   '/auth/forgot-password/': typeof AuthForgotPasswordIndexRoute
   '/auth/reset-password/': typeof AuthResetPasswordIndexRoute
   '/auth/sign-in/': typeof AuthSignInIndexRoute
   '/auth/sign-up/': typeof AuthSignUpIndexRoute
   '/home/account/': typeof HomeAccountIndexRoute
   '/home/tasks/': typeof HomeTasksIndexRoute
+  '/admin/users/$userId/': typeof AdminUsersUserIdIndexRoute
   '/home/account/danger/': typeof HomeAccountDangerIndexRoute
   '/home/account/roles/': typeof HomeAccountRolesIndexRoute
   '/home/account/sessions/': typeof HomeAccountSessionsIndexRoute
@@ -392,6 +475,7 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/admin'
     | '/auth'
     | '/home'
     | '/home/account'
@@ -399,13 +483,16 @@ export interface FileRouteTypes {
     | '/errors/403'
     | '/errors/404'
     | '/errors/500'
+    | '/admin/'
     | '/home/'
+    | '/admin/users'
     | '/auth/forgot-password'
     | '/auth/reset-password'
     | '/auth/sign-in'
     | '/auth/sign-up'
     | '/home/account/'
     | '/home/tasks'
+    | '/admin/users/$userId'
     | '/home/account/danger'
     | '/home/account/roles'
     | '/home/account/sessions'
@@ -417,19 +504,23 @@ export interface FileRouteTypes {
     | '/errors/403'
     | '/errors/404'
     | '/errors/500'
+    | '/admin'
     | '/home'
+    | '/admin/users'
     | '/auth/forgot-password'
     | '/auth/reset-password'
     | '/auth/sign-in'
     | '/auth/sign-up'
     | '/home/account'
     | '/home/tasks'
+    | '/admin/users/$userId'
     | '/home/account/danger'
     | '/home/account/roles'
     | '/home/account/sessions'
   id:
     | '__root__'
     | '/'
+    | '/admin'
     | '/auth'
     | '/home'
     | '/home/account'
@@ -437,13 +528,16 @@ export interface FileRouteTypes {
     | '/errors/403'
     | '/errors/404'
     | '/errors/500'
+    | '/admin/'
     | '/home/'
+    | '/admin/users/'
     | '/auth/forgot-password/'
     | '/auth/reset-password/'
     | '/auth/sign-in/'
     | '/auth/sign-up/'
     | '/home/account/'
     | '/home/tasks/'
+    | '/admin/users/$userId/'
     | '/home/account/danger/'
     | '/home/account/roles/'
     | '/home/account/sessions/'
@@ -452,6 +546,7 @@ export interface FileRouteTypes {
 
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AdminRouteRoute: typeof AdminRouteRouteWithChildren
   AuthRouteRoute: typeof AuthRouteRouteWithChildren
   HomeRouteRoute: typeof HomeRouteRouteWithChildren
   Errors401Route: typeof Errors401Route
@@ -462,6 +557,7 @@ export interface RootRouteChildren {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AdminRouteRoute: AdminRouteRouteWithChildren,
   AuthRouteRoute: AuthRouteRouteWithChildren,
   HomeRouteRoute: HomeRouteRouteWithChildren,
   Errors401Route: Errors401Route,
@@ -481,6 +577,7 @@ export const routeTree = rootRoute
       "filePath": "__root.tsx",
       "children": [
         "/",
+        "/admin",
         "/auth",
         "/home",
         "/errors/401",
@@ -491,6 +588,14 @@ export const routeTree = rootRoute
     },
     "/": {
       "filePath": "index.tsx"
+    },
+    "/admin": {
+      "filePath": "admin/route.tsx",
+      "children": [
+        "/admin/",
+        "/admin/users/",
+        "/admin/users/$userId/"
+      ]
     },
     "/auth": {
       "filePath": "auth/route.tsx",
@@ -531,9 +636,17 @@ export const routeTree = rootRoute
     "/errors/500": {
       "filePath": "errors/500.tsx"
     },
+    "/admin/": {
+      "filePath": "admin/index.tsx",
+      "parent": "/admin"
+    },
     "/home/": {
       "filePath": "home/index.tsx",
       "parent": "/home"
+    },
+    "/admin/users/": {
+      "filePath": "admin/users/index.tsx",
+      "parent": "/admin"
     },
     "/auth/forgot-password/": {
       "filePath": "auth/forgot-password/index.tsx",
@@ -558,6 +671,10 @@ export const routeTree = rootRoute
     "/home/tasks/": {
       "filePath": "home/tasks/index.tsx",
       "parent": "/home"
+    },
+    "/admin/users/$userId/": {
+      "filePath": "admin/users/$userId/index.tsx",
+      "parent": "/admin"
     },
     "/home/account/danger/": {
       "filePath": "home/account/danger/index.tsx",
