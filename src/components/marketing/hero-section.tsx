@@ -23,7 +23,7 @@ export function HeroSection() {
               </Button>
             </Link>
             <a
-              href="https://github.com/htmujahid/shadcn-editor"
+              href="https://github.com/htmujahid/better-admin"
               target="_blank"
             >
               <Button size="lg" variant="outline">
