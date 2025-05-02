@@ -22,8 +22,8 @@ export function SignInForm() {
 
   const form = useAppForm({
     defaultValues: {
-      email: '',
-      password: '',
+      email: 'test@better-auth.com',
+      password: '12345678',
       rememberMe: true,
     },
     validators: {
