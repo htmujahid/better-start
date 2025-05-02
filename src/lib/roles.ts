@@ -25,7 +25,7 @@ const adminRole = ac.newRole({
 })
 
 const userRole = ac.newRole({
-  task: ['read'],
+  task: ['create', 'read', 'update', 'delete'],
   ...userAc.statements,
 })
 
