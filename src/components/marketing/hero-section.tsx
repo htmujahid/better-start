@@ -1,6 +1,6 @@
-import { IconArrowRight } from "@tabler/icons-react"
-import { Link } from "@tanstack/react-router"
-import { Button } from "../ui/button"
+import { IconArrowRight } from '@tabler/icons-react'
+import { Link } from '@tanstack/react-router'
+import { Button } from '../ui/button'
 
 export function HeroSection() {
   return (
@@ -11,21 +11,15 @@ export function HeroSection() {
             Build Admin Panels with Ease
           </h1>
           <p className="max-w-2xl text-base text-fg/80 leading-relaxed sm:text-xl lg:text-2xl">
-            Low-code admin panels for your next project using React, Shadcn, Tanstack, and better-auth. 
+            Low-code admin panels for your next project using React, Shadcn,
+            Tanstack, and better-auth.
           </p>
 
           <div className="mt-6 flex items-center gap-x-2 sm:mt-12">
-            <Link
-              to="/auth/sign-up"
-            >
-              <Button size="lg">
-                Get Started
-              </Button>
+            <Link to="/auth/sign-up">
+              <Button size="lg">Get Started</Button>
             </Link>
-            <a
-              href="https://github.com/htmujahid/better-admin"
-              target="_blank"
-            >
+            <a href="https://github.com/htmujahid/better-admin" target="_blank">
               <Button size="lg" variant="outline">
                 Open Source
                 <IconArrowRight />

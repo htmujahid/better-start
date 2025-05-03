@@ -51,7 +51,7 @@ export function CreateTaskSheet() {
         } catch (error) {
           return false
         }
-      }
+      },
     },
     onSubmit: ({ value }) => {
       startTransition(async () => {
@@ -236,7 +236,9 @@ export function CreateTaskSheet() {
                         step="0.5"
                         min="0"
                         value={field.state.value}
-                        onChange={(e) => field.handleChange(e.target.valueAsNumber)}
+                        onChange={(e) =>
+                          field.handleChange(e.target.valueAsNumber)
+                        }
                         onBlur={field.handleBlur}
                       />
                     </field.FormControl>

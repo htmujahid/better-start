@@ -1,4 +1,4 @@
-import { redirect } from "@tanstack/react-router"
+import { redirect } from '@tanstack/react-router'
 import { allRoles } from '@/lib/roles'
 
 type AuthorizeFunction = (typeof allRoles)[keyof typeof allRoles]['authorize']

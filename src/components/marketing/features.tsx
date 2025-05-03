@@ -11,37 +11,38 @@ import {
   CardDescription,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card"
+} from '@/components/ui/card'
 
 const features = [
   {
-    title: "Authentication",
-    description: "Secure user authentication with modern protocols and best practices",
+    title: 'Authentication',
+    description:
+      'Secure user authentication with modern protocols and best practices',
     icon: Shield,
   },
   {
-    title: "Authorization",
-    description: "Fine-grained access control and permission management",
+    title: 'Authorization',
+    description: 'Fine-grained access control and permission management',
     icon: UserCog,
   },
   {
-    title: "User Management",
-    description: "Comprehensive user profile and account management",
+    title: 'User Management',
+    description: 'Comprehensive user profile and account management',
     icon: Users,
   },
   {
-    title: "Admin Management",
-    description: "Powerful admin dashboard and system controls",
+    title: 'Admin Management',
+    description: 'Powerful admin dashboard and system controls',
     icon: Settings,
   },
   {
-    title: "CRUD Operations",
-    description: "Complete Create, Read, Update, Delete functionality",
+    title: 'CRUD Operations',
+    description: 'Complete Create, Read, Update, Delete functionality',
     icon: Database,
   },
   {
-    title: "Theming",
-    description: "Customizable themes and styling options",
+    title: 'Theming',
+    description: 'Customizable themes and styling options',
     icon: Palette,
   },
 ]
@@ -52,9 +53,7 @@ export function Features() {
       <div className="container mx-auto px-4 md:px-6">
         <div className="flex flex-col items-center justify-center space-y-4 text-center">
           <div className="space-y-2">
-            <h2 className="text-3xl sm:text-4xl md:text-5xl">
-              Features
-            </h2>
+            <h2 className="text-3xl sm:text-4xl md:text-5xl">Features</h2>
             <p className="md:text-xl text-base">
               Everything you need to build and manage your application
             </p>

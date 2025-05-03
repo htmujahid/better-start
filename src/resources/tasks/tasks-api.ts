@@ -45,7 +45,7 @@ const getTaskById = createServerFn({ method: 'GET' })
   })
 
 const getTasks = createServerFn({ method: 'GET' })
-  .validator(search => searchParamsCache.parse(search as any))
+  .validator((search) => searchParamsCache.parse(search as any))
   .middleware([authMiddleware({ permissions: { task: ['read'] } })])
   .handler(async ({ data }) => {
     const input = data
