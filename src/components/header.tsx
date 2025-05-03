@@ -1,5 +1,6 @@
 import { Link, useNavigate } from '@tanstack/react-router'
 import {
+  IconHome,
   IconLogout,
   IconNotification,
   IconPalette,
@@ -69,7 +70,7 @@ function UserDropdown({
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Avatar className="h-8 w-8 rounded-lg grayscale cursor-pointer">
+        <Avatar className="h-8 w-8 rounded-lg cursor-pointer">
           <AvatarImage src={userData.image ?? undefined} alt={userData.name} />
           <AvatarFallback className="rounded-lg">
             {userData.name.charAt(0)}
@@ -100,6 +101,12 @@ function UserDropdown({
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
+          <Link to={pathsConfig.app.home}>
+            <DropdownMenuItem>
+              <IconHome />
+              Home
+            </DropdownMenuItem>
+          </Link>
           <Link to={pathsConfig.app.account}>
             <DropdownMenuItem>
               <IconUserCircle />
