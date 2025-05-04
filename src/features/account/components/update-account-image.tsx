@@ -3,6 +3,8 @@
 import { useCallback } from 'react'
 import { toast } from 'sonner'
 import { useUser } from '../hooks/use-user'
+import { deleteAccountImage, uploadAccountImage } from '../lib/actions'
+
 import { ImageUploader } from '@/components/image-uploader'
 import {
   Card,
@@ -11,10 +13,7 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card'
-import { deleteImageFromS3, uploadImageToS3 } from '@/lib/aws-s3.client'
 import { authClient } from '@/lib/auth-client'
-
-const AVATARS_BUCKET = 'account-image'
 
 export function UpdateAccountImage() {
   const { user } = useUser()
@@ -53,12 +52,12 @@ function UploadProfileAvatarForm(props: {
     (file: File | null) => {
       const removeExistingStorageFile = async () => {
         if (props.imageUrl) {
-          const key = props.imageUrl
+          const key = props.imageUrl.split('/').pop()
+
           if (key) {
-            await deleteImageFromS3({
+            await deleteAccountImage({
               data: {
                 key,
-                bucketName: AVATARS_BUCKET,
               },
             })
           }
@@ -74,8 +73,8 @@ function UploadProfileAvatarForm(props: {
           const formData = new FormData()
           formData.append('file', file)
           formData.append('key', key)
-          formData.append('bucketName', AVATARS_BUCKET)
-          const imageUrl = await uploadImageToS3({
+
+          const imageUrl = await uploadAccountImage({
             data: formData,
           })
 
@@ -88,7 +87,7 @@ function UploadProfileAvatarForm(props: {
         createToaster(promise)
       } else {
         const promise = async () => {
-          // await removeExistingStorageFile()
+          await removeExistingStorageFile()
           await authClient.updateUser({
             image: null,
           })
