@@ -110,9 +110,6 @@ function UploadProfileAvatarForm(props: {
   )
 }
 
-function getAvatarFileName(
-  userId: string,
-  extension: string | undefined,
-) {
+function getAvatarFileName(userId: string, extension: string | undefined) {
   return `${userId}.${extension}`
 }

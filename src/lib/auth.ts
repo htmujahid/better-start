@@ -7,7 +7,7 @@ import { ac, allRoles } from './roles'
 import { resend } from './resend-client'
 
 import { db } from '@/db'
-import { mailConfig } from '@/config/mail.config';
+import { mailConfig } from '@/config/mail.config'
 
 export const auth = betterAuth({
   emailAndPassword: {

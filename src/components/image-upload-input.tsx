@@ -1,23 +1,23 @@
-'use client';
+'use client'
 
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react'
 
-import { UploadCloud, X } from 'lucide-react';
-import type { FormEvent, MouseEventHandler } from 'react';
+import { UploadCloud, X } from 'lucide-react'
+import type { FormEvent, MouseEventHandler } from 'react'
 
-import { cn } from '@/lib/utils';
-import { Button } from '@/components/ui/button';
-import { Label } from '@/components/ui/label';
-import { If } from '@/components/if';
+import { cn } from '@/lib/utils'
+import { Button } from '@/components/ui/button'
+import { Label } from '@/components/ui/label'
+import { If } from '@/components/if'
 
 type Props = Omit<React.InputHTMLAttributes<unknown>, 'value'> & {
-  image?: string | null;
-  onClear?: () => void;
-  onValueChange?: (props: { image: string; file: File }) => void;
-  visible?: boolean;
-} & React.ComponentPropsWithRef<'input'>;
+  image?: string | null
+  onClear?: () => void
+  onValueChange?: (props: { image: string; file: File }) => void
+  visible?: boolean
+} & React.ComponentPropsWithRef<'input'>
 
-const IMAGE_SIZE = 22;
+const IMAGE_SIZE = 22
 
 export const ImageUploadInput: React.FC<Props> =
   function ImageUploadInputComponent({
@@ -30,92 +30,92 @@ export const ImageUploadInput: React.FC<Props> =
     visible = true,
     ...props
   }) {
-    const localRef = useRef<HTMLInputElement>(null);
+    const localRef = useRef<HTMLInputElement>(null)
 
     const [state, setState] = useState({
       image,
       fileName: '',
-    });
+    })
 
     const onInputChange = useCallback(
       (e: FormEvent<HTMLInputElement>) => {
-        e.preventDefault();
+        e.preventDefault()
 
-        const files = e.currentTarget.files;
+        const files = e.currentTarget.files
 
         if (files?.length) {
-          const file = files[0];
+          const file = files[0]
 
           if (!file) {
-            return;
+            return
           }
 
-          const data = URL.createObjectURL(file);
+          const data = URL.createObjectURL(file)
 
           setState({
             image: data,
             fileName: file.name,
-          });
+          })
 
           if (onValueChange) {
             onValueChange({
               image: data,
               file,
-            });
+            })
           }
         }
 
         if (onInput) {
-          onInput(e);
+          onInput(e)
         }
       },
       [onInput, onValueChange],
-    );
+    )
 
     const onRemove = useCallback(() => {
       setState({
         image: '',
         fileName: '',
-      });
+      })
 
       if (localRef.current) {
-        localRef.current.value = '';
+        localRef.current.value = ''
       }
 
       if (onClear) {
-        onClear();
+        onClear()
       }
-    }, [onClear]);
+    }, [onClear])
 
     const imageRemoved: MouseEventHandler = useCallback(
       (e) => {
-        e.preventDefault();
+        e.preventDefault()
 
-        onRemove();
+        onRemove()
       },
       [onRemove],
-    );
+    )
 
     const setRef = useCallback(
       (input: HTMLInputElement) => {
-        localRef.current = input;
+        localRef.current = input
 
         if (typeof forwardedRef === 'function') {
-          forwardedRef(localRef.current);
+          forwardedRef(localRef.current)
         }
       },
       [forwardedRef],
-    );
+    )
 
     useEffect(() => {
-      setState((state) => ({ ...state, image }));
-    }, [image]);
+      setState((state) => ({ ...state, image }))
+    }, [image])
 
     useEffect(() => {
       if (!image) {
-        onRemove();
+        onRemove()
       }
-    }, [image, onRemove]);
+    }, [image, onRemove])
 
     const Input = () => (
       <input
@@ -127,10 +127,10 @@ export const ImageUploadInput: React.FC<Props> =
         accept="image/*"
         aria-labelledby={'image-upload-input'}
       />
-    );
+    )
 
     if (!visible) {
-      return <Input />;
+      return <Input />
     }
 
     return (
@@ -194,5 +194,5 @@ export const ImageUploadInput: React.FC<Props> =
           </If>
         </div>
       </label>
-    );
-  };
+    )
+  }

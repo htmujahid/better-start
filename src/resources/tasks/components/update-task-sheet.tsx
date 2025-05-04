@@ -64,7 +64,7 @@ export function UpdateTaskSheet({ data, ...props }: UpdateTaskSheetProps) {
         const { error } = await tasksApi.update({
           data: {
             ...value,
-            id: data.id,
+            id: data?.id,
           },
         })
 

@@ -9,6 +9,7 @@ import { getTasksTableColumns } from './tasks-table-columns'
 import { UpdateTaskSheet } from './update-task-sheet'
 import { TasksTableToolbarActions } from './tasks-table-toolbar-actions'
 
+import type { UpdateTaskSchema } from '../lib/validations'
 import type { Task } from '@/db/schema'
 import type { DataTableRowAction } from '@/types/data-table'
 
@@ -81,7 +82,7 @@ export function TasksTable({ promises }: TasksTableProps) {
       <UpdateTaskSheet
         open={rowAction?.variant === 'update'}
         onOpenChange={() => setRowAction(null)}
-        data={rowAction?.row.original ?? null}
+        data={rowAction?.row.original as UpdateTaskSchema & { id: string }}
       />
       <DeleteTasksDialog
         open={rowAction?.variant === 'delete'}

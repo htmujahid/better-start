@@ -4,6 +4,7 @@ import * as React from 'react'
 import { ArrowUp, CheckCircle2, Download, Trash2 } from 'lucide-react'
 import { toast } from 'sonner'
 import { useRouter } from '@tanstack/react-router'
+import { SelectTrigger } from '@radix-ui/react-select'
 
 import { tasksApi } from '../tasks-api'
 
@@ -23,7 +24,6 @@ import {
   SelectContent,
   SelectGroup,
   SelectItem,
-  SelectTrigger,
 } from '@/components/ui/select'
 import { Separator } from '@/components/ui/separator'
 import { exportTableToCSV } from '@/lib/export'

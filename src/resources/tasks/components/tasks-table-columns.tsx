@@ -258,6 +258,7 @@ export function getTasksTableColumns({
                             data: {
                               id: row.original.id,
                               label: value as Task['label'],
+                              title: row.original.title as string,
                             },
                           }),
                           {
