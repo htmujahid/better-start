@@ -8,7 +8,7 @@ import pathsConfig from '@/config/paths.config'
 
 export const Route = createFileRoute('/admin')({
   beforeLoad: ({ context }) => {
-    const isAdmin = context.user?.role?.split(',').includes('admin')
+    const isAdmin = context?.user?.role?.split(',').includes('admin')
 
     if (!isAdmin) {
       throw redirect({

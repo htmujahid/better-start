@@ -1,14 +1,13 @@
 import { betterAuth } from 'better-auth'
-import { Resend } from 'resend';
 import { drizzleAdapter } from 'better-auth/adapters/drizzle'
 import { admin, multiSession } from 'better-auth/plugins'
 import { reactStartCookies } from 'better-auth/react-start'
 
 import { ac, allRoles } from './roles'
+import { resend } from './resend-client'
+
 import { db } from '@/db'
 import { mailConfig } from '@/config/mail.config';
-
-const resend = new Resend(process.env.RESEND_API_KEY)
 
 export const auth = betterAuth({
   emailAndPassword: {
