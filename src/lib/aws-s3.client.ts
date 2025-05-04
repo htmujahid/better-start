@@ -16,26 +16,26 @@ const s3Client = new S3Client({
 
 export const uploadImageToS3 = createServerFn({ method: 'POST' })
   .validator(
-    z.object({
-      file: z.instanceof(File),
-      key: z.string(),
-      bucketName: z.string(),
-    }),
+    z.instanceof(FormData),
   )
   .handler(async ({ data }) => {
-    const arrayBuffer = await data.file.arrayBuffer()
+    const file = data.get('file') as File
+    const key = data.get('key') as string
+    const bucketName = data.get('bucketName') as string
+
+    const arrayBuffer = await file.arrayBuffer()
     const buffer = Buffer.from(arrayBuffer)
 
     await s3Client.send(
       new PutObjectCommand({
-        Bucket: data.bucketName,
-        Key: data.key,
+        Bucket: bucketName,
+        Key: key,
         Body: buffer,
-        ContentType: data.file.type,
+        ContentType: file.type,
       }),
     )
 
-    return getImageUrl(data.key, data.bucketName)
+    return getImageUrl(key, bucketName)
   })
 
 export function getImageUrl(key: string, bucketName: string): string {

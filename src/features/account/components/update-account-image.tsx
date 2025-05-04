@@ -69,12 +69,12 @@ function UploadProfileAvatarForm(props: {
           await removeExistingStorageFile()
           const extension = file.name.split('.').pop()
           const key = await getAvatarFileName(props.userId, extension)
+          const formData = new FormData()
+          formData.append('file', file)
+          formData.append('key', key)
+          formData.append('bucketName', AVATARS_BUCKET)
           const imageUrl = await uploadImageToS3({
-            data: {
-              file,
-              key,
-              bucketName: AVATARS_BUCKET,
-            },
+            data: formData,
           })
           // update image url in user
           console.log('imageUrl', imageUrl)
