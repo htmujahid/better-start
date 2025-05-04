@@ -12,6 +12,7 @@ import {
   CardTitle,
 } from '@/components/ui/card'
 import { deleteImageFromS3, uploadImageToS3 } from '@/lib/aws-s3.client'
+import { authClient } from '@/lib/auth-client'
 
 const AVATARS_BUCKET = 'account-image'
 
@@ -52,7 +53,7 @@ function UploadProfileAvatarForm(props: {
     (file: File | null) => {
       const removeExistingStorageFile = async () => {
         if (props.imageUrl) {
-          const key = props.imageUrl.split('/').pop()?.split('?')[0]
+          const key = props.imageUrl
           if (key) {
             await deleteImageFromS3({
               data: {
@@ -68,7 +69,8 @@ function UploadProfileAvatarForm(props: {
         const promise = async () => {
           await removeExistingStorageFile()
           const extension = file.name.split('.').pop()
-          const key = await getAvatarFileName(props.userId, extension)
+          const key = getAvatarFileName(props.userId, extension)
+          console.log('key', key)
           const formData = new FormData()
           formData.append('file', file)
           formData.append('key', key)
@@ -76,17 +78,20 @@ function UploadProfileAvatarForm(props: {
           const imageUrl = await uploadImageToS3({
             data: formData,
           })
-          // update image url in user
-          console.log('imageUrl', imageUrl)
+
+          await authClient.updateUser({
+            image: imageUrl,
+          })
           props.onAvatarUpdated()
         }
 
         createToaster(promise)
       } else {
         const promise = async () => {
-          await removeExistingStorageFile()
-          // update image url in user
-          console.log('imageUrl', null)
+          // await removeExistingStorageFile()
+          await authClient.updateUser({
+            image: null,
+          })
           props.onAvatarUpdated()
         }
 
@@ -106,11 +111,9 @@ function UploadProfileAvatarForm(props: {
   )
 }
 
-async function getAvatarFileName(
+function getAvatarFileName(
   userId: string,
   extension: string | undefined,
 ) {
-  const { nanoid } = await import('nanoid')
-  const uniqueId = nanoid(16)
-  return `${userId}.${extension}?v=${uniqueId}`
+  return `${userId}.${extension}`
 }

@@ -7,10 +7,12 @@ import { createServerFn } from '@tanstack/react-start'
 import { z } from 'zod'
 
 const s3Client = new S3Client({
-  region: process.env.AWS_REGION!,
+  region: process.env.S3_REGION!,
+  forcePathStyle: true,
+  endpoint: process.env.S3_ENDPOINT!,
   credentials: {
-    accessKeyId: process.env.AWS_ACCESS_KEY_ID!,
-    secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY!,
+    accessKeyId: process.env.S3_ACCESS_KEY_ID!,
+    secretAccessKey: process.env.S3_SECRET_ACCESS_KEY!,
   },
 })
 
@@ -39,7 +41,7 @@ export const uploadImageToS3 = createServerFn({ method: 'POST' })
   })
 
 export function getImageUrl(key: string, bucketName: string): string {
-  return `https://${bucketName}.s3.${process.env.AWS_REGION}.amazonaws.com/${key}`
+  return `${process.env.S3_PUBLIC_PATH}/${bucketName}/${key}`
 }
 
 export const deleteImageFromS3 = createServerFn({ method: 'POST' })
