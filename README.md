@@ -13,6 +13,7 @@ Build Admin Panels with Ease
 - [x] Roles and Permissions
 - [x] User Management
 - [x] Theming
+- [ ] S3 Storage Compatability
 - [ ] Internationalization
 - [ ] Notifications
 - [ ] CLI Generator
