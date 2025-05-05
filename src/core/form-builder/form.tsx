@@ -124,7 +124,7 @@ function FormDescription({ className, ...props }: React.ComponentProps<'p'>) {
 function FormMessage({ className, ...props }: React.ComponentProps<'p'>) {
   const { errors, formMessageId, store } = useFieldContext()
   const body =
-    errors.length && store.state.meta.isBlurred
+    errors.length && store.state.meta.isTouched
       ? String(errors.at(0)?.message ?? '')
       : props.children
   if (!body) return null

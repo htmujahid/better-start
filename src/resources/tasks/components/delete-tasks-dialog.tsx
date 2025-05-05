@@ -3,7 +3,6 @@
 import * as React from 'react'
 import { Loader, Trash } from 'lucide-react'
 import { toast } from 'sonner'
-import { useRouter } from '@tanstack/react-router'
 
 import { tasksApi } from '../tasks-api'
 
@@ -38,16 +37,16 @@ interface DeleteTasksDialogProps
   tasks: Array<Row<Task>['original']>
   showTrigger?: boolean
   onSuccess?: () => void
+  children?: React.ReactNode
 }
 
 export function DeleteTasksDialog({
   tasks,
   showTrigger = true,
   onSuccess,
+  children,
   ...props
 }: DeleteTasksDialogProps) {
-  const router = useRouter()
-
   const [isDeletePending, startDeleteTransition] = React.useTransition()
   const isDesktop = useMediaQuery('(min-width: 640px)')
 
@@ -65,7 +64,7 @@ export function DeleteTasksDialog({
       }
 
       props.onOpenChange?.(false)
-      router.invalidate()
+
       toast.success('Tasks deleted')
       onSuccess?.()
     })
@@ -76,10 +75,14 @@ export function DeleteTasksDialog({
       <Dialog {...props}>
         {showTrigger ? (
           <DialogTrigger asChild>
-            <Button variant="outline" size="sm">
-              <Trash className="mr-2 size-4" aria-hidden="true" />
-              Delete ({tasks.length})
-            </Button>
+            {children ? (
+              children
+            ) : (
+              <Button variant="outline" size="sm">
+                <Trash className="mr-2 size-4" aria-hidden="true" />
+                Delete ({tasks.length})
+              </Button>
+            )}
           </DialogTrigger>
         ) : null}
         <DialogContent>
@@ -119,10 +122,14 @@ export function DeleteTasksDialog({
     <Drawer {...props}>
       {showTrigger ? (
         <DrawerTrigger asChild>
-          <Button variant="outline" size="sm">
-            <Trash className="mr-2 size-4" aria-hidden="true" />
-            Delete ({tasks.length})
-          </Button>
+          {children ? (
+            children
+          ) : (
+            <Button variant="outline" size="sm">
+              <Trash className="mr-2 size-4" aria-hidden="true" />
+              Delete ({tasks.length})
+            </Button>
+          )}
         </DrawerTrigger>
       ) : null}
       <DrawerContent>

@@ -36,9 +36,9 @@ const getTaskById = createServerFn({ method: 'GET' })
   .middleware([authMiddleware({ permissions: { task: ['read'] } })])
   .handler(async ({ data }) => {
     try {
-      const { id } = await z.object({ id: z.string() }).parse(data)
+      const { id } = z.object({ id: z.string() }).parse(data)
       const task = await db.select().from(tasks).where(eq(tasks.id, id))
-      return task
+      return { data: task[0], error: null }
     } catch (err) {
       return { data: null, error: getErrorMessage(err) }
     }

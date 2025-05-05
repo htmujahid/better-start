@@ -28,7 +28,7 @@ export const searchParamsCache = createSearchParamsCache({
 })
 
 export const createTaskSchema = z.object({
-  title: z.string().min(1),
+  title: z.string().nullable(),
   label: z.enum(tasks.label.enumValues),
   status: z.enum(tasks.status.enumValues),
   priority: z.enum(tasks.priority.enumValues),
@@ -36,7 +36,7 @@ export const createTaskSchema = z.object({
 })
 
 export const updateTaskSchema = z.object({
-  title: z.string().min(0),
+  title: z.string().nullable(),
   label: z.enum(tasks.label.enumValues).optional(),
   status: z.enum(tasks.status.enumValues).optional(),
   priority: z.enum(tasks.priority.enumValues).optional(),

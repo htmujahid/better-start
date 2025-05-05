@@ -1,5 +1,5 @@
 import { AlertCircle } from 'lucide-react'
-import { Alert, AlertDescription } from '@/components/origin-ui/alert'
+import { Alert, AlertDescription } from '@/components/ui/alert'
 
 export function AuthError({ error }: { error: string }) {
   return (

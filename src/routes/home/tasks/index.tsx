@@ -1,10 +1,13 @@
 import React from 'react'
-import { createFileRoute } from '@tanstack/react-router'
+import { PlusIcon } from 'lucide-react'
+import { Link, createFileRoute } from '@tanstack/react-router'
 
 import { hasPermissionPage } from '@/lib/auth-client-middleware'
 import { tasksApi } from '@/resources/tasks/tasks-api'
 import { DataTableSkeleton } from '@/components/data-table/data-table-skeleton'
 import { TasksTable } from '@/resources/tasks/components/tasks-table'
+import { Page, PageTitleBar } from '@/components/page'
+import { Button } from '@/components/ui/button'
 
 export const Route = createFileRoute('/home/tasks/')({
   beforeLoad: ({ context }) => {
@@ -29,7 +32,16 @@ function RouteComponent() {
   const promises = Route.useLoaderData()
 
   return (
-    <div className="flex flex-col gap-4 p-4 md:gap-6 md:p-6">
+    <Page>
+      <PageTitleBar title="Tasks" description="Manage your tasks">
+        <Link to="/home/tasks/create">
+          <Button>
+            <PlusIcon />
+            New Task
+          </Button>
+        </Link>
+      </PageTitleBar>
+
       <React.Suspense
         fallback={
           <DataTableSkeleton
@@ -50,6 +62,6 @@ function RouteComponent() {
       >
         <TasksTable promises={promises} />
       </React.Suspense>
-    </div>
+    </Page>
   )
 }

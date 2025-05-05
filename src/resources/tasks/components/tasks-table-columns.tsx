@@ -10,6 +10,7 @@ import {
   Text,
 } from 'lucide-react'
 import { toast } from 'sonner'
+import { Link } from '@tanstack/react-router'
 
 import { tasksApi } from '../tasks-api'
 import { getPriorityIcon, getStatusIcon } from '../lib/utils'
@@ -89,7 +90,15 @@ export function getTasksTableColumns({
       header: ({ column }) => (
         <DataTableColumnHeader column={column} title="Task" />
       ),
-      cell: ({ row }) => <div className="w-20">{row.getValue('code')}</div>,
+      cell: ({ row }) => (
+        <Link
+          to="/home/tasks/$taskId/show"
+          params={{ taskId: row.original.id }}
+          className="w-20"
+        >
+          {row.getValue('code')}
+        </Link>
+      ),
       enableSorting: false,
       enableHiding: false,
     },
@@ -241,11 +250,12 @@ export function getTasksTableColumns({
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end" className="w-40">
-              <DropdownMenuItem
-                onSelect={() => setRowAction({ row, variant: 'update' })}
+              <Link
+                to="/home/tasks/$taskId/update"
+                params={{ taskId: row.original.id }}
               >
-                Edit
-              </DropdownMenuItem>
+                <DropdownMenuItem>Edit</DropdownMenuItem>
+              </Link>
               <DropdownMenuSub>
                 <DropdownMenuSubTrigger>Labels</DropdownMenuSubTrigger>
                 <DropdownMenuSubContent>

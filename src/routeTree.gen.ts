@@ -29,10 +29,13 @@ import { Route as AuthSignInIndexImport } from './routes/auth/sign-in/index'
 import { Route as AuthResetPasswordIndexImport } from './routes/auth/reset-password/index'
 import { Route as AuthForgotPasswordIndexImport } from './routes/auth/forgot-password/index'
 import { Route as AdminUsersIndexImport } from './routes/admin/users/index'
+import { Route as HomeTasksCreateIndexImport } from './routes/home/tasks/create/index'
 import { Route as HomeAccountSessionsIndexImport } from './routes/home/account/sessions/index'
 import { Route as HomeAccountRolesIndexImport } from './routes/home/account/roles/index'
 import { Route as HomeAccountDangerIndexImport } from './routes/home/account/danger/index'
 import { Route as AdminUsersUserIdIndexImport } from './routes/admin/users/$userId/index'
+import { Route as HomeTasksTaskIdUpdateIndexImport } from './routes/home/tasks/$taskId/update/index'
+import { Route as HomeTasksTaskIdShowIndexImport } from './routes/home/tasks/$taskId/show/index'
 
 // Create/Update Routes
 
@@ -144,6 +147,12 @@ const AdminUsersIndexRoute = AdminUsersIndexImport.update({
   getParentRoute: () => AdminRouteRoute,
 } as any)
 
+const HomeTasksCreateIndexRoute = HomeTasksCreateIndexImport.update({
+  id: '/tasks/create/',
+  path: '/tasks/create/',
+  getParentRoute: () => HomeRouteRoute,
+} as any)
+
 const HomeAccountSessionsIndexRoute = HomeAccountSessionsIndexImport.update({
   id: '/sessions/',
   path: '/sessions/',
@@ -166,6 +175,20 @@ const AdminUsersUserIdIndexRoute = AdminUsersUserIdIndexImport.update({
   id: '/users/$userId/',
   path: '/users/$userId/',
   getParentRoute: () => AdminRouteRoute,
+} as any)
+
+const HomeTasksTaskIdUpdateIndexRoute = HomeTasksTaskIdUpdateIndexImport.update(
+  {
+    id: '/tasks/$taskId/update/',
+    path: '/tasks/$taskId/update/',
+    getParentRoute: () => HomeRouteRoute,
+  } as any,
+)
+
+const HomeTasksTaskIdShowIndexRoute = HomeTasksTaskIdShowIndexImport.update({
+  id: '/tasks/$taskId/show/',
+  path: '/tasks/$taskId/show/',
+  getParentRoute: () => HomeRouteRoute,
 } as any)
 
 // Populate the FileRoutesByPath interface
@@ -326,6 +349,27 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof HomeAccountSessionsIndexImport
       parentRoute: typeof HomeAccountRouteImport
     }
+    '/home/tasks/create/': {
+      id: '/home/tasks/create/'
+      path: '/tasks/create'
+      fullPath: '/home/tasks/create'
+      preLoaderRoute: typeof HomeTasksCreateIndexImport
+      parentRoute: typeof HomeRouteImport
+    }
+    '/home/tasks/$taskId/show/': {
+      id: '/home/tasks/$taskId/show/'
+      path: '/tasks/$taskId/show'
+      fullPath: '/home/tasks/$taskId/show'
+      preLoaderRoute: typeof HomeTasksTaskIdShowIndexImport
+      parentRoute: typeof HomeRouteImport
+    }
+    '/home/tasks/$taskId/update/': {
+      id: '/home/tasks/$taskId/update/'
+      path: '/tasks/$taskId/update'
+      fullPath: '/home/tasks/$taskId/update'
+      preLoaderRoute: typeof HomeTasksTaskIdUpdateIndexImport
+      parentRoute: typeof HomeRouteImport
+    }
   }
 }
 
@@ -386,12 +430,18 @@ interface HomeRouteRouteChildren {
   HomeAccountRouteRoute: typeof HomeAccountRouteRouteWithChildren
   HomeIndexRoute: typeof HomeIndexRoute
   HomeTasksIndexRoute: typeof HomeTasksIndexRoute
+  HomeTasksCreateIndexRoute: typeof HomeTasksCreateIndexRoute
+  HomeTasksTaskIdShowIndexRoute: typeof HomeTasksTaskIdShowIndexRoute
+  HomeTasksTaskIdUpdateIndexRoute: typeof HomeTasksTaskIdUpdateIndexRoute
 }
 
 const HomeRouteRouteChildren: HomeRouteRouteChildren = {
   HomeAccountRouteRoute: HomeAccountRouteRouteWithChildren,
   HomeIndexRoute: HomeIndexRoute,
   HomeTasksIndexRoute: HomeTasksIndexRoute,
+  HomeTasksCreateIndexRoute: HomeTasksCreateIndexRoute,
+  HomeTasksTaskIdShowIndexRoute: HomeTasksTaskIdShowIndexRoute,
+  HomeTasksTaskIdUpdateIndexRoute: HomeTasksTaskIdUpdateIndexRoute,
 }
 
 const HomeRouteRouteWithChildren = HomeRouteRoute._addFileChildren(
@@ -421,6 +471,9 @@ export interface FileRoutesByFullPath {
   '/home/account/danger': typeof HomeAccountDangerIndexRoute
   '/home/account/roles': typeof HomeAccountRolesIndexRoute
   '/home/account/sessions': typeof HomeAccountSessionsIndexRoute
+  '/home/tasks/create': typeof HomeTasksCreateIndexRoute
+  '/home/tasks/$taskId/show': typeof HomeTasksTaskIdShowIndexRoute
+  '/home/tasks/$taskId/update': typeof HomeTasksTaskIdUpdateIndexRoute
 }
 
 export interface FileRoutesByTo {
@@ -443,6 +496,9 @@ export interface FileRoutesByTo {
   '/home/account/danger': typeof HomeAccountDangerIndexRoute
   '/home/account/roles': typeof HomeAccountRolesIndexRoute
   '/home/account/sessions': typeof HomeAccountSessionsIndexRoute
+  '/home/tasks/create': typeof HomeTasksCreateIndexRoute
+  '/home/tasks/$taskId/show': typeof HomeTasksTaskIdShowIndexRoute
+  '/home/tasks/$taskId/update': typeof HomeTasksTaskIdUpdateIndexRoute
 }
 
 export interface FileRoutesById {
@@ -469,6 +525,9 @@ export interface FileRoutesById {
   '/home/account/danger/': typeof HomeAccountDangerIndexRoute
   '/home/account/roles/': typeof HomeAccountRolesIndexRoute
   '/home/account/sessions/': typeof HomeAccountSessionsIndexRoute
+  '/home/tasks/create/': typeof HomeTasksCreateIndexRoute
+  '/home/tasks/$taskId/show/': typeof HomeTasksTaskIdShowIndexRoute
+  '/home/tasks/$taskId/update/': typeof HomeTasksTaskIdUpdateIndexRoute
 }
 
 export interface FileRouteTypes {
@@ -496,6 +555,9 @@ export interface FileRouteTypes {
     | '/home/account/danger'
     | '/home/account/roles'
     | '/home/account/sessions'
+    | '/home/tasks/create'
+    | '/home/tasks/$taskId/show'
+    | '/home/tasks/$taskId/update'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -517,6 +579,9 @@ export interface FileRouteTypes {
     | '/home/account/danger'
     | '/home/account/roles'
     | '/home/account/sessions'
+    | '/home/tasks/create'
+    | '/home/tasks/$taskId/show'
+    | '/home/tasks/$taskId/update'
   id:
     | '__root__'
     | '/'
@@ -541,6 +606,9 @@ export interface FileRouteTypes {
     | '/home/account/danger/'
     | '/home/account/roles/'
     | '/home/account/sessions/'
+    | '/home/tasks/create/'
+    | '/home/tasks/$taskId/show/'
+    | '/home/tasks/$taskId/update/'
   fileRoutesById: FileRoutesById
 }
 
@@ -611,7 +679,10 @@ export const routeTree = rootRoute
       "children": [
         "/home/account",
         "/home/",
-        "/home/tasks/"
+        "/home/tasks/",
+        "/home/tasks/create/",
+        "/home/tasks/$taskId/show/",
+        "/home/tasks/$taskId/update/"
       ]
     },
     "/home/account": {
@@ -687,6 +758,18 @@ export const routeTree = rootRoute
     "/home/account/sessions/": {
       "filePath": "home/account/sessions/index.tsx",
       "parent": "/home/account"
+    },
+    "/home/tasks/create/": {
+      "filePath": "home/tasks/create/index.tsx",
+      "parent": "/home"
+    },
+    "/home/tasks/$taskId/show/": {
+      "filePath": "home/tasks/$taskId/show/index.tsx",
+      "parent": "/home"
+    },
+    "/home/tasks/$taskId/update/": {
+      "filePath": "home/tasks/$taskId/update/index.tsx",
+      "parent": "/home"
     }
   }
 }

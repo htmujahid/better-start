@@ -1,8 +1,8 @@
 'use client'
 
 import { Download } from 'lucide-react'
+import { useRouter } from '@tanstack/react-router'
 
-import { CreateTaskSheet } from './create-task-sheet'
 import { DeleteTasksDialog } from './delete-tasks-dialog'
 
 import type { Task } from '@/db/schema'
@@ -18,6 +18,8 @@ interface TasksTableToolbarActionsProps {
 export function TasksTableToolbarActions({
   table,
 }: TasksTableToolbarActionsProps) {
+  const router = useRouter()
+
   return (
     <div className="flex items-center gap-2">
       {table.getFilteredSelectedRowModel().rows.length > 0 ? (
@@ -25,10 +27,12 @@ export function TasksTableToolbarActions({
           tasks={table
             .getFilteredSelectedRowModel()
             .rows.map((row) => row.original)}
-          onSuccess={() => table.toggleAllRowsSelected(false)}
+          onSuccess={() => {
+            table.toggleAllRowsSelected(false)
+            router.invalidate()
+          }}
         />
       ) : null}
-      <CreateTaskSheet />
       <Button
         variant="outline"
         size="sm"

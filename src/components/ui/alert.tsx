@@ -12,6 +12,12 @@ const alertVariants = cva(
         default: 'bg-card text-card-foreground',
         destructive:
           'text-destructive bg-card [&>svg]:text-current *:data-[slot=alert-description]:text-destructive/90',
+        error: 'rounded-md border border-red-500/50 px-4 py-3 text-red-600',
+        success:
+          'rounded-md border border-emerald-500/50 px-4 py-3 text-emerald-600',
+        info: 'rounded-md border border-blue-500/50 px-4 py-3 text-blue-600',
+        warning:
+          'rounded-md border border-amber-500/50 px-4 py-3 text-amber-600',
       },
     },
     defaultVariants: {

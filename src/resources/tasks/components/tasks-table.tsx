@@ -6,10 +6,8 @@ import { useRouter } from '@tanstack/react-router'
 import { DeleteTasksDialog } from './delete-tasks-dialog'
 import { TasksTableActionBar } from './tasks-table-action-bar'
 import { getTasksTableColumns } from './tasks-table-columns'
-import { UpdateTaskSheet } from './update-task-sheet'
 import { TasksTableToolbarActions } from './tasks-table-toolbar-actions'
 
-import type { UpdateTaskSchema } from '../lib/validations'
 import type { Task } from '@/db/schema'
 import type { DataTableRowAction } from '@/types/data-table'
 
@@ -79,17 +77,15 @@ export function TasksTable({ promises }: TasksTableProps) {
           <DataTableSortList table={table} align="end" />
         </DataTableToolbar>
       </DataTable>
-      <UpdateTaskSheet
-        open={rowAction?.variant === 'update'}
-        onOpenChange={() => setRowAction(null)}
-        data={rowAction?.row.original as UpdateTaskSchema & { id: string }}
-      />
       <DeleteTasksDialog
         open={rowAction?.variant === 'delete'}
         onOpenChange={() => setRowAction(null)}
         tasks={rowAction?.row.original ? [rowAction?.row.original] : []}
         showTrigger={false}
-        onSuccess={() => rowAction?.row.toggleSelected(false)}
+        onSuccess={() => {
+          rowAction?.row.toggleSelected(false)
+          router.invalidate()
+        }}
       />
     </>
   )
