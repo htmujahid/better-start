@@ -9,8 +9,12 @@ import { Page, PageTitleBar } from '@/components/page'
 import { UpdateTaskForm } from '@/resources/tasks/components/update-task-form'
 import { Button } from '@/components/ui/button'
 import { DeleteTasksDialog } from '@/resources/tasks/components/delete-tasks-dialog'
+import { hasPermissionPage } from '@/lib/auth-client-middleware'
 
 export const Route = createFileRoute('/home/tasks/$taskId/update/')({
+  beforeLoad: ({ context }) => {
+    hasPermissionPage(context.user?.role, { task: ['update'] })
+  },
   loader: async ({ params }) => {
     const result = await tasksApi.getById({
       data: {
