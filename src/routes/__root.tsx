@@ -14,12 +14,14 @@ import appCss from '../styles.css?url'
 import type { QueryClient } from '@tanstack/react-query'
 import { RootProvider } from '@/components/providers/root-provider'
 import { auth } from '@/lib/auth'
+import { I18N_COOKIE_NAME } from '@/lib/i18n/i18n.settings'
+import appConfig from '@/config/app.config'
+
+import '@/lib/i18n'
 
 interface MyRouterContext {
   queryClient: QueryClient
 }
-
-const DEFAULT_THEME = 'light'
 
 const fetchRootData = createServerFn({ method: 'GET' }).handler(async () => {
   const { headers } = getWebRequest()!
@@ -28,11 +30,13 @@ const fetchRootData = createServerFn({ method: 'GET' }).handler(async () => {
   })
 
   const cookies = getCookie('theme') as 'light' | 'dark' | undefined
+  const lang = getCookie(I18N_COOKIE_NAME)
 
   return {
     session: response?.session ?? null,
     user: response?.user ?? null,
-    theme: cookies ?? DEFAULT_THEME,
+    theme: cookies ?? appConfig.theme,
+    lang: lang ?? appConfig.locale,
   }
 })
 
@@ -58,11 +62,10 @@ export const Route = createRootRouteWithContext<MyRouterContext>()({
     ],
   }),
   beforeLoad: async ({ context }) => {
-    const data = await context.queryClient.fetchQuery({
+    return context.queryClient.fetchQuery({
       queryKey: ['user'],
       queryFn: ({ signal }) => fetchRootData({ signal }),
     })
-    return { user: data.user, session: data.session, theme: data.theme }
   },
   component: () => (
     <RootDocument>
@@ -77,10 +80,10 @@ export const Route = createRootRouteWithContext<MyRouterContext>()({
 })
 
 function RootDocument({ children }: { children: React.ReactNode }) {
-  const { theme } = Route.useRouteContext()
+  const { theme, lang } = Route.useRouteContext()
 
   return (
-    <html lang="en" className={theme}>
+    <html lang={lang} className={theme}>
       <head>
         <HeadContent />
       </head>
