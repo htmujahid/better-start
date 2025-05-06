@@ -62,7 +62,7 @@ export const Route = createRootRouteWithContext<MyRouterContext>()({
     ],
   }),
   beforeLoad: async ({ context }) => {
-    return context.queryClient.fetchQuery({
+    return context?.queryClient.fetchQuery({
       queryKey: ['user'],
       queryFn: ({ signal }) => fetchRootData({ signal }),
     })
@@ -77,6 +77,8 @@ export const Route = createRootRouteWithContext<MyRouterContext>()({
       <ReactQueryDevtools buttonPosition="bottom-right" />
     </RootDocument>
   ),
+  notFoundComponent: () => <div>Not Found</div>,
+  errorComponent: () => <div>Error</div>,
 })
 
 function RootDocument({ children }: { children: React.ReactNode }) {

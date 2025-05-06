@@ -49,7 +49,7 @@ export const Route = createFileRoute('/admin/users/')({
   validateSearch: searchSchema,
   loaderDeps: ({ search }) => search,
   loader: async ({ context, deps }) => {
-    const data = await context.queryClient.fetchQuery({
+    const data = await context?.queryClient.fetchQuery({
       queryKey: ['users'],
       queryFn: ({ signal }) => fetchUsers({ signal, data: deps }),
     })

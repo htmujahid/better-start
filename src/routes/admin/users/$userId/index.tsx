@@ -28,12 +28,11 @@ const fetchSessions = createServerFn({ method: 'GET' })
 
 export const Route = createFileRoute('/admin/users/$userId/')({
   beforeLoad: async ({ context, params }) => {
-    const { sessions, sessionId } = await context.queryClient.fetchQuery({
+    return context?.queryClient.fetchQuery({
       queryKey: ['sessions'],
       queryFn: ({ signal }) =>
         fetchSessions({ signal, data: { userId: params.userId } }),
     })
-    return { sessions, sessionId }
   },
   component: RouteComponent,
 })

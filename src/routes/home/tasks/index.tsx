@@ -11,7 +11,7 @@ import { Button } from '@/components/ui/button'
 
 export const Route = createFileRoute('/home/tasks/')({
   beforeLoad: ({ context }) => {
-    hasPermissionPage(context.user?.role, { task: ['read'] })
+    hasPermissionPage(context?.user?.role, { task: ['read'] })
   },
   validateSearch: (search) => search,
   loaderDeps: ({ search }) => search,

@@ -18,7 +18,7 @@ import { hasPermissionPage } from '@/lib/auth-client-middleware'
 
 export const Route = createFileRoute('/home/tasks/$taskId/show/')({
   beforeLoad: ({ context }) => {
-    hasPermissionPage(context.user?.role, { task: ['read'] })
+    hasPermissionPage(context?.user?.role, { task: ['read'] })
   },
   loader: async ({ params }) => {
     const result = await tasksApi.getById({

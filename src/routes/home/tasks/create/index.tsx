@@ -6,7 +6,7 @@ import { hasPermissionPage } from '@/lib/auth-client-middleware'
 
 export const Route = createFileRoute('/home/tasks/create/')({
   beforeLoad: ({ context }) => {
-    hasPermissionPage(context.user?.role, { task: ['create'] })
+    hasPermissionPage(context?.user?.role, { task: ['create'] })
   },
   component: RouteComponent,
 })
