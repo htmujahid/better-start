@@ -20,12 +20,14 @@ import { DataTableSortList } from '@/components/data-table/data-table-sort-list'
 import { DataTableToolbar } from '@/components/data-table/data-table-toolbar'
 
 interface TasksTableProps {
-  promises: [
-    Awaited<ReturnType<typeof tasksApi.getAll>>,
-    Awaited<ReturnType<typeof tasksApi.getStatusCounts>>,
-    Awaited<ReturnType<typeof tasksApi.getPriorityCounts>>,
-    Awaited<ReturnType<typeof tasksApi.getEstimatedHoursRange>>,
-  ]
+  promises: Promise<
+    [
+      Awaited<ReturnType<typeof tasksApi.getAll>>,
+      Awaited<ReturnType<typeof tasksApi.getStatusCounts>>,
+      Awaited<ReturnType<typeof tasksApi.getPriorityCounts>>,
+      Awaited<ReturnType<typeof tasksApi.getEstimatedHoursRange>>,
+    ]
+  >
 }
 
 export function TasksTable({ promises }: TasksTableProps) {
@@ -34,7 +36,8 @@ export function TasksTable({ promises }: TasksTableProps) {
     statusCounts,
     priorityCounts,
     estimatedHoursRange,
-  ] = promises
+  ] = React.use(promises)
+
   const router = useRouter()
 
   const [rowAction, setRowAction] =

@@ -29,7 +29,16 @@ export const Route = createFileRoute('/home/tasks/')({
 })
 
 function RouteComponent() {
-  const promises = Route.useLoaderData()
+  const deps = Route.useLoaderDeps()
+
+  const promises = Promise.all([
+    tasksApi.getAll({
+      data: deps,
+    }),
+    tasksApi.getStatusCounts(),
+    tasksApi.getPriorityCounts(),
+    tasksApi.getEstimatedHoursRange(),
+  ])
 
   return (
     <Page>
