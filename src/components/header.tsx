@@ -2,8 +2,8 @@ import { Link, useNavigate } from '@tanstack/react-router'
 import {
   IconHome,
   IconLogout,
-  IconNotification,
   IconPalette,
+  IconShield,
   IconUserCircle,
 } from '@tabler/icons-react'
 import { Button } from './ui/button'
@@ -113,13 +113,15 @@ function UserDropdown({
               Account
             </DropdownMenuItem>
           </Link>
+          <Link to={pathsConfig.app.security}>
+            <DropdownMenuItem>
+              <IconShield />
+              Security
+            </DropdownMenuItem>
+          </Link>
           <DropdownMenuItem disabled>
             <IconPalette />
             Preferences (soon)
-          </DropdownMenuItem>
-          <DropdownMenuItem disabled>
-            <IconNotification />
-            Notifications (soon)
           </DropdownMenuItem>
         </DropdownMenuGroup>
         <DropdownMenuSeparator />

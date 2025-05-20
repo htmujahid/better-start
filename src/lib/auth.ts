@@ -1,6 +1,6 @@
 import { betterAuth } from 'better-auth'
 import { drizzleAdapter } from 'better-auth/adapters/drizzle'
-import { admin, multiSession } from 'better-auth/plugins'
+import { admin, twoFactor } from 'better-auth/plugins'
 import { reactStartCookies } from 'better-auth/react-start'
 
 import { ac, allRoles } from './roles'
@@ -97,7 +97,21 @@ export const auth = betterAuth({
       ac,
       roles: allRoles,
     }),
-    multiSession(),
+    twoFactor({
+      otpOptions: {
+        sendOTP: async ({ user, otp }) => {
+          await resend.emails.send({
+            from: mailConfig.from,
+            to: user.email,
+            subject: 'OTP',
+            html: `
+              <p>Hi ${user.name},</p>
+              <p>Your OTP is ${otp}</p>
+            `,
+          });
+        },
+      },
+    }),
     reactStartCookies(),
   ],
 })

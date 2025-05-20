@@ -21,18 +21,17 @@ import { Route as Errors500Import } from './routes/errors/500'
 import { Route as Errors404Import } from './routes/errors/404'
 import { Route as Errors403Import } from './routes/errors/403'
 import { Route as Errors401Import } from './routes/errors/401'
-import { Route as HomeAccountRouteImport } from './routes/home/account/route'
 import { Route as HomeTasksIndexImport } from './routes/home/tasks/index'
+import { Route as HomeSecurityIndexImport } from './routes/home/security/index'
 import { Route as HomeAccountIndexImport } from './routes/home/account/index'
+import { Route as AuthTwoFactorIndexImport } from './routes/auth/two-factor/index'
 import { Route as AuthSignUpIndexImport } from './routes/auth/sign-up/index'
 import { Route as AuthSignInIndexImport } from './routes/auth/sign-in/index'
 import { Route as AuthResetPasswordIndexImport } from './routes/auth/reset-password/index'
 import { Route as AuthForgotPasswordIndexImport } from './routes/auth/forgot-password/index'
 import { Route as AdminUsersIndexImport } from './routes/admin/users/index'
 import { Route as HomeTasksCreateIndexImport } from './routes/home/tasks/create/index'
-import { Route as HomeAccountSessionsIndexImport } from './routes/home/account/sessions/index'
-import { Route as HomeAccountRolesIndexImport } from './routes/home/account/roles/index'
-import { Route as HomeAccountDangerIndexImport } from './routes/home/account/danger/index'
+import { Route as AuthTwoFactorOtpIndexImport } from './routes/auth/two-factor/otp/index'
 import { Route as AdminUsersUserIdIndexImport } from './routes/admin/users/$userId/index'
 import { Route as HomeTasksTaskIdUpdateIndexImport } from './routes/home/tasks/$taskId/update/index'
 import { Route as HomeTasksTaskIdShowIndexImport } from './routes/home/tasks/$taskId/show/index'
@@ -99,22 +98,28 @@ const Errors401Route = Errors401Import.update({
   getParentRoute: () => rootRoute,
 } as any)
 
-const HomeAccountRouteRoute = HomeAccountRouteImport.update({
-  id: '/account',
-  path: '/account',
-  getParentRoute: () => HomeRouteRoute,
-} as any)
-
 const HomeTasksIndexRoute = HomeTasksIndexImport.update({
   id: '/tasks/',
   path: '/tasks/',
   getParentRoute: () => HomeRouteRoute,
 } as any)
 
+const HomeSecurityIndexRoute = HomeSecurityIndexImport.update({
+  id: '/security/',
+  path: '/security/',
+  getParentRoute: () => HomeRouteRoute,
+} as any)
+
 const HomeAccountIndexRoute = HomeAccountIndexImport.update({
-  id: '/',
-  path: '/',
-  getParentRoute: () => HomeAccountRouteRoute,
+  id: '/account/',
+  path: '/account/',
+  getParentRoute: () => HomeRouteRoute,
+} as any)
+
+const AuthTwoFactorIndexRoute = AuthTwoFactorIndexImport.update({
+  id: '/two-factor/',
+  path: '/two-factor/',
+  getParentRoute: () => AuthRouteRoute,
 } as any)
 
 const AuthSignUpIndexRoute = AuthSignUpIndexImport.update({
@@ -153,22 +158,10 @@ const HomeTasksCreateIndexRoute = HomeTasksCreateIndexImport.update({
   getParentRoute: () => HomeRouteRoute,
 } as any)
 
-const HomeAccountSessionsIndexRoute = HomeAccountSessionsIndexImport.update({
-  id: '/sessions/',
-  path: '/sessions/',
-  getParentRoute: () => HomeAccountRouteRoute,
-} as any)
-
-const HomeAccountRolesIndexRoute = HomeAccountRolesIndexImport.update({
-  id: '/roles/',
-  path: '/roles/',
-  getParentRoute: () => HomeAccountRouteRoute,
-} as any)
-
-const HomeAccountDangerIndexRoute = HomeAccountDangerIndexImport.update({
-  id: '/danger/',
-  path: '/danger/',
-  getParentRoute: () => HomeAccountRouteRoute,
+const AuthTwoFactorOtpIndexRoute = AuthTwoFactorOtpIndexImport.update({
+  id: '/two-factor/otp/',
+  path: '/two-factor/otp/',
+  getParentRoute: () => AuthRouteRoute,
 } as any)
 
 const AdminUsersUserIdIndexRoute = AdminUsersUserIdIndexImport.update({
@@ -222,13 +215,6 @@ declare module '@tanstack/react-router' {
       fullPath: '/home'
       preLoaderRoute: typeof HomeRouteImport
       parentRoute: typeof rootRoute
-    }
-    '/home/account': {
-      id: '/home/account'
-      path: '/account'
-      fullPath: '/home/account'
-      preLoaderRoute: typeof HomeAccountRouteImport
-      parentRoute: typeof HomeRouteImport
     }
     '/errors/401': {
       id: '/errors/401'
@@ -307,12 +293,26 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthSignUpIndexImport
       parentRoute: typeof AuthRouteImport
     }
+    '/auth/two-factor/': {
+      id: '/auth/two-factor/'
+      path: '/two-factor'
+      fullPath: '/auth/two-factor'
+      preLoaderRoute: typeof AuthTwoFactorIndexImport
+      parentRoute: typeof AuthRouteImport
+    }
     '/home/account/': {
       id: '/home/account/'
-      path: '/'
-      fullPath: '/home/account/'
+      path: '/account'
+      fullPath: '/home/account'
       preLoaderRoute: typeof HomeAccountIndexImport
-      parentRoute: typeof HomeAccountRouteImport
+      parentRoute: typeof HomeRouteImport
+    }
+    '/home/security/': {
+      id: '/home/security/'
+      path: '/security'
+      fullPath: '/home/security'
+      preLoaderRoute: typeof HomeSecurityIndexImport
+      parentRoute: typeof HomeRouteImport
     }
     '/home/tasks/': {
       id: '/home/tasks/'
@@ -328,26 +328,12 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminUsersUserIdIndexImport
       parentRoute: typeof AdminRouteImport
     }
-    '/home/account/danger/': {
-      id: '/home/account/danger/'
-      path: '/danger'
-      fullPath: '/home/account/danger'
-      preLoaderRoute: typeof HomeAccountDangerIndexImport
-      parentRoute: typeof HomeAccountRouteImport
-    }
-    '/home/account/roles/': {
-      id: '/home/account/roles/'
-      path: '/roles'
-      fullPath: '/home/account/roles'
-      preLoaderRoute: typeof HomeAccountRolesIndexImport
-      parentRoute: typeof HomeAccountRouteImport
-    }
-    '/home/account/sessions/': {
-      id: '/home/account/sessions/'
-      path: '/sessions'
-      fullPath: '/home/account/sessions'
-      preLoaderRoute: typeof HomeAccountSessionsIndexImport
-      parentRoute: typeof HomeAccountRouteImport
+    '/auth/two-factor/otp/': {
+      id: '/auth/two-factor/otp/'
+      path: '/two-factor/otp'
+      fullPath: '/auth/two-factor/otp'
+      preLoaderRoute: typeof AuthTwoFactorOtpIndexImport
+      parentRoute: typeof AuthRouteImport
     }
     '/home/tasks/create/': {
       id: '/home/tasks/create/'
@@ -396,6 +382,8 @@ interface AuthRouteRouteChildren {
   AuthResetPasswordIndexRoute: typeof AuthResetPasswordIndexRoute
   AuthSignInIndexRoute: typeof AuthSignInIndexRoute
   AuthSignUpIndexRoute: typeof AuthSignUpIndexRoute
+  AuthTwoFactorIndexRoute: typeof AuthTwoFactorIndexRoute
+  AuthTwoFactorOtpIndexRoute: typeof AuthTwoFactorOtpIndexRoute
 }
 
 const AuthRouteRouteChildren: AuthRouteRouteChildren = {
@@ -403,32 +391,18 @@ const AuthRouteRouteChildren: AuthRouteRouteChildren = {
   AuthResetPasswordIndexRoute: AuthResetPasswordIndexRoute,
   AuthSignInIndexRoute: AuthSignInIndexRoute,
   AuthSignUpIndexRoute: AuthSignUpIndexRoute,
+  AuthTwoFactorIndexRoute: AuthTwoFactorIndexRoute,
+  AuthTwoFactorOtpIndexRoute: AuthTwoFactorOtpIndexRoute,
 }
 
 const AuthRouteRouteWithChildren = AuthRouteRoute._addFileChildren(
   AuthRouteRouteChildren,
 )
 
-interface HomeAccountRouteRouteChildren {
-  HomeAccountIndexRoute: typeof HomeAccountIndexRoute
-  HomeAccountDangerIndexRoute: typeof HomeAccountDangerIndexRoute
-  HomeAccountRolesIndexRoute: typeof HomeAccountRolesIndexRoute
-  HomeAccountSessionsIndexRoute: typeof HomeAccountSessionsIndexRoute
-}
-
-const HomeAccountRouteRouteChildren: HomeAccountRouteRouteChildren = {
-  HomeAccountIndexRoute: HomeAccountIndexRoute,
-  HomeAccountDangerIndexRoute: HomeAccountDangerIndexRoute,
-  HomeAccountRolesIndexRoute: HomeAccountRolesIndexRoute,
-  HomeAccountSessionsIndexRoute: HomeAccountSessionsIndexRoute,
-}
-
-const HomeAccountRouteRouteWithChildren =
-  HomeAccountRouteRoute._addFileChildren(HomeAccountRouteRouteChildren)
-
 interface HomeRouteRouteChildren {
-  HomeAccountRouteRoute: typeof HomeAccountRouteRouteWithChildren
   HomeIndexRoute: typeof HomeIndexRoute
+  HomeAccountIndexRoute: typeof HomeAccountIndexRoute
+  HomeSecurityIndexRoute: typeof HomeSecurityIndexRoute
   HomeTasksIndexRoute: typeof HomeTasksIndexRoute
   HomeTasksCreateIndexRoute: typeof HomeTasksCreateIndexRoute
   HomeTasksTaskIdShowIndexRoute: typeof HomeTasksTaskIdShowIndexRoute
@@ -436,8 +410,9 @@ interface HomeRouteRouteChildren {
 }
 
 const HomeRouteRouteChildren: HomeRouteRouteChildren = {
-  HomeAccountRouteRoute: HomeAccountRouteRouteWithChildren,
   HomeIndexRoute: HomeIndexRoute,
+  HomeAccountIndexRoute: HomeAccountIndexRoute,
+  HomeSecurityIndexRoute: HomeSecurityIndexRoute,
   HomeTasksIndexRoute: HomeTasksIndexRoute,
   HomeTasksCreateIndexRoute: HomeTasksCreateIndexRoute,
   HomeTasksTaskIdShowIndexRoute: HomeTasksTaskIdShowIndexRoute,
@@ -453,7 +428,6 @@ export interface FileRoutesByFullPath {
   '/admin': typeof AdminRouteRouteWithChildren
   '/auth': typeof AuthRouteRouteWithChildren
   '/home': typeof HomeRouteRouteWithChildren
-  '/home/account': typeof HomeAccountRouteRouteWithChildren
   '/errors/401': typeof Errors401Route
   '/errors/403': typeof Errors403Route
   '/errors/404': typeof Errors404Route
@@ -465,12 +439,12 @@ export interface FileRoutesByFullPath {
   '/auth/reset-password': typeof AuthResetPasswordIndexRoute
   '/auth/sign-in': typeof AuthSignInIndexRoute
   '/auth/sign-up': typeof AuthSignUpIndexRoute
-  '/home/account/': typeof HomeAccountIndexRoute
+  '/auth/two-factor': typeof AuthTwoFactorIndexRoute
+  '/home/account': typeof HomeAccountIndexRoute
+  '/home/security': typeof HomeSecurityIndexRoute
   '/home/tasks': typeof HomeTasksIndexRoute
   '/admin/users/$userId': typeof AdminUsersUserIdIndexRoute
-  '/home/account/danger': typeof HomeAccountDangerIndexRoute
-  '/home/account/roles': typeof HomeAccountRolesIndexRoute
-  '/home/account/sessions': typeof HomeAccountSessionsIndexRoute
+  '/auth/two-factor/otp': typeof AuthTwoFactorOtpIndexRoute
   '/home/tasks/create': typeof HomeTasksCreateIndexRoute
   '/home/tasks/$taskId/show': typeof HomeTasksTaskIdShowIndexRoute
   '/home/tasks/$taskId/update': typeof HomeTasksTaskIdUpdateIndexRoute
@@ -490,12 +464,12 @@ export interface FileRoutesByTo {
   '/auth/reset-password': typeof AuthResetPasswordIndexRoute
   '/auth/sign-in': typeof AuthSignInIndexRoute
   '/auth/sign-up': typeof AuthSignUpIndexRoute
+  '/auth/two-factor': typeof AuthTwoFactorIndexRoute
   '/home/account': typeof HomeAccountIndexRoute
+  '/home/security': typeof HomeSecurityIndexRoute
   '/home/tasks': typeof HomeTasksIndexRoute
   '/admin/users/$userId': typeof AdminUsersUserIdIndexRoute
-  '/home/account/danger': typeof HomeAccountDangerIndexRoute
-  '/home/account/roles': typeof HomeAccountRolesIndexRoute
-  '/home/account/sessions': typeof HomeAccountSessionsIndexRoute
+  '/auth/two-factor/otp': typeof AuthTwoFactorOtpIndexRoute
   '/home/tasks/create': typeof HomeTasksCreateIndexRoute
   '/home/tasks/$taskId/show': typeof HomeTasksTaskIdShowIndexRoute
   '/home/tasks/$taskId/update': typeof HomeTasksTaskIdUpdateIndexRoute
@@ -507,7 +481,6 @@ export interface FileRoutesById {
   '/admin': typeof AdminRouteRouteWithChildren
   '/auth': typeof AuthRouteRouteWithChildren
   '/home': typeof HomeRouteRouteWithChildren
-  '/home/account': typeof HomeAccountRouteRouteWithChildren
   '/errors/401': typeof Errors401Route
   '/errors/403': typeof Errors403Route
   '/errors/404': typeof Errors404Route
@@ -519,12 +492,12 @@ export interface FileRoutesById {
   '/auth/reset-password/': typeof AuthResetPasswordIndexRoute
   '/auth/sign-in/': typeof AuthSignInIndexRoute
   '/auth/sign-up/': typeof AuthSignUpIndexRoute
+  '/auth/two-factor/': typeof AuthTwoFactorIndexRoute
   '/home/account/': typeof HomeAccountIndexRoute
+  '/home/security/': typeof HomeSecurityIndexRoute
   '/home/tasks/': typeof HomeTasksIndexRoute
   '/admin/users/$userId/': typeof AdminUsersUserIdIndexRoute
-  '/home/account/danger/': typeof HomeAccountDangerIndexRoute
-  '/home/account/roles/': typeof HomeAccountRolesIndexRoute
-  '/home/account/sessions/': typeof HomeAccountSessionsIndexRoute
+  '/auth/two-factor/otp/': typeof AuthTwoFactorOtpIndexRoute
   '/home/tasks/create/': typeof HomeTasksCreateIndexRoute
   '/home/tasks/$taskId/show/': typeof HomeTasksTaskIdShowIndexRoute
   '/home/tasks/$taskId/update/': typeof HomeTasksTaskIdUpdateIndexRoute
@@ -537,7 +510,6 @@ export interface FileRouteTypes {
     | '/admin'
     | '/auth'
     | '/home'
-    | '/home/account'
     | '/errors/401'
     | '/errors/403'
     | '/errors/404'
@@ -549,12 +521,12 @@ export interface FileRouteTypes {
     | '/auth/reset-password'
     | '/auth/sign-in'
     | '/auth/sign-up'
-    | '/home/account/'
+    | '/auth/two-factor'
+    | '/home/account'
+    | '/home/security'
     | '/home/tasks'
     | '/admin/users/$userId'
-    | '/home/account/danger'
-    | '/home/account/roles'
-    | '/home/account/sessions'
+    | '/auth/two-factor/otp'
     | '/home/tasks/create'
     | '/home/tasks/$taskId/show'
     | '/home/tasks/$taskId/update'
@@ -573,12 +545,12 @@ export interface FileRouteTypes {
     | '/auth/reset-password'
     | '/auth/sign-in'
     | '/auth/sign-up'
+    | '/auth/two-factor'
     | '/home/account'
+    | '/home/security'
     | '/home/tasks'
     | '/admin/users/$userId'
-    | '/home/account/danger'
-    | '/home/account/roles'
-    | '/home/account/sessions'
+    | '/auth/two-factor/otp'
     | '/home/tasks/create'
     | '/home/tasks/$taskId/show'
     | '/home/tasks/$taskId/update'
@@ -588,7 +560,6 @@ export interface FileRouteTypes {
     | '/admin'
     | '/auth'
     | '/home'
-    | '/home/account'
     | '/errors/401'
     | '/errors/403'
     | '/errors/404'
@@ -600,12 +571,12 @@ export interface FileRouteTypes {
     | '/auth/reset-password/'
     | '/auth/sign-in/'
     | '/auth/sign-up/'
+    | '/auth/two-factor/'
     | '/home/account/'
+    | '/home/security/'
     | '/home/tasks/'
     | '/admin/users/$userId/'
-    | '/home/account/danger/'
-    | '/home/account/roles/'
-    | '/home/account/sessions/'
+    | '/auth/two-factor/otp/'
     | '/home/tasks/create/'
     | '/home/tasks/$taskId/show/'
     | '/home/tasks/$taskId/update/'
@@ -671,28 +642,21 @@ export const routeTree = rootRoute
         "/auth/forgot-password/",
         "/auth/reset-password/",
         "/auth/sign-in/",
-        "/auth/sign-up/"
+        "/auth/sign-up/",
+        "/auth/two-factor/",
+        "/auth/two-factor/otp/"
       ]
     },
     "/home": {
       "filePath": "home/route.tsx",
       "children": [
-        "/home/account",
         "/home/",
+        "/home/account/",
+        "/home/security/",
         "/home/tasks/",
         "/home/tasks/create/",
         "/home/tasks/$taskId/show/",
         "/home/tasks/$taskId/update/"
-      ]
-    },
-    "/home/account": {
-      "filePath": "home/account/route.tsx",
-      "parent": "/home",
-      "children": [
-        "/home/account/",
-        "/home/account/danger/",
-        "/home/account/roles/",
-        "/home/account/sessions/"
       ]
     },
     "/errors/401": {
@@ -735,9 +699,17 @@ export const routeTree = rootRoute
       "filePath": "auth/sign-up/index.tsx",
       "parent": "/auth"
     },
+    "/auth/two-factor/": {
+      "filePath": "auth/two-factor/index.tsx",
+      "parent": "/auth"
+    },
     "/home/account/": {
       "filePath": "home/account/index.tsx",
-      "parent": "/home/account"
+      "parent": "/home"
+    },
+    "/home/security/": {
+      "filePath": "home/security/index.tsx",
+      "parent": "/home"
     },
     "/home/tasks/": {
       "filePath": "home/tasks/index.tsx",
@@ -747,17 +719,9 @@ export const routeTree = rootRoute
       "filePath": "admin/users/$userId/index.tsx",
       "parent": "/admin"
     },
-    "/home/account/danger/": {
-      "filePath": "home/account/danger/index.tsx",
-      "parent": "/home/account"
-    },
-    "/home/account/roles/": {
-      "filePath": "home/account/roles/index.tsx",
-      "parent": "/home/account"
-    },
-    "/home/account/sessions/": {
-      "filePath": "home/account/sessions/index.tsx",
-      "parent": "/home/account"
+    "/auth/two-factor/otp/": {
+      "filePath": "auth/two-factor/otp/index.tsx",
+      "parent": "/auth"
     },
     "/home/tasks/create/": {
       "filePath": "home/tasks/create/index.tsx",

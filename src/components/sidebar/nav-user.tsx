@@ -4,8 +4,8 @@ import {
   IconDotsVertical,
   IconLock,
   IconLogout,
-  IconNotification,
   IconPalette,
+  IconShield,
   IconUserCircle,
 } from '@tabler/icons-react'
 
@@ -104,13 +104,15 @@ export function NavUser({ fallback }: { fallback?: React.ReactNode }) {
                   Account
                 </DropdownMenuItem>
               </Link>
+              <Link to={pathsConfig.app.security}>
+                <DropdownMenuItem>
+                  <IconShield />
+                  Security
+                </DropdownMenuItem>
+              </Link>
               <DropdownMenuItem disabled>
                 <IconPalette />
                 Preferences (soon)
-              </DropdownMenuItem>
-              <DropdownMenuItem disabled>
-                <IconNotification />
-                Notifications (soon)
               </DropdownMenuItem>
             </DropdownMenuGroup>
             <DropdownMenuSeparator />

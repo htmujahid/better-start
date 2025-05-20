@@ -40,11 +40,18 @@ export function SignInForm() {
           onError: (err) => {
             setError(err.error.message)
           },
-          onSuccess: () => {
-            navigate({
-              to: '/home',
-              replace: true,
-            })
+          onSuccess: (ctx) => {
+            if (ctx.data.twoFactorRedirect) {
+              navigate({
+                to: '/auth/two-factor',
+                replace: true,
+              })
+            } else {
+              navigate({
+                to: '/home',
+                replace: true,
+              })
+            }
           },
         },
       )

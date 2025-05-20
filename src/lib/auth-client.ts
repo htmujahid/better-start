@@ -1,5 +1,5 @@
 import { createAuthClient } from 'better-auth/react'
-import { adminClient, multiSessionClient } from 'better-auth/client/plugins'
+import { adminClient, twoFactorClient } from 'better-auth/client/plugins'
 import { ac, allRoles } from './roles'
 
 export const authClient = createAuthClient({
@@ -9,6 +9,6 @@ export const authClient = createAuthClient({
       ac,
       roles: allRoles,
     }),
-    multiSessionClient(),
+    twoFactorClient(),
   ],
 })

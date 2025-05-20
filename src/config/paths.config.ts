@@ -10,9 +10,7 @@ const PathsSchema = z.object({
   app: z.object({
     home: z.string().min(1),
     account: z.string().min(1),
-    roles: z.string().min(1),
-    sessions: z.string().min(1),
-    danger: z.string().min(1),
+    security: z.string().min(1),
   }),
   admin: z.object({
     users: z.string().min(1),
@@ -29,9 +27,7 @@ const pathsConfig = PathsSchema.parse({
   app: {
     home: '/home',
     account: '/home/account',
-    roles: '/home/account/roles',
-    sessions: '/home/account/sessions',
-    danger: '/home/account/danger',
+    security: '/home/security',
   },
   admin: {
     users: '/admin/users',
