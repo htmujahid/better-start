@@ -1,37 +1,14 @@
-import { z } from 'zod'
-import { createServerFn } from '@tanstack/react-start'
 import { createFileRoute } from '@tanstack/react-router'
-import { getCookie, getWebRequest } from '@tanstack/react-start/server'
 
-import { auth } from '@/lib/auth'
-import { UserSessions } from '@/features/admin/components/user-sessions'
-
-const fetchSessions = createServerFn({ method: 'GET' })
-  .validator(z.object({ userId: z.string() }))
-  .handler(async ({ data }) => {
-    const { headers } = getWebRequest()!
-
-    const sessionToken = getCookie('better-auth.session_token') as string
-
-    const sessionId = sessionToken?.split('.')[0]
-
-    const { sessions } = await auth.api.listUserSessions({
-      headers,
-      body: data,
-    })
-
-    return {
-      sessions,
-      sessionId,
-    }
-  })
+import { UserSessions } from '@/components/admin/user-sessions'
+import { listUserSessionsAction } from '@/actions/admin/list-user-sessions-action'
 
 export const Route = createFileRoute('/admin/users/$userId/')({
   beforeLoad: async ({ context, params }) => {
     return context?.queryClient.fetchQuery({
       queryKey: ['sessions'],
       queryFn: ({ signal }) =>
-        fetchSessions({ signal, data: { userId: params.userId } }),
+        listUserSessionsAction({ signal, data: { userId: params.userId } }),
     })
   },
   component: RouteComponent,

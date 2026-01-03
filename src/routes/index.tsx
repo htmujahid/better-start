@@ -1,21 +1,24 @@
 import { createFileRoute } from '@tanstack/react-router'
-
-import { Header } from '@/components/header'
-import { HeroSection } from '@/components/marketing/hero-section'
-import { Footer } from '@/components/footer'
-import { Features } from '@/components/marketing/features'
+import { SiteHeader } from '@/components/layout/site-header'
 
 export const Route = createFileRoute('/')({
+  server: {
+    middleware: [],
+  },
   component: App,
 })
 
 function App() {
   return (
-    <div className="">
-      <Header />
-      <HeroSection />
-      <Features />
-      <Footer />
+    <div>
+      <SiteHeader />
+      <main className="container mx-auto mt-8 px-4">
+        <h1 className="text-3xl font-bold">Welcome to the Landing Page</h1>
+        <p className="mt-4 text-lg">
+          This is the landing page of our application. Explore our features and
+          enjoy your stay!
+        </p>
+      </main>
     </div>
   )
 }

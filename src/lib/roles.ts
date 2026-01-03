@@ -13,19 +13,19 @@ export type Permissions = {
 }
 
 export const statement = {
-  task: ['create', 'read', 'update', 'delete'],
+  //   task: ['create', 'read', 'update', 'delete'],
   ...defaultStatements,
 } as const
 
 export const ac = createAccessControl(statement)
 
 const adminRole = ac.newRole({
-  task: ['create', 'read', 'update', 'delete'],
+  //   task: ['create', 'read', 'update', 'delete'],
   ...adminAc.statements,
 })
 
 const userRole = ac.newRole({
-  task: ['create', 'read', 'update', 'delete'],
+  //   task: ['create', 'read', 'update', 'delete'],
   ...userAc.statements,
 })
 

@@ -1,0 +1,32 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "better-start",
+  "compatibility_date": "2025-09-02",
+  "compatibility_flags": ["nodejs_compat"],
+  "main": "@tanstack/react-start/server-entry",
+  "observability": {
+    "enabled": true,
+  },
+  "d1_databases": [
+    {
+      "binding": "better_start_db",
+      "database_name": "better-start-db",
+      "database_id": "YOUR_DATABASE_ID",
+      "remote": true,
+    },
+  ],
+  "kv_namespaces": [
+    {
+      "binding": "better_start_kv",
+      "id": "YOUR_KV_ID",
+      "remote": true,
+    },
+  ],
+  "r2_buckets": [
+    {
+      "bucket_name": "better-start-buckets",
+      "binding": "better_start_buckets",
+      "remote": true,
+    },
+  ],
+}

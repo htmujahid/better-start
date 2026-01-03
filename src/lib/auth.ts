@@ -1,20 +1,64 @@
 import { betterAuth } from 'better-auth'
 import { drizzleAdapter } from 'better-auth/adapters/drizzle'
 import { admin, twoFactor } from 'better-auth/plugins'
-import { reactStartCookies } from 'better-auth/react-start'
+import { tanstackStartCookies } from 'better-auth/tanstack-start'
+import { env } from 'cloudflare:workers'
 
 import { ac, allRoles } from './roles'
-import { resend } from './resend-client'
+import { sendMail } from '@/lib/mailer'
 
 import { db } from '@/db'
-import { mailConfig } from '@/config/mail.config'
+import mailConfig from '@/config/mail.config'
+import appConfig from '@/config/app.config'
 
 export const auth = betterAuth({
+  appName: appConfig.name,
+  baseURL: appConfig.url,
+  database: drizzleAdapter(db, {
+    provider: 'sqlite',
+  }),
+  secondaryStorage: {
+    get: async (key) => {
+      return JSON.parse((await env.better_start_kv.get(key)) as string)
+    },
+    set: async (key, value, ttl) => {
+      if (ttl !== undefined) {
+        // Cloudflare KV requires TTL >= 60 seconds
+        const minTtl = 60
+        if (ttl < minTtl) {
+          console.warn(
+            `[BetterAuthCloudflare] TTL ${ttl}s is less than KV minimum of ${minTtl}s. Using ${minTtl}s instead.`,
+          )
+          ttl = minTtl
+        }
+        await env.better_start_kv.put(key, JSON.stringify(value), {
+          expirationTtl: ttl,
+        })
+      } else {
+        await env.better_start_kv.put(key, JSON.stringify(value))
+      }
+    },
+    delete: async (key) => {
+      await env.better_start_kv.delete(key)
+    },
+  },
+  rateLimit: {
+    enabled: true,
+    storage: 'secondary-storage',
+    customStorage: {
+      get: async (key) => {
+        return JSON.parse((await env.better_start_kv.get(key)) as string)
+      },
+      set: async (key, value) => {
+        await env.better_start_kv.put(key, JSON.stringify(value))
+      },
+    },
+  },
   emailAndPassword: {
     enabled: true,
     requireEmailVerification: true,
     sendResetPassword: async ({ user, url }) => {
-      await resend.emails.send({
+      await sendMail({
         from: mailConfig.from,
         to: user.email,
         subject: 'Reset Password',
@@ -32,7 +76,7 @@ export const auth = betterAuth({
       enabled: true,
       requireVerification: true,
       sendChangeEmailVerification: async ({ user, newEmail, url }) => {
-        await resend.emails.send({
+        await sendMail({
           from: mailConfig.from,
           to: user.email,
           subject: 'Change Email',
@@ -49,7 +93,7 @@ export const auth = betterAuth({
       enabled: true,
       deleteSessions: true,
       sendDeleteAccountVerification: async ({ user, url }) => {
-        await resend.emails.send({
+        await sendMail({
           from: mailConfig.from,
           to: user.email,
           subject: 'Delete Account',
@@ -66,7 +110,7 @@ export const auth = betterAuth({
   emailVerification: {
     autoSignInAfterVerification: true,
     sendVerificationEmail: async ({ user, url }) => {
-      await resend.emails.send({
+      await sendMail({
         from: mailConfig.from,
         to: user.email,
         subject: 'Verify Email',
@@ -89,9 +133,6 @@ export const auth = betterAuth({
       clientSecret: process.env.GOOGLE_CLIENT_SECRET as string,
     },
   },
-  database: drizzleAdapter(db, {
-    provider: 'pg', // or "mysql", "sqlite"
-  }),
   plugins: [
     admin({
       ac,
@@ -100,7 +141,7 @@ export const auth = betterAuth({
     twoFactor({
       otpOptions: {
         sendOTP: async ({ user, otp }) => {
-          await resend.emails.send({
+          await sendMail({
             from: mailConfig.from,
             to: user.email,
             subject: 'OTP',
@@ -108,10 +149,10 @@ export const auth = betterAuth({
               <p>Hi ${user.name},</p>
               <p>Your OTP is ${otp}</p>
             `,
-          });
+          })
         },
       },
     }),
-    reactStartCookies(),
+    tanstackStartCookies(),
   ],
 })

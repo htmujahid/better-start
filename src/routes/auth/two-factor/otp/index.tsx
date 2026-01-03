@@ -1,6 +1,12 @@
 import { createFileRoute } from '@tanstack/react-router'
-import { OtpForm } from '@/features/auth/components/otp-form'
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
+import { OtpForm } from '@/components/auth/otp-form'
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from '@/components/ui/card'
 
 export const Route = createFileRoute('/auth/two-factor/otp/')({
   component: RouteComponent,

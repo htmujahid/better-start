@@ -1,44 +1,21 @@
 import {
   HeadContent,
-  Outlet,
   Scripts,
   createRootRouteWithContext,
 } from '@tanstack/react-router'
-import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
-import { TanStackRouterDevtools } from '@tanstack/react-router-devtools'
-import { createServerFn } from '@tanstack/react-start'
-import { getCookie, getWebRequest } from '@tanstack/react-start/server'
+import { TanStackRouterDevtoolsPanel } from '@tanstack/react-router-devtools'
+import { TanStackDevtools } from '@tanstack/react-devtools'
 
 import appCss from '../styles.css?url'
-
 import type { QueryClient } from '@tanstack/react-query'
-import { RootProvider } from '@/components/providers/root-provider'
-import { auth } from '@/lib/auth'
-import { I18N_COOKIE_NAME } from '@/lib/i18n/i18n.settings'
-import appConfig from '@/config/app.config'
+import TanStackQueryDevtools from '@/integrations/tanstack-query/devtools'
 
-import '@/lib/i18n'
+import { sessionAction } from '@/actions/auth/session-action'
+import { rootAction } from '@/actions/root-action'
 
 interface MyRouterContext {
   queryClient: QueryClient
 }
-
-const fetchRootData = createServerFn({ method: 'GET' }).handler(async () => {
-  const { headers } = getWebRequest()!
-  const response = await auth.api.getSession({
-    headers,
-  })
-
-  const cookies = getCookie('theme') as 'light' | 'dark' | undefined
-  const lang = getCookie(I18N_COOKIE_NAME)
-
-  return {
-    session: response?.session ?? null,
-    user: response?.user ?? null,
-    theme: cookies ?? appConfig.theme,
-    lang: lang ?? appConfig.locale,
-  }
-})
 
 export const Route = createRootRouteWithContext<MyRouterContext>()({
   head: () => ({
@@ -51,7 +28,7 @@ export const Route = createRootRouteWithContext<MyRouterContext>()({
         content: 'width=device-width, initial-scale=1',
       },
       {
-        title: 'Better Admin',
+        title: 'TanStack Start Starter',
       },
     ],
     links: [
@@ -61,36 +38,41 @@ export const Route = createRootRouteWithContext<MyRouterContext>()({
       },
     ],
   }),
-  beforeLoad: async ({ context }) => {
-    return context?.queryClient.fetchQuery({
-      queryKey: ['user'],
-      queryFn: ({ signal }) => fetchRootData({ signal }),
-    })
-  },
-  component: () => (
-    <RootDocument>
-      <RootProvider>
-        <Outlet />
-      </RootProvider>
-      <TanStackRouterDevtools />
+  beforeLoad: async () => {
+    const data = await sessionAction()
+    const root = await rootAction()
 
-      <ReactQueryDevtools buttonPosition="bottom-right" />
-    </RootDocument>
-  ),
-  notFoundComponent: () => <div>Not Found</div>,
-  errorComponent: () => <div>Error</div>,
+    return {
+      ...data,
+      ...root,
+    }
+  },
+  shellComponent: RootDocument,
+  notFoundComponent: () => <div>404 Not Found</div>,
 })
 
 function RootDocument({ children }: { children: React.ReactNode }) {
   const { theme, lang } = Route.useRouteContext()
 
   return (
-    <html lang={lang} className={theme}>
+    <html lang={lang} data-theme={theme} className={theme}>
       <head>
         <HeadContent />
       </head>
       <body>
         {children}
+        <TanStackDevtools
+          config={{
+            position: 'bottom-right',
+          }}
+          plugins={[
+            {
+              name: 'Tanstack Router',
+              render: <TanStackRouterDevtoolsPanel />,
+            },
+            TanStackQueryDevtools,
+          ]}
+        />
         <Scripts />
       </body>
     </html>

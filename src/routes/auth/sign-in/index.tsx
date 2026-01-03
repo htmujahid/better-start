@@ -7,7 +7,7 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card'
-import { SignInMethodsContainer } from '@/features/auth/components/sign-in-methods-container'
+import { SignInMethodsContainer } from '@/components/auth/sign-in-methods-container'
 
 export const Route = createFileRoute('/auth/sign-in/')({
   component: RouteComponent,

@@ -1,7 +1,14 @@
+import { Link, createFileRoute } from '@tanstack/react-router'
 import { Button } from '@/components/ui/button'
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'
-import { TwoFactorForm } from '@/features/auth/components/two-factor-form'
-import { createFileRoute, Link } from '@tanstack/react-router'
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from '@/components/ui/card'
+import { TwoFactorForm } from '@/components/auth/two-factor-form'
 
 export const Route = createFileRoute('/auth/two-factor/')({
   component: RouteComponent,
@@ -27,7 +34,7 @@ function RouteComponent() {
             </Button>
           </Link>
         </CardFooter>
-      </Card>    
+      </Card>
     </div>
   )
 }

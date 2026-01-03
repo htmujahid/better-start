@@ -9,7 +9,7 @@ export function AppLogo({ path }: { path?: string }) {
       <div className="flex h-6 w-6 items-center justify-center rounded-md bg-primary text-primary-foreground">
         ~
       </div>
-      BetterAdmin
+      BetterStart
     </Link>
   )
 }

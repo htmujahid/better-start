@@ -1,4 +1,4 @@
-import { createFileRoute } from '@tanstack/react-router'
+import { Link, createFileRoute } from '@tanstack/react-router'
 
 import {
   Card,
@@ -7,7 +7,7 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card'
-import { SignUpMethodsContainer } from '@/features/auth/components/sign-up-methods-container'
+import { SignUpMethodsContainer } from '@/components/auth/sign-up-methods-container'
 
 export const Route = createFileRoute('/auth/sign-up/')({
   component: RouteComponent,
@@ -28,8 +28,9 @@ function RouteComponent() {
         </CardContent>
       </Card>
       <div className="text-muted-foreground *:[a]:hover:text-primary text-center text-xs text-balance *:[a]:underline *:[a]:underline-offset-4">
-        By clicking continue, you agree to our <a href="#">Terms of Service</a>{' '}
-        and <a href="#">Privacy Policy</a>.
+        By clicking continue, you agree to our{' '}
+        <Link to="/">Terms of Service</Link> and{' '}
+        <Link to="/">Privacy Policy</Link>.
       </div>
     </div>
   )

@@ -1,13 +1,7 @@
-import 'dotenv/config'
-import { drizzle } from 'drizzle-orm/postgres-js'
-import postgres from 'postgres'
-
+import { drizzle } from 'drizzle-orm/d1'
+import { env } from 'cloudflare:workers'
 import * as schema from './schema'
 
-const queryClient = postgres(process.env.DATABASE_URL!, {
-  ssl: {
-    rejectUnauthorized: false,
-  },
+export const db = drizzle(env.better_start_db, {
+  schema,
 })
-
-export const db = drizzle({ client: queryClient, schema })

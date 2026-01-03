@@ -1,4 +1,4 @@
-# BetterAdmin
+# BetterStart
 
 Build Admin Panels with Ease
 
@@ -13,15 +13,11 @@ Build Admin Panels with Ease
 - [x] Roles and Permissions
 - [x] User Management
 - [x] Theming
-- [x] S3 Storage Compatability
-- [ ] Internationalization
-- [ ] Notifications
-- [ ] CLI Generator
-- [ ] Preferences
+- [x] Cloudflare d1, r2, kv
 
 ## Technologies
 
 - Tanstack
 - Better Auth
-- Drizzle ORM
+- Cloudflare
 - Shadcn

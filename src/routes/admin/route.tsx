@@ -1,9 +1,19 @@
 import { Outlet, createFileRoute, redirect } from '@tanstack/react-router'
-
-import { AppSidebar } from '@/components/app-sidebar'
-import { SiteHeader } from '@/components/sidebar/site-header'
-import { SidebarInset, SidebarProvider } from '@/components/ui/sidebar'
-
+import { AdminSidebar } from '@/components/layout/admin-sidebar'
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+} from '@/components/ui/breadcrumb'
+import { Separator } from '@/components/ui/separator'
+import {
+  SidebarInset,
+  SidebarProvider,
+  SidebarTrigger,
+} from '@/components/ui/sidebar'
 import pathsConfig from '@/config/paths.config'
 
 export const Route = createFileRoute('/admin')({
@@ -17,19 +27,35 @@ export const Route = createFileRoute('/admin')({
     }
   },
   component: RouteComponent,
-  notFoundComponent: () => <div>Not found</div>,
 })
 
 function RouteComponent() {
   return (
     <SidebarProvider>
-      <AppSidebar variant="inset" />
+      <AdminSidebar />
       <SidebarInset>
-        <SiteHeader />
-        <div className="flex flex-1 flex-col">
-          <div className="@container/main flex flex-1 flex-col gap-2">
-            <Outlet />
+        <header className="flex h-16 shrink-0 items-center gap-2">
+          <div className="flex items-center gap-2 px-4">
+            <SidebarTrigger className="-ml-1" />
+            <Separator
+              orientation="vertical"
+              className="mr-2 data-[orientation=vertical]:h-4"
+            />
+            <Breadcrumb>
+              <BreadcrumbList>
+                <BreadcrumbItem className="hidden md:block">
+                  <BreadcrumbLink href="/admin">Admin</BreadcrumbLink>
+                </BreadcrumbItem>
+                <BreadcrumbSeparator className="hidden md:block" />
+                <BreadcrumbItem>
+                  <BreadcrumbPage>Dashboard</BreadcrumbPage>
+                </BreadcrumbItem>
+              </BreadcrumbList>
+            </Breadcrumb>
           </div>
+        </header>
+        <div className="flex flex-1 flex-col gap-4 p-4 pt-0">
+          <Outlet />
         </div>
       </SidebarInset>
     </SidebarProvider>

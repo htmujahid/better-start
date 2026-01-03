@@ -2,7 +2,7 @@ import { z } from 'zod'
 import { AlertCircle } from 'lucide-react'
 import { Link, createFileRoute } from '@tanstack/react-router'
 
-import { ResetPasswordForm } from '@/features/auth/components/reset-password-form'
+import { ResetPasswordForm } from '@/components/auth/reset-password-form'
 import {
   Card,
   CardContent,
@@ -55,7 +55,7 @@ function ErrorComponent() {
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <Alert variant={'error'} className="mb-4">
+          <Alert variant={'destructive'} className="mb-4">
             <AlertCircle />
             <AlertTitle>Invalid token</AlertTitle>
             <AlertDescription>

@@ -8,358 +8,466 @@
 // You should NOT make any changes in this file as it will be overwritten.
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
-// Import Routes
+import { Route as rootRouteImport } from './routes/__root'
+import { Route as HomeRouteRouteImport } from './routes/home/route'
+import { Route as AuthRouteRouteImport } from './routes/auth/route'
+import { Route as AdminRouteRouteImport } from './routes/admin/route'
+import { Route as IndexRouteImport } from './routes/index'
+import { Route as HomeIndexRouteImport } from './routes/home/index'
+import { Route as AdminIndexRouteImport } from './routes/admin/index'
+import { Route as HomeAccountRouteRouteImport } from './routes/home/account/route'
+import { Route as HomeSidebarRouteRouteImport } from './routes/home/_sidebar/route'
+import { Route as HomeAccountIndexRouteImport } from './routes/home/account/index'
+import { Route as AuthTwoFactorIndexRouteImport } from './routes/auth/two-factor/index'
+import { Route as AuthSignUpIndexRouteImport } from './routes/auth/sign-up/index'
+import { Route as AuthSignInIndexRouteImport } from './routes/auth/sign-in/index'
+import { Route as AuthResetPasswordIndexRouteImport } from './routes/auth/reset-password/index'
+import { Route as AuthForgotPasswordIndexRouteImport } from './routes/auth/forgot-password/index'
+import { Route as AdminUsersIndexRouteImport } from './routes/admin/users/index'
+import { Route as HomeSidebarARouteImport } from './routes/home/_sidebar/a'
+import { Route as ApiAuthSplatRouteImport } from './routes/api/auth/$'
+import { Route as HomeAccountTwoFactorIndexRouteImport } from './routes/home/account/two-factor/index'
+import { Route as HomeAccountSecurityIndexRouteImport } from './routes/home/account/security/index'
+import { Route as HomeAccountEmailIndexRouteImport } from './routes/home/account/email/index'
+import { Route as HomeAccountDangerZoneIndexRouteImport } from './routes/home/account/danger-zone/index'
+import { Route as AuthTwoFactorOtpIndexRouteImport } from './routes/auth/two-factor/otp/index'
+import { Route as AdminUsersUserIdIndexRouteImport } from './routes/admin/users/$userId/index'
 
-import { Route as rootRoute } from './routes/__root'
-import { Route as HomeRouteImport } from './routes/home/route'
-import { Route as AuthRouteImport } from './routes/auth/route'
-import { Route as AdminRouteImport } from './routes/admin/route'
-import { Route as IndexImport } from './routes/index'
-import { Route as HomeIndexImport } from './routes/home/index'
-import { Route as AdminIndexImport } from './routes/admin/index'
-import { Route as Errors500Import } from './routes/errors/500'
-import { Route as Errors404Import } from './routes/errors/404'
-import { Route as Errors403Import } from './routes/errors/403'
-import { Route as Errors401Import } from './routes/errors/401'
-import { Route as HomeTasksIndexImport } from './routes/home/tasks/index'
-import { Route as HomeSecurityIndexImport } from './routes/home/security/index'
-import { Route as HomeAccountIndexImport } from './routes/home/account/index'
-import { Route as AuthTwoFactorIndexImport } from './routes/auth/two-factor/index'
-import { Route as AuthSignUpIndexImport } from './routes/auth/sign-up/index'
-import { Route as AuthSignInIndexImport } from './routes/auth/sign-in/index'
-import { Route as AuthResetPasswordIndexImport } from './routes/auth/reset-password/index'
-import { Route as AuthForgotPasswordIndexImport } from './routes/auth/forgot-password/index'
-import { Route as AdminUsersIndexImport } from './routes/admin/users/index'
-import { Route as HomeTasksCreateIndexImport } from './routes/home/tasks/create/index'
-import { Route as AuthTwoFactorOtpIndexImport } from './routes/auth/two-factor/otp/index'
-import { Route as AdminUsersUserIdIndexImport } from './routes/admin/users/$userId/index'
-import { Route as HomeTasksTaskIdUpdateIndexImport } from './routes/home/tasks/$taskId/update/index'
-import { Route as HomeTasksTaskIdShowIndexImport } from './routes/home/tasks/$taskId/show/index'
-
-// Create/Update Routes
-
-const HomeRouteRoute = HomeRouteImport.update({
+const HomeRouteRoute = HomeRouteRouteImport.update({
   id: '/home',
   path: '/home',
-  getParentRoute: () => rootRoute,
+  getParentRoute: () => rootRouteImport,
 } as any)
-
-const AuthRouteRoute = AuthRouteImport.update({
+const AuthRouteRoute = AuthRouteRouteImport.update({
   id: '/auth',
   path: '/auth',
-  getParentRoute: () => rootRoute,
+  getParentRoute: () => rootRouteImport,
 } as any)
-
-const AdminRouteRoute = AdminRouteImport.update({
+const AdminRouteRoute = AdminRouteRouteImport.update({
   id: '/admin',
   path: '/admin',
-  getParentRoute: () => rootRoute,
+  getParentRoute: () => rootRouteImport,
 } as any)
-
-const IndexRoute = IndexImport.update({
+const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
-  getParentRoute: () => rootRoute,
+  getParentRoute: () => rootRouteImport,
 } as any)
-
-const HomeIndexRoute = HomeIndexImport.update({
+const HomeIndexRoute = HomeIndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => HomeRouteRoute,
 } as any)
-
-const AdminIndexRoute = AdminIndexImport.update({
+const AdminIndexRoute = AdminIndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => AdminRouteRoute,
 } as any)
-
-const Errors500Route = Errors500Import.update({
-  id: '/errors/500',
-  path: '/errors/500',
-  getParentRoute: () => rootRoute,
-} as any)
-
-const Errors404Route = Errors404Import.update({
-  id: '/errors/404',
-  path: '/errors/404',
-  getParentRoute: () => rootRoute,
-} as any)
-
-const Errors403Route = Errors403Import.update({
-  id: '/errors/403',
-  path: '/errors/403',
-  getParentRoute: () => rootRoute,
-} as any)
-
-const Errors401Route = Errors401Import.update({
-  id: '/errors/401',
-  path: '/errors/401',
-  getParentRoute: () => rootRoute,
-} as any)
-
-const HomeTasksIndexRoute = HomeTasksIndexImport.update({
-  id: '/tasks/',
-  path: '/tasks/',
+const HomeAccountRouteRoute = HomeAccountRouteRouteImport.update({
+  id: '/account',
+  path: '/account',
   getParentRoute: () => HomeRouteRoute,
 } as any)
-
-const HomeSecurityIndexRoute = HomeSecurityIndexImport.update({
-  id: '/security/',
-  path: '/security/',
+const HomeSidebarRouteRoute = HomeSidebarRouteRouteImport.update({
+  id: '/_sidebar',
   getParentRoute: () => HomeRouteRoute,
 } as any)
-
-const HomeAccountIndexRoute = HomeAccountIndexImport.update({
-  id: '/account/',
-  path: '/account/',
-  getParentRoute: () => HomeRouteRoute,
+const HomeAccountIndexRoute = HomeAccountIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => HomeAccountRouteRoute,
 } as any)
-
-const AuthTwoFactorIndexRoute = AuthTwoFactorIndexImport.update({
+const AuthTwoFactorIndexRoute = AuthTwoFactorIndexRouteImport.update({
   id: '/two-factor/',
   path: '/two-factor/',
   getParentRoute: () => AuthRouteRoute,
 } as any)
-
-const AuthSignUpIndexRoute = AuthSignUpIndexImport.update({
+const AuthSignUpIndexRoute = AuthSignUpIndexRouteImport.update({
   id: '/sign-up/',
   path: '/sign-up/',
   getParentRoute: () => AuthRouteRoute,
 } as any)
-
-const AuthSignInIndexRoute = AuthSignInIndexImport.update({
+const AuthSignInIndexRoute = AuthSignInIndexRouteImport.update({
   id: '/sign-in/',
   path: '/sign-in/',
   getParentRoute: () => AuthRouteRoute,
 } as any)
-
-const AuthResetPasswordIndexRoute = AuthResetPasswordIndexImport.update({
+const AuthResetPasswordIndexRoute = AuthResetPasswordIndexRouteImport.update({
   id: '/reset-password/',
   path: '/reset-password/',
   getParentRoute: () => AuthRouteRoute,
 } as any)
-
-const AuthForgotPasswordIndexRoute = AuthForgotPasswordIndexImport.update({
+const AuthForgotPasswordIndexRoute = AuthForgotPasswordIndexRouteImport.update({
   id: '/forgot-password/',
   path: '/forgot-password/',
   getParentRoute: () => AuthRouteRoute,
 } as any)
-
-const AdminUsersIndexRoute = AdminUsersIndexImport.update({
+const AdminUsersIndexRoute = AdminUsersIndexRouteImport.update({
   id: '/users/',
   path: '/users/',
   getParentRoute: () => AdminRouteRoute,
 } as any)
-
-const HomeTasksCreateIndexRoute = HomeTasksCreateIndexImport.update({
-  id: '/tasks/create/',
-  path: '/tasks/create/',
-  getParentRoute: () => HomeRouteRoute,
+const HomeSidebarARoute = HomeSidebarARouteImport.update({
+  id: '/a',
+  path: '/a',
+  getParentRoute: () => HomeSidebarRouteRoute,
 } as any)
-
-const AuthTwoFactorOtpIndexRoute = AuthTwoFactorOtpIndexImport.update({
+const ApiAuthSplatRoute = ApiAuthSplatRouteImport.update({
+  id: '/api/auth/$',
+  path: '/api/auth/$',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const HomeAccountTwoFactorIndexRoute =
+  HomeAccountTwoFactorIndexRouteImport.update({
+    id: '/two-factor/',
+    path: '/two-factor/',
+    getParentRoute: () => HomeAccountRouteRoute,
+  } as any)
+const HomeAccountSecurityIndexRoute =
+  HomeAccountSecurityIndexRouteImport.update({
+    id: '/security/',
+    path: '/security/',
+    getParentRoute: () => HomeAccountRouteRoute,
+  } as any)
+const HomeAccountEmailIndexRoute = HomeAccountEmailIndexRouteImport.update({
+  id: '/email/',
+  path: '/email/',
+  getParentRoute: () => HomeAccountRouteRoute,
+} as any)
+const HomeAccountDangerZoneIndexRoute =
+  HomeAccountDangerZoneIndexRouteImport.update({
+    id: '/danger-zone/',
+    path: '/danger-zone/',
+    getParentRoute: () => HomeAccountRouteRoute,
+  } as any)
+const AuthTwoFactorOtpIndexRoute = AuthTwoFactorOtpIndexRouteImport.update({
   id: '/two-factor/otp/',
   path: '/two-factor/otp/',
   getParentRoute: () => AuthRouteRoute,
 } as any)
-
-const AdminUsersUserIdIndexRoute = AdminUsersUserIdIndexImport.update({
+const AdminUsersUserIdIndexRoute = AdminUsersUserIdIndexRouteImport.update({
   id: '/users/$userId/',
   path: '/users/$userId/',
   getParentRoute: () => AdminRouteRoute,
 } as any)
 
-const HomeTasksTaskIdUpdateIndexRoute = HomeTasksTaskIdUpdateIndexImport.update(
-  {
-    id: '/tasks/$taskId/update/',
-    path: '/tasks/$taskId/update/',
-    getParentRoute: () => HomeRouteRoute,
-  } as any,
-)
-
-const HomeTasksTaskIdShowIndexRoute = HomeTasksTaskIdShowIndexImport.update({
-  id: '/tasks/$taskId/show/',
-  path: '/tasks/$taskId/show/',
-  getParentRoute: () => HomeRouteRoute,
-} as any)
-
-// Populate the FileRoutesByPath interface
+export interface FileRoutesByFullPath {
+  '/': typeof IndexRoute
+  '/admin': typeof AdminRouteRouteWithChildren
+  '/auth': typeof AuthRouteRouteWithChildren
+  '/home': typeof HomeSidebarRouteRouteWithChildren
+  '/home/account': typeof HomeAccountRouteRouteWithChildren
+  '/admin/': typeof AdminIndexRoute
+  '/home/': typeof HomeIndexRoute
+  '/api/auth/$': typeof ApiAuthSplatRoute
+  '/home/a': typeof HomeSidebarARoute
+  '/admin/users': typeof AdminUsersIndexRoute
+  '/auth/forgot-password': typeof AuthForgotPasswordIndexRoute
+  '/auth/reset-password': typeof AuthResetPasswordIndexRoute
+  '/auth/sign-in': typeof AuthSignInIndexRoute
+  '/auth/sign-up': typeof AuthSignUpIndexRoute
+  '/auth/two-factor': typeof AuthTwoFactorIndexRoute
+  '/home/account/': typeof HomeAccountIndexRoute
+  '/admin/users/$userId': typeof AdminUsersUserIdIndexRoute
+  '/auth/two-factor/otp': typeof AuthTwoFactorOtpIndexRoute
+  '/home/account/danger-zone': typeof HomeAccountDangerZoneIndexRoute
+  '/home/account/email': typeof HomeAccountEmailIndexRoute
+  '/home/account/security': typeof HomeAccountSecurityIndexRoute
+  '/home/account/two-factor': typeof HomeAccountTwoFactorIndexRoute
+}
+export interface FileRoutesByTo {
+  '/': typeof IndexRoute
+  '/auth': typeof AuthRouteRouteWithChildren
+  '/home': typeof HomeIndexRoute
+  '/admin': typeof AdminIndexRoute
+  '/api/auth/$': typeof ApiAuthSplatRoute
+  '/home/a': typeof HomeSidebarARoute
+  '/admin/users': typeof AdminUsersIndexRoute
+  '/auth/forgot-password': typeof AuthForgotPasswordIndexRoute
+  '/auth/reset-password': typeof AuthResetPasswordIndexRoute
+  '/auth/sign-in': typeof AuthSignInIndexRoute
+  '/auth/sign-up': typeof AuthSignUpIndexRoute
+  '/auth/two-factor': typeof AuthTwoFactorIndexRoute
+  '/home/account': typeof HomeAccountIndexRoute
+  '/admin/users/$userId': typeof AdminUsersUserIdIndexRoute
+  '/auth/two-factor/otp': typeof AuthTwoFactorOtpIndexRoute
+  '/home/account/danger-zone': typeof HomeAccountDangerZoneIndexRoute
+  '/home/account/email': typeof HomeAccountEmailIndexRoute
+  '/home/account/security': typeof HomeAccountSecurityIndexRoute
+  '/home/account/two-factor': typeof HomeAccountTwoFactorIndexRoute
+}
+export interface FileRoutesById {
+  __root__: typeof rootRouteImport
+  '/': typeof IndexRoute
+  '/admin': typeof AdminRouteRouteWithChildren
+  '/auth': typeof AuthRouteRouteWithChildren
+  '/home': typeof HomeRouteRouteWithChildren
+  '/home/_sidebar': typeof HomeSidebarRouteRouteWithChildren
+  '/home/account': typeof HomeAccountRouteRouteWithChildren
+  '/admin/': typeof AdminIndexRoute
+  '/home/': typeof HomeIndexRoute
+  '/api/auth/$': typeof ApiAuthSplatRoute
+  '/home/_sidebar/a': typeof HomeSidebarARoute
+  '/admin/users/': typeof AdminUsersIndexRoute
+  '/auth/forgot-password/': typeof AuthForgotPasswordIndexRoute
+  '/auth/reset-password/': typeof AuthResetPasswordIndexRoute
+  '/auth/sign-in/': typeof AuthSignInIndexRoute
+  '/auth/sign-up/': typeof AuthSignUpIndexRoute
+  '/auth/two-factor/': typeof AuthTwoFactorIndexRoute
+  '/home/account/': typeof HomeAccountIndexRoute
+  '/admin/users/$userId/': typeof AdminUsersUserIdIndexRoute
+  '/auth/two-factor/otp/': typeof AuthTwoFactorOtpIndexRoute
+  '/home/account/danger-zone/': typeof HomeAccountDangerZoneIndexRoute
+  '/home/account/email/': typeof HomeAccountEmailIndexRoute
+  '/home/account/security/': typeof HomeAccountSecurityIndexRoute
+  '/home/account/two-factor/': typeof HomeAccountTwoFactorIndexRoute
+}
+export interface FileRouteTypes {
+  fileRoutesByFullPath: FileRoutesByFullPath
+  fullPaths:
+    | '/'
+    | '/admin'
+    | '/auth'
+    | '/home'
+    | '/home/account'
+    | '/admin/'
+    | '/home/'
+    | '/api/auth/$'
+    | '/home/a'
+    | '/admin/users'
+    | '/auth/forgot-password'
+    | '/auth/reset-password'
+    | '/auth/sign-in'
+    | '/auth/sign-up'
+    | '/auth/two-factor'
+    | '/home/account/'
+    | '/admin/users/$userId'
+    | '/auth/two-factor/otp'
+    | '/home/account/danger-zone'
+    | '/home/account/email'
+    | '/home/account/security'
+    | '/home/account/two-factor'
+  fileRoutesByTo: FileRoutesByTo
+  to:
+    | '/'
+    | '/auth'
+    | '/home'
+    | '/admin'
+    | '/api/auth/$'
+    | '/home/a'
+    | '/admin/users'
+    | '/auth/forgot-password'
+    | '/auth/reset-password'
+    | '/auth/sign-in'
+    | '/auth/sign-up'
+    | '/auth/two-factor'
+    | '/home/account'
+    | '/admin/users/$userId'
+    | '/auth/two-factor/otp'
+    | '/home/account/danger-zone'
+    | '/home/account/email'
+    | '/home/account/security'
+    | '/home/account/two-factor'
+  id:
+    | '__root__'
+    | '/'
+    | '/admin'
+    | '/auth'
+    | '/home'
+    | '/home/_sidebar'
+    | '/home/account'
+    | '/admin/'
+    | '/home/'
+    | '/api/auth/$'
+    | '/home/_sidebar/a'
+    | '/admin/users/'
+    | '/auth/forgot-password/'
+    | '/auth/reset-password/'
+    | '/auth/sign-in/'
+    | '/auth/sign-up/'
+    | '/auth/two-factor/'
+    | '/home/account/'
+    | '/admin/users/$userId/'
+    | '/auth/two-factor/otp/'
+    | '/home/account/danger-zone/'
+    | '/home/account/email/'
+    | '/home/account/security/'
+    | '/home/account/two-factor/'
+  fileRoutesById: FileRoutesById
+}
+export interface RootRouteChildren {
+  IndexRoute: typeof IndexRoute
+  AdminRouteRoute: typeof AdminRouteRouteWithChildren
+  AuthRouteRoute: typeof AuthRouteRouteWithChildren
+  HomeRouteRoute: typeof HomeRouteRouteWithChildren
+  ApiAuthSplatRoute: typeof ApiAuthSplatRoute
+}
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/': {
-      id: '/'
-      path: '/'
-      fullPath: '/'
-      preLoaderRoute: typeof IndexImport
-      parentRoute: typeof rootRoute
-    }
-    '/admin': {
-      id: '/admin'
-      path: '/admin'
-      fullPath: '/admin'
-      preLoaderRoute: typeof AdminRouteImport
-      parentRoute: typeof rootRoute
+    '/home': {
+      id: '/home'
+      path: '/home'
+      fullPath: '/home'
+      preLoaderRoute: typeof HomeRouteRouteImport
+      parentRoute: typeof rootRouteImport
     }
     '/auth': {
       id: '/auth'
       path: '/auth'
       fullPath: '/auth'
-      preLoaderRoute: typeof AuthRouteImport
-      parentRoute: typeof rootRoute
+      preLoaderRoute: typeof AuthRouteRouteImport
+      parentRoute: typeof rootRouteImport
     }
-    '/home': {
-      id: '/home'
-      path: '/home'
-      fullPath: '/home'
-      preLoaderRoute: typeof HomeRouteImport
-      parentRoute: typeof rootRoute
+    '/admin': {
+      id: '/admin'
+      path: '/admin'
+      fullPath: '/admin'
+      preLoaderRoute: typeof AdminRouteRouteImport
+      parentRoute: typeof rootRouteImport
     }
-    '/errors/401': {
-      id: '/errors/401'
-      path: '/errors/401'
-      fullPath: '/errors/401'
-      preLoaderRoute: typeof Errors401Import
-      parentRoute: typeof rootRoute
-    }
-    '/errors/403': {
-      id: '/errors/403'
-      path: '/errors/403'
-      fullPath: '/errors/403'
-      preLoaderRoute: typeof Errors403Import
-      parentRoute: typeof rootRoute
-    }
-    '/errors/404': {
-      id: '/errors/404'
-      path: '/errors/404'
-      fullPath: '/errors/404'
-      preLoaderRoute: typeof Errors404Import
-      parentRoute: typeof rootRoute
-    }
-    '/errors/500': {
-      id: '/errors/500'
-      path: '/errors/500'
-      fullPath: '/errors/500'
-      preLoaderRoute: typeof Errors500Import
-      parentRoute: typeof rootRoute
-    }
-    '/admin/': {
-      id: '/admin/'
+    '/': {
+      id: '/'
       path: '/'
-      fullPath: '/admin/'
-      preLoaderRoute: typeof AdminIndexImport
-      parentRoute: typeof AdminRouteImport
+      fullPath: '/'
+      preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
     }
     '/home/': {
       id: '/home/'
       path: '/'
       fullPath: '/home/'
-      preLoaderRoute: typeof HomeIndexImport
-      parentRoute: typeof HomeRouteImport
+      preLoaderRoute: typeof HomeIndexRouteImport
+      parentRoute: typeof HomeRouteRoute
     }
-    '/admin/users/': {
-      id: '/admin/users/'
-      path: '/users'
-      fullPath: '/admin/users'
-      preLoaderRoute: typeof AdminUsersIndexImport
-      parentRoute: typeof AdminRouteImport
+    '/admin/': {
+      id: '/admin/'
+      path: '/'
+      fullPath: '/admin/'
+      preLoaderRoute: typeof AdminIndexRouteImport
+      parentRoute: typeof AdminRouteRoute
     }
-    '/auth/forgot-password/': {
-      id: '/auth/forgot-password/'
-      path: '/forgot-password'
-      fullPath: '/auth/forgot-password'
-      preLoaderRoute: typeof AuthForgotPasswordIndexImport
-      parentRoute: typeof AuthRouteImport
+    '/home/account': {
+      id: '/home/account'
+      path: '/account'
+      fullPath: '/home/account'
+      preLoaderRoute: typeof HomeAccountRouteRouteImport
+      parentRoute: typeof HomeRouteRoute
     }
-    '/auth/reset-password/': {
-      id: '/auth/reset-password/'
-      path: '/reset-password'
-      fullPath: '/auth/reset-password'
-      preLoaderRoute: typeof AuthResetPasswordIndexImport
-      parentRoute: typeof AuthRouteImport
+    '/home/_sidebar': {
+      id: '/home/_sidebar'
+      path: ''
+      fullPath: '/home'
+      preLoaderRoute: typeof HomeSidebarRouteRouteImport
+      parentRoute: typeof HomeRouteRoute
     }
-    '/auth/sign-in/': {
-      id: '/auth/sign-in/'
-      path: '/sign-in'
-      fullPath: '/auth/sign-in'
-      preLoaderRoute: typeof AuthSignInIndexImport
-      parentRoute: typeof AuthRouteImport
-    }
-    '/auth/sign-up/': {
-      id: '/auth/sign-up/'
-      path: '/sign-up'
-      fullPath: '/auth/sign-up'
-      preLoaderRoute: typeof AuthSignUpIndexImport
-      parentRoute: typeof AuthRouteImport
+    '/home/account/': {
+      id: '/home/account/'
+      path: '/'
+      fullPath: '/home/account/'
+      preLoaderRoute: typeof HomeAccountIndexRouteImport
+      parentRoute: typeof HomeAccountRouteRoute
     }
     '/auth/two-factor/': {
       id: '/auth/two-factor/'
       path: '/two-factor'
       fullPath: '/auth/two-factor'
-      preLoaderRoute: typeof AuthTwoFactorIndexImport
-      parentRoute: typeof AuthRouteImport
+      preLoaderRoute: typeof AuthTwoFactorIndexRouteImport
+      parentRoute: typeof AuthRouteRoute
     }
-    '/home/account/': {
-      id: '/home/account/'
-      path: '/account'
-      fullPath: '/home/account'
-      preLoaderRoute: typeof HomeAccountIndexImport
-      parentRoute: typeof HomeRouteImport
+    '/auth/sign-up/': {
+      id: '/auth/sign-up/'
+      path: '/sign-up'
+      fullPath: '/auth/sign-up'
+      preLoaderRoute: typeof AuthSignUpIndexRouteImport
+      parentRoute: typeof AuthRouteRoute
     }
-    '/home/security/': {
-      id: '/home/security/'
+    '/auth/sign-in/': {
+      id: '/auth/sign-in/'
+      path: '/sign-in'
+      fullPath: '/auth/sign-in'
+      preLoaderRoute: typeof AuthSignInIndexRouteImport
+      parentRoute: typeof AuthRouteRoute
+    }
+    '/auth/reset-password/': {
+      id: '/auth/reset-password/'
+      path: '/reset-password'
+      fullPath: '/auth/reset-password'
+      preLoaderRoute: typeof AuthResetPasswordIndexRouteImport
+      parentRoute: typeof AuthRouteRoute
+    }
+    '/auth/forgot-password/': {
+      id: '/auth/forgot-password/'
+      path: '/forgot-password'
+      fullPath: '/auth/forgot-password'
+      preLoaderRoute: typeof AuthForgotPasswordIndexRouteImport
+      parentRoute: typeof AuthRouteRoute
+    }
+    '/admin/users/': {
+      id: '/admin/users/'
+      path: '/users'
+      fullPath: '/admin/users'
+      preLoaderRoute: typeof AdminUsersIndexRouteImport
+      parentRoute: typeof AdminRouteRoute
+    }
+    '/home/_sidebar/a': {
+      id: '/home/_sidebar/a'
+      path: '/a'
+      fullPath: '/home/a'
+      preLoaderRoute: typeof HomeSidebarARouteImport
+      parentRoute: typeof HomeSidebarRouteRoute
+    }
+    '/api/auth/$': {
+      id: '/api/auth/$'
+      path: '/api/auth/$'
+      fullPath: '/api/auth/$'
+      preLoaderRoute: typeof ApiAuthSplatRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/home/account/two-factor/': {
+      id: '/home/account/two-factor/'
+      path: '/two-factor'
+      fullPath: '/home/account/two-factor'
+      preLoaderRoute: typeof HomeAccountTwoFactorIndexRouteImport
+      parentRoute: typeof HomeAccountRouteRoute
+    }
+    '/home/account/security/': {
+      id: '/home/account/security/'
       path: '/security'
-      fullPath: '/home/security'
-      preLoaderRoute: typeof HomeSecurityIndexImport
-      parentRoute: typeof HomeRouteImport
+      fullPath: '/home/account/security'
+      preLoaderRoute: typeof HomeAccountSecurityIndexRouteImport
+      parentRoute: typeof HomeAccountRouteRoute
     }
-    '/home/tasks/': {
-      id: '/home/tasks/'
-      path: '/tasks'
-      fullPath: '/home/tasks'
-      preLoaderRoute: typeof HomeTasksIndexImport
-      parentRoute: typeof HomeRouteImport
+    '/home/account/email/': {
+      id: '/home/account/email/'
+      path: '/email'
+      fullPath: '/home/account/email'
+      preLoaderRoute: typeof HomeAccountEmailIndexRouteImport
+      parentRoute: typeof HomeAccountRouteRoute
     }
-    '/admin/users/$userId/': {
-      id: '/admin/users/$userId/'
-      path: '/users/$userId'
-      fullPath: '/admin/users/$userId'
-      preLoaderRoute: typeof AdminUsersUserIdIndexImport
-      parentRoute: typeof AdminRouteImport
+    '/home/account/danger-zone/': {
+      id: '/home/account/danger-zone/'
+      path: '/danger-zone'
+      fullPath: '/home/account/danger-zone'
+      preLoaderRoute: typeof HomeAccountDangerZoneIndexRouteImport
+      parentRoute: typeof HomeAccountRouteRoute
     }
     '/auth/two-factor/otp/': {
       id: '/auth/two-factor/otp/'
       path: '/two-factor/otp'
       fullPath: '/auth/two-factor/otp'
-      preLoaderRoute: typeof AuthTwoFactorOtpIndexImport
-      parentRoute: typeof AuthRouteImport
+      preLoaderRoute: typeof AuthTwoFactorOtpIndexRouteImport
+      parentRoute: typeof AuthRouteRoute
     }
-    '/home/tasks/create/': {
-      id: '/home/tasks/create/'
-      path: '/tasks/create'
-      fullPath: '/home/tasks/create'
-      preLoaderRoute: typeof HomeTasksCreateIndexImport
-      parentRoute: typeof HomeRouteImport
-    }
-    '/home/tasks/$taskId/show/': {
-      id: '/home/tasks/$taskId/show/'
-      path: '/tasks/$taskId/show'
-      fullPath: '/home/tasks/$taskId/show'
-      preLoaderRoute: typeof HomeTasksTaskIdShowIndexImport
-      parentRoute: typeof HomeRouteImport
-    }
-    '/home/tasks/$taskId/update/': {
-      id: '/home/tasks/$taskId/update/'
-      path: '/tasks/$taskId/update'
-      fullPath: '/home/tasks/$taskId/update'
-      preLoaderRoute: typeof HomeTasksTaskIdUpdateIndexImport
-      parentRoute: typeof HomeRouteImport
+    '/admin/users/$userId/': {
+      id: '/admin/users/$userId/'
+      path: '/users/$userId'
+      fullPath: '/admin/users/$userId'
+      preLoaderRoute: typeof AdminUsersUserIdIndexRouteImport
+      parentRoute: typeof AdminRouteRoute
     }
   }
 }
-
-// Create and export the route tree
 
 interface AdminRouteRouteChildren {
   AdminIndexRoute: typeof AdminIndexRoute
@@ -399,342 +507,68 @@ const AuthRouteRouteWithChildren = AuthRouteRoute._addFileChildren(
   AuthRouteRouteChildren,
 )
 
-interface HomeRouteRouteChildren {
-  HomeIndexRoute: typeof HomeIndexRoute
+interface HomeSidebarRouteRouteChildren {
+  HomeSidebarARoute: typeof HomeSidebarARoute
+}
+
+const HomeSidebarRouteRouteChildren: HomeSidebarRouteRouteChildren = {
+  HomeSidebarARoute: HomeSidebarARoute,
+}
+
+const HomeSidebarRouteRouteWithChildren =
+  HomeSidebarRouteRoute._addFileChildren(HomeSidebarRouteRouteChildren)
+
+interface HomeAccountRouteRouteChildren {
   HomeAccountIndexRoute: typeof HomeAccountIndexRoute
-  HomeSecurityIndexRoute: typeof HomeSecurityIndexRoute
-  HomeTasksIndexRoute: typeof HomeTasksIndexRoute
-  HomeTasksCreateIndexRoute: typeof HomeTasksCreateIndexRoute
-  HomeTasksTaskIdShowIndexRoute: typeof HomeTasksTaskIdShowIndexRoute
-  HomeTasksTaskIdUpdateIndexRoute: typeof HomeTasksTaskIdUpdateIndexRoute
+  HomeAccountDangerZoneIndexRoute: typeof HomeAccountDangerZoneIndexRoute
+  HomeAccountEmailIndexRoute: typeof HomeAccountEmailIndexRoute
+  HomeAccountSecurityIndexRoute: typeof HomeAccountSecurityIndexRoute
+  HomeAccountTwoFactorIndexRoute: typeof HomeAccountTwoFactorIndexRoute
+}
+
+const HomeAccountRouteRouteChildren: HomeAccountRouteRouteChildren = {
+  HomeAccountIndexRoute: HomeAccountIndexRoute,
+  HomeAccountDangerZoneIndexRoute: HomeAccountDangerZoneIndexRoute,
+  HomeAccountEmailIndexRoute: HomeAccountEmailIndexRoute,
+  HomeAccountSecurityIndexRoute: HomeAccountSecurityIndexRoute,
+  HomeAccountTwoFactorIndexRoute: HomeAccountTwoFactorIndexRoute,
+}
+
+const HomeAccountRouteRouteWithChildren =
+  HomeAccountRouteRoute._addFileChildren(HomeAccountRouteRouteChildren)
+
+interface HomeRouteRouteChildren {
+  HomeSidebarRouteRoute: typeof HomeSidebarRouteRouteWithChildren
+  HomeAccountRouteRoute: typeof HomeAccountRouteRouteWithChildren
+  HomeIndexRoute: typeof HomeIndexRoute
 }
 
 const HomeRouteRouteChildren: HomeRouteRouteChildren = {
+  HomeSidebarRouteRoute: HomeSidebarRouteRouteWithChildren,
+  HomeAccountRouteRoute: HomeAccountRouteRouteWithChildren,
   HomeIndexRoute: HomeIndexRoute,
-  HomeAccountIndexRoute: HomeAccountIndexRoute,
-  HomeSecurityIndexRoute: HomeSecurityIndexRoute,
-  HomeTasksIndexRoute: HomeTasksIndexRoute,
-  HomeTasksCreateIndexRoute: HomeTasksCreateIndexRoute,
-  HomeTasksTaskIdShowIndexRoute: HomeTasksTaskIdShowIndexRoute,
-  HomeTasksTaskIdUpdateIndexRoute: HomeTasksTaskIdUpdateIndexRoute,
 }
 
 const HomeRouteRouteWithChildren = HomeRouteRoute._addFileChildren(
   HomeRouteRouteChildren,
 )
 
-export interface FileRoutesByFullPath {
-  '/': typeof IndexRoute
-  '/admin': typeof AdminRouteRouteWithChildren
-  '/auth': typeof AuthRouteRouteWithChildren
-  '/home': typeof HomeRouteRouteWithChildren
-  '/errors/401': typeof Errors401Route
-  '/errors/403': typeof Errors403Route
-  '/errors/404': typeof Errors404Route
-  '/errors/500': typeof Errors500Route
-  '/admin/': typeof AdminIndexRoute
-  '/home/': typeof HomeIndexRoute
-  '/admin/users': typeof AdminUsersIndexRoute
-  '/auth/forgot-password': typeof AuthForgotPasswordIndexRoute
-  '/auth/reset-password': typeof AuthResetPasswordIndexRoute
-  '/auth/sign-in': typeof AuthSignInIndexRoute
-  '/auth/sign-up': typeof AuthSignUpIndexRoute
-  '/auth/two-factor': typeof AuthTwoFactorIndexRoute
-  '/home/account': typeof HomeAccountIndexRoute
-  '/home/security': typeof HomeSecurityIndexRoute
-  '/home/tasks': typeof HomeTasksIndexRoute
-  '/admin/users/$userId': typeof AdminUsersUserIdIndexRoute
-  '/auth/two-factor/otp': typeof AuthTwoFactorOtpIndexRoute
-  '/home/tasks/create': typeof HomeTasksCreateIndexRoute
-  '/home/tasks/$taskId/show': typeof HomeTasksTaskIdShowIndexRoute
-  '/home/tasks/$taskId/update': typeof HomeTasksTaskIdUpdateIndexRoute
-}
-
-export interface FileRoutesByTo {
-  '/': typeof IndexRoute
-  '/auth': typeof AuthRouteRouteWithChildren
-  '/errors/401': typeof Errors401Route
-  '/errors/403': typeof Errors403Route
-  '/errors/404': typeof Errors404Route
-  '/errors/500': typeof Errors500Route
-  '/admin': typeof AdminIndexRoute
-  '/home': typeof HomeIndexRoute
-  '/admin/users': typeof AdminUsersIndexRoute
-  '/auth/forgot-password': typeof AuthForgotPasswordIndexRoute
-  '/auth/reset-password': typeof AuthResetPasswordIndexRoute
-  '/auth/sign-in': typeof AuthSignInIndexRoute
-  '/auth/sign-up': typeof AuthSignUpIndexRoute
-  '/auth/two-factor': typeof AuthTwoFactorIndexRoute
-  '/home/account': typeof HomeAccountIndexRoute
-  '/home/security': typeof HomeSecurityIndexRoute
-  '/home/tasks': typeof HomeTasksIndexRoute
-  '/admin/users/$userId': typeof AdminUsersUserIdIndexRoute
-  '/auth/two-factor/otp': typeof AuthTwoFactorOtpIndexRoute
-  '/home/tasks/create': typeof HomeTasksCreateIndexRoute
-  '/home/tasks/$taskId/show': typeof HomeTasksTaskIdShowIndexRoute
-  '/home/tasks/$taskId/update': typeof HomeTasksTaskIdUpdateIndexRoute
-}
-
-export interface FileRoutesById {
-  __root__: typeof rootRoute
-  '/': typeof IndexRoute
-  '/admin': typeof AdminRouteRouteWithChildren
-  '/auth': typeof AuthRouteRouteWithChildren
-  '/home': typeof HomeRouteRouteWithChildren
-  '/errors/401': typeof Errors401Route
-  '/errors/403': typeof Errors403Route
-  '/errors/404': typeof Errors404Route
-  '/errors/500': typeof Errors500Route
-  '/admin/': typeof AdminIndexRoute
-  '/home/': typeof HomeIndexRoute
-  '/admin/users/': typeof AdminUsersIndexRoute
-  '/auth/forgot-password/': typeof AuthForgotPasswordIndexRoute
-  '/auth/reset-password/': typeof AuthResetPasswordIndexRoute
-  '/auth/sign-in/': typeof AuthSignInIndexRoute
-  '/auth/sign-up/': typeof AuthSignUpIndexRoute
-  '/auth/two-factor/': typeof AuthTwoFactorIndexRoute
-  '/home/account/': typeof HomeAccountIndexRoute
-  '/home/security/': typeof HomeSecurityIndexRoute
-  '/home/tasks/': typeof HomeTasksIndexRoute
-  '/admin/users/$userId/': typeof AdminUsersUserIdIndexRoute
-  '/auth/two-factor/otp/': typeof AuthTwoFactorOtpIndexRoute
-  '/home/tasks/create/': typeof HomeTasksCreateIndexRoute
-  '/home/tasks/$taskId/show/': typeof HomeTasksTaskIdShowIndexRoute
-  '/home/tasks/$taskId/update/': typeof HomeTasksTaskIdUpdateIndexRoute
-}
-
-export interface FileRouteTypes {
-  fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths:
-    | '/'
-    | '/admin'
-    | '/auth'
-    | '/home'
-    | '/errors/401'
-    | '/errors/403'
-    | '/errors/404'
-    | '/errors/500'
-    | '/admin/'
-    | '/home/'
-    | '/admin/users'
-    | '/auth/forgot-password'
-    | '/auth/reset-password'
-    | '/auth/sign-in'
-    | '/auth/sign-up'
-    | '/auth/two-factor'
-    | '/home/account'
-    | '/home/security'
-    | '/home/tasks'
-    | '/admin/users/$userId'
-    | '/auth/two-factor/otp'
-    | '/home/tasks/create'
-    | '/home/tasks/$taskId/show'
-    | '/home/tasks/$taskId/update'
-  fileRoutesByTo: FileRoutesByTo
-  to:
-    | '/'
-    | '/auth'
-    | '/errors/401'
-    | '/errors/403'
-    | '/errors/404'
-    | '/errors/500'
-    | '/admin'
-    | '/home'
-    | '/admin/users'
-    | '/auth/forgot-password'
-    | '/auth/reset-password'
-    | '/auth/sign-in'
-    | '/auth/sign-up'
-    | '/auth/two-factor'
-    | '/home/account'
-    | '/home/security'
-    | '/home/tasks'
-    | '/admin/users/$userId'
-    | '/auth/two-factor/otp'
-    | '/home/tasks/create'
-    | '/home/tasks/$taskId/show'
-    | '/home/tasks/$taskId/update'
-  id:
-    | '__root__'
-    | '/'
-    | '/admin'
-    | '/auth'
-    | '/home'
-    | '/errors/401'
-    | '/errors/403'
-    | '/errors/404'
-    | '/errors/500'
-    | '/admin/'
-    | '/home/'
-    | '/admin/users/'
-    | '/auth/forgot-password/'
-    | '/auth/reset-password/'
-    | '/auth/sign-in/'
-    | '/auth/sign-up/'
-    | '/auth/two-factor/'
-    | '/home/account/'
-    | '/home/security/'
-    | '/home/tasks/'
-    | '/admin/users/$userId/'
-    | '/auth/two-factor/otp/'
-    | '/home/tasks/create/'
-    | '/home/tasks/$taskId/show/'
-    | '/home/tasks/$taskId/update/'
-  fileRoutesById: FileRoutesById
-}
-
-export interface RootRouteChildren {
-  IndexRoute: typeof IndexRoute
-  AdminRouteRoute: typeof AdminRouteRouteWithChildren
-  AuthRouteRoute: typeof AuthRouteRouteWithChildren
-  HomeRouteRoute: typeof HomeRouteRouteWithChildren
-  Errors401Route: typeof Errors401Route
-  Errors403Route: typeof Errors403Route
-  Errors404Route: typeof Errors404Route
-  Errors500Route: typeof Errors500Route
-}
-
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AdminRouteRoute: AdminRouteRouteWithChildren,
   AuthRouteRoute: AuthRouteRouteWithChildren,
   HomeRouteRoute: HomeRouteRouteWithChildren,
-  Errors401Route: Errors401Route,
-  Errors403Route: Errors403Route,
-  Errors404Route: Errors404Route,
-  Errors500Route: Errors500Route,
+  ApiAuthSplatRoute: ApiAuthSplatRoute,
 }
-
-export const routeTree = rootRoute
+export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
 
-/* ROUTE_MANIFEST_START
-{
-  "routes": {
-    "__root__": {
-      "filePath": "__root.tsx",
-      "children": [
-        "/",
-        "/admin",
-        "/auth",
-        "/home",
-        "/errors/401",
-        "/errors/403",
-        "/errors/404",
-        "/errors/500"
-      ]
-    },
-    "/": {
-      "filePath": "index.tsx"
-    },
-    "/admin": {
-      "filePath": "admin/route.tsx",
-      "children": [
-        "/admin/",
-        "/admin/users/",
-        "/admin/users/$userId/"
-      ]
-    },
-    "/auth": {
-      "filePath": "auth/route.tsx",
-      "children": [
-        "/auth/forgot-password/",
-        "/auth/reset-password/",
-        "/auth/sign-in/",
-        "/auth/sign-up/",
-        "/auth/two-factor/",
-        "/auth/two-factor/otp/"
-      ]
-    },
-    "/home": {
-      "filePath": "home/route.tsx",
-      "children": [
-        "/home/",
-        "/home/account/",
-        "/home/security/",
-        "/home/tasks/",
-        "/home/tasks/create/",
-        "/home/tasks/$taskId/show/",
-        "/home/tasks/$taskId/update/"
-      ]
-    },
-    "/errors/401": {
-      "filePath": "errors/401.tsx"
-    },
-    "/errors/403": {
-      "filePath": "errors/403.tsx"
-    },
-    "/errors/404": {
-      "filePath": "errors/404.tsx"
-    },
-    "/errors/500": {
-      "filePath": "errors/500.tsx"
-    },
-    "/admin/": {
-      "filePath": "admin/index.tsx",
-      "parent": "/admin"
-    },
-    "/home/": {
-      "filePath": "home/index.tsx",
-      "parent": "/home"
-    },
-    "/admin/users/": {
-      "filePath": "admin/users/index.tsx",
-      "parent": "/admin"
-    },
-    "/auth/forgot-password/": {
-      "filePath": "auth/forgot-password/index.tsx",
-      "parent": "/auth"
-    },
-    "/auth/reset-password/": {
-      "filePath": "auth/reset-password/index.tsx",
-      "parent": "/auth"
-    },
-    "/auth/sign-in/": {
-      "filePath": "auth/sign-in/index.tsx",
-      "parent": "/auth"
-    },
-    "/auth/sign-up/": {
-      "filePath": "auth/sign-up/index.tsx",
-      "parent": "/auth"
-    },
-    "/auth/two-factor/": {
-      "filePath": "auth/two-factor/index.tsx",
-      "parent": "/auth"
-    },
-    "/home/account/": {
-      "filePath": "home/account/index.tsx",
-      "parent": "/home"
-    },
-    "/home/security/": {
-      "filePath": "home/security/index.tsx",
-      "parent": "/home"
-    },
-    "/home/tasks/": {
-      "filePath": "home/tasks/index.tsx",
-      "parent": "/home"
-    },
-    "/admin/users/$userId/": {
-      "filePath": "admin/users/$userId/index.tsx",
-      "parent": "/admin"
-    },
-    "/auth/two-factor/otp/": {
-      "filePath": "auth/two-factor/otp/index.tsx",
-      "parent": "/auth"
-    },
-    "/home/tasks/create/": {
-      "filePath": "home/tasks/create/index.tsx",
-      "parent": "/home"
-    },
-    "/home/tasks/$taskId/show/": {
-      "filePath": "home/tasks/$taskId/show/index.tsx",
-      "parent": "/home"
-    },
-    "/home/tasks/$taskId/update/": {
-      "filePath": "home/tasks/$taskId/update/index.tsx",
-      "parent": "/home"
-    }
+import type { getRouter } from './router.tsx'
+import type { createStart } from '@tanstack/react-start'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
   }
 }
-ROUTE_MANIFEST_END */
